@@ -1,7 +1,7 @@
-/datum/game_mode/nuclear
-	name = "nuclear emergency"
-	config_tag = "nuclear"
-	shuttle_available = 2
+/datum/game_mode/rpnuclear
+	name = "syndicate infiltrators"
+	config_tag = "rpnuclear"
+	shuttle_available = 1
 	var/target_location_name = null // The name of our target area. Used for text output.
 	var/list/target_location_type = list() // Our area.type, which can be multiple (e.g. medbay).
 	var/agent_number = 1
@@ -20,11 +20,11 @@
 
 	do_antag_random_spawns = 0
 
-/datum/game_mode/nuclear/announce()
-	boutput(world, "<B>The current game mode is - Nuclear Emergency!</B>")
-	boutput(world, "<B>[syndicate_name()] operatives are approaching [station_name(1)]! They intend to destroy the [station_or_ship()] with a nuclear warhead.</B>")
+/datum/game_mode/rpnuclear/announce()
+	boutput(world, "<B>The current game mode is - Syndicate Infiltrators!</B>")
+	boutput(world, "<B>[syndicate_name()] operatives are approaching [station_name(1)]! They intend to execute their objectives on the [station_or_ship()].</B>")
 
-/datum/game_mode/nuclear/pre_setup()
+/datum/game_mode/rpnuclear/pre_setup()
 	var/list/possible_syndicates = list()
 
 	if (!landmarks[LANDMARK_SYNDICATE])
