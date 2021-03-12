@@ -649,6 +649,17 @@ proc/create_fluff(var/datum/mind/target)
 			if (N && istype(N) && (N.finished == -1 || N.finished == -2))
 				return 1
 		return 0
+		
+/datum/objective/rpnuclear/kidnapstirstir
+	explanation_text = "Make sure Monsieur Stirstir ends the shift off the Z-level, alive."
+
+	check_completion()
+		for(var/mob/living/carbon/human/npc/monkey/stirstir/M in mobs)
+			if (!isdead(M))
+				if(!Z_LEVEL_STATION(M))
+					return 1
+			return 0
+
 
 /datum/objective/specialist/conspiracy
 	explanation_text = "Identify and eliminate any competing syndicate operatives on the station. Be careful not to be too obvious yourself, or they'll come after you!"
