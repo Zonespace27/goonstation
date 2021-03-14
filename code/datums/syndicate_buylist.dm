@@ -10,7 +10,7 @@ proc/build_syndi_buylist_cache()
 
 	syndi_buylist_cache = sortList(syndi_buylist_cache)
 
-// How to add new items? Pick the correct path (nukeops, traitor, surplus) and go from there. Easy.
+// How to add new items? Pick the correct path (nukeops, rpnuke, traitor, surplus) and go from there. Easy.
 
 /datum/syndicate_buylist
 	var/name = null

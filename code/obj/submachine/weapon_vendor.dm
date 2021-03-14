@@ -25,7 +25,7 @@
 	var/sound_token = 'sound/machines/capsulebuy.ogg'
 	var/sound_buy = 'sound/machines/spend.ogg'
 	var/temp = null
-	var/list/credits = list("Sidearm" = 0, "Loadout" = 0, "Utility" = 0, "Assistant" = 0)
+	var/list/credits = list("Sidearm" = 0, "Loadout" = 0, "Utility" = 0, "Assistant" = 0) // using the "Assistant" credit for the infiltrators currently, may change in the future.
 	var/list/datum/materiel_stock = list()
 	var/token_accepted = /obj/item/requisition_token
 
@@ -48,7 +48,7 @@
 
 		src.add_dialog(user)
 		var/list/dat = list("<span style=\"inline-flex\">")
-		dat += "<br><b>Balance remaining:</b> <font color='blue'>[src.credits["Sidearm"]] sidearm credit, [src.credits["Loadout"]] loadout credit, [src.credits["Utility"]] utility credit.</font>"
+		dat += "<br><b>Balance remaining:</b> <font color='blue'>[src.credits["Sidearm"]] sidearm credit, [src.credits["Loadout"]] loadout credit, [src.credits["Utility"]] utility credit, and [src.credits["Assistant"]] alternate loadout credit.</font>"
 
 		src.redeem_menu()
 		dat += src.temp
@@ -224,10 +224,16 @@
 		materiel_stock += new/datum/materiel/utility/noslip_boots
 		materiel_stock += new/datum/materiel/utility/bomb_decoy
 
+		materiel_stock += new/datum/materiel/assistant/stealth1 // stealth 1-3 are temp names
+		materiel_stock += new/datum/materiel/assistant/stealth2
+		materiel_stock += new/datum/materiel/assistant/stealth3
+		materiel_stock += new/datum/materiel/assistant/customstealth //Modified nukeop uplink
+
 	accepted_token()
 		src.credits["Sidearm"]++
 		src.credits["Loadout"]++
 		src.credits["Utility"]++
+		src.credits["Assistant"]++
 		..()
 // Materiel avaliable for purchase:
 
@@ -479,6 +485,30 @@
 	category = "Utility"
 	description = "A realistic inflatable nuclear bomb decoy, it'll fool anyone not looking closely but won't take much punishment before it pops."
 
+/datum/materiel/assistant/stealth1
+	name = "Stealth1"
+	path = /obj/ //add the crate here later
+	category = "Assistant"
+	description = "Change Me"
+
+/datum/materiel/assistant/stealth2
+	name = "Stealth2"
+	path = /obj/ //add the crate here later
+	category = "Assistant"
+	description = "Change Me"
+
+/datum/materiel/assistant/stealth3
+	name = "Stealth3"
+	path = /obj/ //add the crate here later
+	category = "Assistant"
+	description = "Change Me"
+
+/datum/materiel/assistant/customstealth
+	name = "Syndicate Custom Stealth Uplink"
+	path = /obj/item/uplink/syndicateinfil
+	category = "Assistant"
+	description = "Change Me"
+
 // Requisition tokens
 
 /obj/item/requisition_token
@@ -491,6 +521,10 @@
 
 	syndicate
 		desc = "A Syndicate credit card charged with currency compatible with the Syndicate Weapons Vendor."
+		icon_state = "req-token"
+
+	infiltrator
+		desc = "A syndicate credit card charged with currency compatible with the Syndicate Weapons Vendor. This one says <i>for infiltrator use only</i>."
 		icon_state = "req-token"
 
 	security
