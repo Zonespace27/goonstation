@@ -650,7 +650,7 @@ proc/create_fluff(var/datum/mind/target)
 				return 1
 		return 0
 
-/datum/objective/rpnuclear/kidnapstirstir
+/datum/objective/specialist/infiltrator/kidnapstirstir
 	explanation_text = "Make sure Monsieur Stirstir ends the shift off the Z-level, alive."
 
 	check_completion()

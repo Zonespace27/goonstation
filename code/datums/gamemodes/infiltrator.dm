@@ -1,9 +1,7 @@
-/datum/game_mode/rpnuclear
-	name = "syndicate infiltrators"
-	config_tag = "rpnuclear"
+/datum/game_mode/infiltrator
+	name = "infiltrator"
+	config_tag = "infiltrator"
 	shuttle_available = 1
-	var/target_location_name = null // The name of our target area. Used for text output.
-	var/list/target_location_type = list() // Our area.type, which can be multiple (e.g. medbay).
 	var/agent_number = 1
 	var/list/datum/mind/infiltrators = list()
 	var/finished = 0
@@ -18,11 +16,11 @@
 
 	do_antag_random_spawns = 0
 
-/datum/game_mode/rpnuclear/announce()
+/datum/game_mode/infiltrator/announce()
 	boutput(world, "<B>The current game mode is - Syndicate Infiltrators!</B>")
 	boutput(world, "<B>[infiltrator_name()] operatives are approaching [station_name(1)]! They intend to execute their objectives on the [station_or_ship()].</B>")
 
-/datum/game_mode/rpnuclear/pre_setup()
+/datum/game_mode/infiltrator/pre_setup()
 	var/list/possible_infiltrators = list()
 
 	if (!landmarks[LANDMARK_SYNDICATE])
@@ -36,9 +34,9 @@
 
 		if (player.ready)
 			num_players++
-	var/num_synds = max(1, min(round(num_players / 4), agents_possible))
+	var/num_infil = max(1, min(round(num_players / 4), agents_possible))
 
-	possible_infiltrators = get_possible_infiltrators(num_synds)
+	possible_infiltrators = get_possible_infiltrators(num_infil)
 
 	if (!islist(possible_infiltrators) || possible_infiltrators.len < 1)
 		boutput(world, "<span class='alert'><b>ERROR: couldn't assign any players as Syndicate operatives, aborting infil round pre-setup.</b></span>")
@@ -51,8 +49,8 @@
 			break
 		infiltrators += tplayer
 		token_players.Remove(tplayer)
-		num_synds--
-		num_synds = max(num_synds, 0)
+		num_infil--
+		num_infil = max(num_infil, 0)
 		logTheThing("admin", tplayer.current, null, "successfully redeemed an antag token.")
 		message_admins("[key_name(tplayer.current)] successfully redeemed an antag token.")
 
@@ -67,7 +65,7 @@
 
 	return 1
 
-/datum/game_mode/rpnuclear/post_setup()
+/datum/game_mode/infiltrator/post_setup()
 	var/leader_title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord", "General", "Warlord", "Commissar")
 	var/leader_selected = 0
 
@@ -76,7 +74,7 @@
 	var/list/callsign_list = strings("agent_callsigns.txt", pick(callsign_pool_keys))
 
 	for(var/datum/mind/synd_mind in infiltrators)
-		bestow_objective(synd_mind,/datum/objective/specialist/rpnuclear) //change this to add a few random objectives
+		bestow_objective(synd_mind,/datum/objective/specialist/infiltrator) //change this to add a few random objectives
 
 		var/obj_count = 1
 		boutput(synd_mind.current, "<span class='notice'>You are a [infiltrator_name()] agent!</span>")
@@ -109,7 +107,6 @@
 		synd_mind.current.antagonist_overlay_refresh(1, 0)
 		SHOW_INFILTRATOR_TIPS(synd_mind.current)
 
-	new /obj/storage/closet/syndicate/rpnuclear(pick_landmark(LANDMARK_NUCLEAR_CLOSET))
 
 	for(var/turf/T in landmarks[LANDMARK_SYNDICATE_GEAR_CLOSET])
 		new /obj/storage/closet/syndicate/personal(T)
@@ -122,8 +119,8 @@
 
 	return
 
-/datum/game_mode/rpnuclear/check_finished()
-	// First ticker.process() call runs before the bomb is actually spawned.
+/datum/game_mode/infiltrator/check_finished()
+
 
 	if (src.finished)
 		return 1
@@ -132,8 +129,7 @@
 		return 0
 
 	return 0
-
-
+	/* I have no idea how necessary this is, commenting it out for now
 	for(var/datum/mind/M in infiltrators)
 		var/syndtext = ""
 		if(M.current) syndtext += "<B>[M.key] played [M.current.real_name].</B> "
@@ -155,28 +151,9 @@
 					M.current.unlock_medal(objective.medal_name, objective.medal_announce)
 
 	..() //Listing custom antagonists.
+*/
 
-/datum/game_mode/nuclear/proc/all_operatives_dead()
-	var/opcount = 0
-	var/opdeathcount = 0
-	for(var/datum/mind/M in infiltrators)
-		opcount++
-		if(!M.current || isdead(M.current) || inafterlife(M.current) || isVRghost(M.current) || issilicon(M.current) || isghostcritter(M.current))
-			opdeathcount++ // If they're dead
-			continue
-
-		var/turf/T = get_turf(M.current)
-		if (!T)
-			continue
-		if (istype(T.loc, /area/station/security/brig))
-			if(M.current.hasStatus("handcuffed"))
-				opdeathcount++
-				// If they're in a brig cell and cuffed
-
-	if (opcount == opdeathcount) return 1
-	else return 0
-
-/datum/game_mode/rpnuclear/proc/get_possible_infiltrators(minimum_infiltrators=1)
+/datum/game_mode/infiltrator/proc/get_possible_infiltrators(minimum_infiltrators=1)
 	var/list/candidates = list()
 
 	for(var/client/C)
@@ -206,7 +183,7 @@
 	else
 		return candidates
 
-/datum/game_mode/rpnuclear/send_intercept()
+/datum/game_mode/infiltrator/send_intercept()
 	var/intercepttext = "Cent. Com. Update Requested staus information:<BR>"
 	intercepttext += " Cent. Com has recently been contacted by the following syndicate affiliated organisations in your area, please investigate any information you may have:"
 
@@ -229,7 +206,7 @@
 	command_alert("Summary downloaded and printed out at all communications consoles.", "Enemy communication intercept. Security Level Elevated.")
 
 
-/datum/game_mode/rpnuclear/proc/random_radio_frequency()
+/datum/game_mode/infiltrator/proc/random_radio_frequency()
 	. = 0
 	var/list/blacklisted = list(0, 1451, 1457) // The old blacklist was rather incomplete and thus ineffective (Convair880).
 	blacklisted.Add(R_FREQ_BLACKLIST)
@@ -239,7 +216,7 @@
 
 	while (. in blacklisted)
 
-/datum/game_mode/rpnuclear/process()
+/datum/game_mode/infiltrator/process()
 	set background = 1
 	..()
 	return

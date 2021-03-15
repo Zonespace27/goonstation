@@ -168,6 +168,9 @@
 					special = syndicate_name()
 					if (ticker.mode:nuke_detonated)
 						message["success"] = 1
+			if ("infiltrator")
+				if (istype(ticker.mode, /datum/game_mode/infiltrator))
+					special = infiltrator_name() // I should probably add something here, not sure what
 			if ("spy_thief")
 				special = "Bounties claimed: "
 				for(var/stolen_item_name in M.spy_stolen_items)

@@ -629,6 +629,8 @@
 				continue
 			if (isnukeop(H))
 				continue
+			if (isinfiltrator(H))
+				continue
 			src.card_human += H
 		for (var/mob/living/silicon/robot/R in mobs)
 			src.card_cyborg += R

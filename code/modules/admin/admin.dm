@@ -784,6 +784,7 @@ var/global/noir = 0
 							<A href='?src=\ref[src];action=[cmd];type=mixed_rp'>Mixed (Mild)</A><br>
 							<A href='?src=\ref[src];action=[cmd];type=traitor'>Traitor</A><br>
 							<A href='?src=\ref[src];action=[cmd];type=nuclear'>Nuclear Emergency</A><br>
+							<A href='?src=\ref[src]:action=[cmd];type=infiltrator'>Infiltrator</A><br>
 							<A href='?src=\ref[src];action=[cmd];type=wizard'>Wizard</A><br>
 							<A href='?src=\ref[src];action=[cmd];type=changeling'>Changeling</A><br>
 							<A href='?src=\ref[src];action=[cmd];type=vampire'>Vampire</A><br>
@@ -816,7 +817,7 @@ var/global/noir = 0
 					return alert(usr, "The game has already started.", null, null, null, null)
 
 				var/list/valid_modes = list("secret","action","intrigue","random","traitor","meteor","extended","monkey",
-				"nuclear","blob","restructuring","wizard","revolution", "revolution_extended","malfunction",
+				"nuclear","infiltrator","blob","restructuring","wizard","revolution", "revolution_extended","malfunction",
 				"spy","gang","disaster","changeling","vampire","mixed","mixed_rp", "construction","conspiracy","spy_theft","battle_royale", "vampire","assday", "football", "flock")
 
 				var/requestedMode = href_list["type"]
@@ -1956,6 +1957,10 @@ var/global/noir = 0
 			else if (istype(current_mode, /datum/game_mode/nuclear))
 				if(M.mind in current_mode:syndicates)
 					alert("Syndicate Operative!", "[M.key]")
+					return
+			else if (istype(current_mode, /datum/game_mode/infiltrator))
+				if(M.mind in current_mode:infiltrators)
+					alert("Syndicate Infiltrator!", "[M.key]")
 					return
 			else if (istype(current_mode, /datum/game_mode/spy))
 				if(M.mind in current_mode:leaders)
@@ -4348,6 +4353,9 @@ var/global/noir = 0
 			return 1
 	else if (istype(ticker.mode, /datum/game_mode/nuclear))
 		if(M.mind in ticker.mode:syndicates)
+			return 1
+	else if (istype(ticker.mode, /datum/game_mode/infiltrator))
+		if(M.mind in ticker.mode:infiltrators)
 			return 1
 	else if (istype(ticker.mode, /datum/game_mode/spy))
 		if(M.mind in (ticker.mode:leaders + ticker.mode:spies))

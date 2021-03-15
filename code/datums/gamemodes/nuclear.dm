@@ -193,6 +193,8 @@
 
 	for(var/turf/T in landmarks[LANDMARK_SYNDICATE_GEAR_CLOSET])
 		new /obj/storage/closet/syndicate/personal(T)
+	for(var/turf/T in landmarks[LANDMARK_SYNDICATE_MRPT])
+		new /obj/item/gun/kinetic/rpg7(T)
 	for(var/turf/T in landmarks[LANDMARK_SYNDICATE_BOMB])
 	new /obj/spawner/newbomb/timer/syndicate(pick_landmark(LANDMARK_SYNDICATE_BOMB))
 	for(var/turf/T in landmarks[LANDMARK_SYNDICATE_BREACHING_CHARGES])

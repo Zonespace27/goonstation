@@ -10,7 +10,7 @@ proc/build_syndi_buylist_cache()
 
 	syndi_buylist_cache = sortList(syndi_buylist_cache)
 
-// How to add new items? Pick the correct path (nukeops, rpnuke, traitor, surplus) and go from there. Easy.
+// How to add new items? Pick the correct path (nukeops, infiltrator, traitor, surplus) and go from there. Easy.
 
 /datum/syndicate_buylist
 	var/name = null
@@ -44,7 +44,7 @@ proc/build_syndi_buylist_cache()
 	item = /obj/item/storage/box/revolver
 	cost = 6
 	desc = "The traditional sidearm of a Syndicate field agent. Holds 7 rounds and comes with extra ammo."
-	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
+	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution, /datum/game_mode/infiltrator)
 
 /datum/syndicate_buylist/generic/pistol
 	name = "Suppressed .22 Pistol"
@@ -59,7 +59,7 @@ proc/build_syndi_buylist_cache()
 	cost = 8
 	desc = "Not exactly stealthy, but it'll certainly make an impression."
 	not_in_crates = 1
-	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/spy_theft, /datum/game_mode/revolution)
+	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/spy_theft, /datum/game_mode/revolution, /datum/game_mode/infiltrator)
 
 /datum/syndicate_buylist/generic/radbow
 	name = "Rad Poison Crossbow"
@@ -189,21 +189,21 @@ proc/build_syndi_buylist_cache()
 	cost = 7
 	desc = "A powerful melee weapon, crafted using the latest in applied photonics! When inactive, it is small enough to fit in a pocket!"
 	not_in_crates = 1
-	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/spy_theft, /datum/game_mode/revolution)
+	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/spy_theft, /datum/game_mode/revolution, /datum/game_mode/infiltrator)
 
 /datum/syndicate_buylist/generic/katana
 	name = "Katana"
 	item = /obj/item/katana_sheath
 	cost = 7
 	desc = "A Japanese sword created in the fire of a dying star. Comes with a sheath for easier storage"
-	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
+	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution, /datum/game_mode/infiltrator)
 
 /datum/syndicate_buylist/generic/wrestling
 	name = "Wrestling Belt"
 	item = /obj/item/storage/belt/wrestling
 	cost = 7
 	desc = "A haunted antique wrestling belt, imbued with the spirits of wrestlers past. Wearing it unlocks a number of wrestling moves, which can be accessed in a separate command tab."
-	blockedmode = list(/datum/game_mode/revolution)
+	blockedmode = list(/datum/game_mode/revolution, /datum/game_mode/infiltrator)
 
 /datum/syndicate_buylist/generic/spy_sticker_kit
 	name = "Spy Sticker Kit"

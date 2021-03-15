@@ -97,6 +97,11 @@ Note: Add new traitor items to syndicate_buylist.dm, not here.
 						if (!S.objective && !S.job && !src.items_general.Find(S))
 							src.items_general.Add(S)
 
+				if (ownermind || istype(ownermind))
+					if (ownermind.special_role != "infiltrator" && istype(S, /datum/syndicate_buylist/traitor))
+						if (!S.objective && !S.job && !src.items_general.Find(S))
+							src.items_general.Add(S) //this has the rampage-ey items removed, at least it should
+
 					if (S.objective)
 						if (ownermind.objectives)
 							var/has_objective = 0
@@ -384,6 +389,32 @@ Note: Add new traitor items to syndicate_buylist.dm, not here.
 /////////////////////////////////////////////// Syndicate uplink ////////////////////////////////////////////
 
 /obj/item/uplink/syndicate
+	name = "station bounced radio"
+	icon = 'icons/obj/items/device.dmi'
+	icon_state = "radio"
+	flags = FPRINT | TABLEPASS | CONDUCT | ONBELT
+	w_class = 2.0
+	item_state = "radio"
+	throw_speed = 4
+	throw_range = 20
+	m_amt = 100
+	use_default_GUI = 1
+	can_selfdestruct = 1
+
+	setup(var/datum/mind/ownermind, var/obj/item/device/master)
+		..()
+		if (src.lock_code_autogenerate == 1)
+			src.lock_code = src.generate_code()
+			src.locked = 1
+
+		return
+
+	alternate // a version that isn't hidden as a radio. So nukeops can better understand where to click to get guns.
+		name = "syndicate equipment uplink"
+		desc = "An uplink terminal that allows you to order weapons and items."
+		icon_state = "uplink"
+
+/obj/item/uplink/syndicateinfil
 	name = "station bounced radio"
 	icon = 'icons/obj/items/device.dmi'
 	icon_state = "radio"

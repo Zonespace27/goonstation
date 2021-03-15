@@ -229,11 +229,15 @@
 		materiel_stock += new/datum/materiel/assistant/stealth3
 		materiel_stock += new/datum/materiel/assistant/customstealth //Modified nukeop uplink
 
-	accepted_token()
-		src.credits["Sidearm"]++
-		src.credits["Loadout"]++
-		src.credits["Utility"]++
-		src.credits["Assistant"]++
+	accepted_token(var/token)
+		if (istype(token, /obj/item/requisition_token/syndicate/infiltrator))
+			src.credits["Assistant"]++
+			src.credits["Utility"]++
+		else
+			src.credits["Sidearm"]++
+			src.credits["Loadout"]++
+			src.credits["Utility"]++
+			src.credits["Assistant"]++
 		..()
 // Materiel avaliable for purchase:
 
@@ -523,9 +527,9 @@
 		desc = "A Syndicate credit card charged with currency compatible with the Syndicate Weapons Vendor."
 		icon_state = "req-token"
 
-	infiltrator
-		desc = "A syndicate credit card charged with currency compatible with the Syndicate Weapons Vendor. This one says <i>for infiltrator use only</i>."
-		icon_state = "req-token"
+		infiltrator
+			desc = "A syndicate credit card charged with currency compatible with the Syndicate Weapons Vendor. This one says <i>for infiltrator use only</i>."
+			icon_state = "req-token"
 
 	security
 		desc = "An NT-provided token compatible with the Security Weapons Vendor."

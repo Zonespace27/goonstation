@@ -24,6 +24,7 @@
 #define LANDMARK_NUCLEAR_BOMB "Nuclear-Bomb"
 #define LANDMARK_NUCLEAR_CLOSET "Nuclear-Closet"
 #define LANDMARK_SYNDICATE_GEAR_CLOSET "Syndicate-Gear-Closet"
+#define LANDMARK_SYNDICATE_MRPT "MRPT-7"
 #define LANDMARK_SYNDICATE_BOMB "Syndicate-Bomb"
 #define LANDMARK_SYNDICATE_BREACHING_CHARGES "Breaching-Charges"
 

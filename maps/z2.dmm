@@ -67080,7 +67080,9 @@
 /area/syndicate_station/battlecruiser)
 "dgq" = (
 /obj/table/auto,
-/obj/item/gun/kinetic/rpg7,
+/obj/landmark{
+	name = "MRPT-7"
+	},
 /obj/decal/tile_edge/stripe{
 	dir = 6;
 	icon_state = "delivery2"

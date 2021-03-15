@@ -787,6 +787,7 @@
 	var/list/can_see = list()
 	var/see_traitors = 0
 	var/see_nukeops = 0
+	var/see_infiltrators = 0
 	var/see_wizards = 0
 	var/see_revs = 0
 	var/see_heads = 0
@@ -820,11 +821,14 @@
 			if (src.mind.special_role == "syndicate robot" || (S.syndicate && !S.dependent)) // No AI shells.
 				see_traitors = 1
 				see_nukeops = 1
+				see_infiltrators =1
 				see_revs = 1
 		if (isnukeop(src))
 			see_nukeops = 1
 		if (iswizard(src))
 			see_wizards = 1
+		if (isinfiltrator(src))
+			see_infiltrators = 1
 		if (src.mind && src.mind.special_role == "grinch")
 			see_xmas = 1
 
@@ -841,7 +845,7 @@
 	if (remove)
 		return
 
-	if (!see_traitors && !see_nukeops && !see_wizards && !see_revs && !see_heads && !see_xmas && !see_special && !see_everything && gang_to_see == null)
+	if (!see_traitors && !see_nukeops && !see_infiltrators && !see_wizards && !see_revs && !see_heads && !see_xmas && !see_special && !see_everything && gang_to_see == null)
 		src.last_overlay_refresh = world.time
 		return
 
@@ -983,6 +987,16 @@
 				if (M.current)
 					if (!see_everything && isobserver(M.current)) continue
 					var/I = image(antag_syndicate, loc = M.current)
+					can_see.Add(I)
+
+	else if (istype(ticker.mode, /datum/game_mode/infiltrator))
+		var/datum/game_mode/infiltrator/N = ticker.mode
+		var/list/datum/mind/infiltrators = N.infiltrators
+		if (see_infiltrators || see_everything)
+			for (var/datum/mind/M in infiltrators)
+				if (M.current)
+					if (!see_everything && isobserver(M.current)) continue
+					var/I = image(antag_infiltrator, loc = M.current)
 					can_see.Add(I)
 
 	else if (istype(ticker.mode, /datum/game_mode/spy))

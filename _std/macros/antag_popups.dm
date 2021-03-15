@@ -30,6 +30,9 @@
 // nuke
 #define SHOW_NUKEOP_TIPS(M) M.Browse(grabResource("html/traitorTips/syndiTips.html"), ANTAG_TIPS_WINDOW)
 
+// infiltrators
+#define SHOW_INFILTRATOR_TIPS(M) M.Browse(grabResource("html/traitorTips/infilTips.html"), ANTAG_TIPS_WINDOW)
+
 // revolution
 #define SHOW_REVHEAD_TIPS(M) M.Browse(grabResource("html/traitorTips/revTips.html"), ANTAG_TIPS_WINDOW)
 #define SHOW_REVVED_TIPS(M) M.Browse(grabResource("html/traitorTips/revAdded.html"), ANTAG_TIPS_WINDOW)
@@ -112,6 +115,7 @@
 </div>
 <div class='antagType' style='border-color:#AEC6CF'><b class='title' style='background:#AEC6CF'>Nuke/Rev</b>
 	<a href='?src=\ref[src];action=nukeop'>Nuke Op</a> |
+	<a href='?src=\ref[src];action=infiltrator'>Infiltrator</a> |
 	<a href='?src=\ref[src];action=revhead'>Rev Head</a> |
 	<a href='?src=\ref[src];action=revved'>Revved</a> |
 	<a href='?src=\ref[src];action=derevved'>De-Revved</a>
@@ -203,6 +207,8 @@
 			// nuke/rev
 			if ("nukeop")
 				SHOW_NUKEOP_TIPS(M)
+			if ("infiltrator")
+				SHOW_INFILTRATOR_TIPS(M) // change this too once I figure out where it goes
 			if ("revhead")
 				SHOW_REVHEAD_TIPS(M)
 			if ("revved")
