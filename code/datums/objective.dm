@@ -147,7 +147,7 @@ proc/create_fluff(var/datum/mind/target)
 		target_name = pick(items)
 		switch(target_name)
 			if("Head of Security\'s beret")
-				steal_target = /obj/item/clothing/head/helmet/HoS
+				steal_target = /obj/item/clothing/head/hosberet
 			if("prisoner\'s beret")
 				steal_target = /obj/item/clothing/head/beret/prisoner
 			if("DetGadget hat")
@@ -184,7 +184,7 @@ proc/create_fluff(var/datum/mind/target)
 		target_name = pick(items)
 		switch(target_name)
 			if("Head of Security\'s beret")
-				steal_target = /obj/item/clothing/head/helmet/HoS
+				steal_target = /obj/item/clothing/head/hosberet
 			if("prisoner\'s beret")
 				steal_target = /obj/item/clothing/head/beret/prisoner
 			if("DetGadget hat")
@@ -848,7 +848,7 @@ proc/create_fluff(var/datum/mind/target)
 /datum/objective/specialist/infiltrator/stealhighvalue
 	var/obj/item/steal_target
 	var/target_name
-	var/someone_else_got_it = 0
+	var/someone_else_got_it = FALSE
 #ifdef MAP_OVERRIDE_MANTA
 	set_up()
 		var/list/items = list("Head of Security\'s beret", "authentication disk",
@@ -881,7 +881,7 @@ proc/create_fluff(var/datum/mind/target)
 				steal_target = /obj/item/toy/gooncode
 #else
 	set_up()
-		var/list/items = list("Head of Security\'s beret", "prisoner\'s beret", "authentication disk",
+		var/list/items = list("Head of Security\'s beret", "authentication disk",
 		"\'freeform\' AI module", "mainframe memory board", "yellow cake", "aurora MKII utility belt", "golden crayon")
 
 		target_name = pick(items)
@@ -906,14 +906,16 @@ proc/create_fluff(var/datum/mind/target)
 		return steal_target
 
 	check_completion()
+		someone_else_got_it = FALSE
 		if(steal_target)
 			if(owner.current && owner.current.check_contents_for(steal_target, 1, 1))
-				someone_else_got_it = 1
-				return 1
-			else if(someone_else_got_it = 1)
+				someone_else_got_it = TRUE
 				return 1
 			else
-				return 0
+				if(someone_else_got_it)
+					return 1
+				else
+					return 0
 
 /datum/objective/specialist/conspiracy
 	explanation_text = "Identify and eliminate any competing syndicate operatives on the station. Be careful not to be too obvious yourself, or they'll come after you!"

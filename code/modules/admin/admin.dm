@@ -3303,6 +3303,15 @@ var/global/noir = 0
 
 								dat += "</table>"
 
+							if (istype(ticker.mode, /datum/game_mode/infiltrator))
+								var/datum/game_mode/infiltrator/IN = ticker.mode
+								dat += "<br><table cellspacing=5><tr><td><B>Infiltrators</B></td><td></td></tr>"
+								for(var/datum/mind/N in IN.infiltrators)
+									var/mob/M = N.current
+									if(!M) continue
+									dat += "<tr><td><a href='?src=\ref[src];action=adminplayeropts;target=\ref[M]'>[M.real_name]</a>[M.client ? "" : " <i>(logged out)</i>"][isdead(M) ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
+									dat += "<td><a href='?action=priv_msg&target=[M.ckey]'>PM</A></td></tr>"
+
 							else if (istype(ticker.mode, /datum/game_mode/revolution))
 								dat += "<br><table cellspacing=5><tr><td><B>Revolutionaries</B></td><td></td></tr>"
 								for(var/datum/mind/N in ticker.mode:head_revolutionaries)
