@@ -1,3 +1,5 @@
+
+
 /datum/game_mode/infiltrator
 	name = "infiltrator"
 	config_tag = "infiltrator"
@@ -6,7 +8,7 @@
 	var/list/datum/mind/infiltrators = list()
 	var/finished = 0
 	var/agent_radiofreq = 0 //:h for syndies, randomized per round
-	var/bomb_check_timestamp = 0 // See check_finished().
+	var/infiltratorlist = list()
 	var/const/agents_possible = 5 //If we ever need more syndicate agents. cogwerks - raised from 5 | Changed it back to 5 for balance reasons of RP and infils
 
 
@@ -56,7 +58,9 @@
 
 	var/list/chosen_infiltrators = antagWeighter.choose(pool = possible_infiltrators, role = "infiltrator", amount = num_infil, recordChosen = 1)
 	infiltrators |= chosen_infiltrators
-	for (var/datum/mind/infiltrator in infiltrators)
+	traitors |= chosen_infiltrators
+	infiltratorlist = infiltrators
+	for (var/datum/mind/infiltrator in traitors)
 		infiltrator.assigned_role = "MODE" //So they aren't chosen for other jobs.
 		infiltrator.special_role = "infiltrator"
 		possible_infiltrators.Remove(infiltrator)
@@ -73,8 +77,25 @@
 	//Alphabetical agent callsign lists are delcared here, seperated in to catagories.
 	var/list/callsign_list = strings("agent_callsigns.txt", pick(callsign_pool_keys))
 
+	var/pickedHighValue1 = pick(typesof(/datum/objective/specialist/infiltrator/stealhighvalue))
+	var/pickedHighValue2 = pick(typesof(/datum/objective/specialist/infiltrator/stealhighvalue))
+	var/pickedHighValue3 = pick(typesof(/datum/objective/specialist/infiltrator/stealhighvalue))
+#ifdef MAP_OVERRIDE_MANTA
+	var/pickedHighValue4Manta = pick(typesof(/datum/objective/specialist/infiltrator/stealhighvalue))
+	var/pickedHighValue5Manta = pick(typesof(/datum/objective/specialist/infiltrator/stealhighvalue))
+#endif
+
 	for(var/datum/mind/synd_mind in infiltrators)
-		bestow_objective(synd_mind,/datum/objective/specialist/infiltrator) //change this to add a few random objectives
+		bestow_objective(synd_mind,/datum/objective/specialist/infiltrator/assassinatecaptain)
+		bestow_objective(synd_mind,/datum/objective/specialist/infiltrator/assassinatehos)
+		ticker.mode.bestow_objective(synd_mind, pickedHighValue1)
+		ticker.mode.bestow_objective(synd_mind, pickedHighValue2)
+		ticker.mode.bestow_objective(synd_mind, pickedHighValue3)
+#ifdef MAP_OVERRIDE_MANTA
+		ticker.mode.bestow_objective(synd_mind, pickedHighValue4Manta)
+		ticker.mode.bestow_objective(synd_mind, pickedHighValue5Manta)
+#endif
+		//bestow_objective(synd_mind,/datum/objective/specialist/infiltrator/stealhighvalue)
 
 		var/obj_count = 1
 		boutput(synd_mind.current, "<span class='notice'>You are a [infiltrator_name()] agent!</span>")
@@ -107,51 +128,26 @@
 		synd_mind.current.antagonist_overlay_refresh(1, 0)
 		SHOW_INFILTRATOR_TIPS(synd_mind.current)
 
-
 	for(var/turf/T in landmarks[LANDMARK_SYNDICATE_GEAR_CLOSET])
 		new /obj/storage/closet/syndicate/personal(T)
-	for(var/turf/T in landmarks[LANDMARK_SYNDICATE_BREACHING_CHARGES])
+/*	for(var/turf/T in landmarks[LANDMARK_SYNDICATE_BREACHING_CHARGES])
 		for(var/i = 1 to 5)
-			new /obj/item/breaching_charge/thermite(T)
+			new /obj/item/breaching_charge/thermite(T)*/
 
 	SPAWN_DBG (rand(waittime_l, waittime_h))
 		send_intercept()
 
 	return
 
-/datum/game_mode/infiltrator/check_finished()
-
-
-	if (src.finished)
+/datum/game_mode/nuclear/check_finished()
+	if(emergency_shuttle.location == SHUTTLE_LOC_RETURNED)
 		return 1
 
 	if (no_automatic_ending)
 		return 0
 
-	return 0
-	/* I have no idea how necessary this is, commenting it out for now
-	for(var/datum/mind/M in infiltrators)
-		var/syndtext = ""
-		if(M.current) syndtext += "<B>[M.key] played [M.current.real_name].</B> "
-		else syndtext += "<B>[M.key] played an Infiltrator.</B> "
-		if (!M.current) syndtext += "(Destroyed)"
-		else if (isdead(M.current)) syndtext += "(Killed)"
-		else if (M.current.z != 1) syndtext += "(Missing)"
-		else syndtext += "(Survived)"
-		boutput(world, syndtext)
-
-		for (var/datum/objective/objective in M.objectives)
-#ifdef CREW_OBJECTIVES
-			if (istype(objective, /datum/objective/crew)) continue
-#endif
-			if (istype(objective, /datum/objective/miscreant)) continue
-
-			if (objective.check_completion())
-				if (!isnull(objective.medal_name) && !isnull(M.current))
-					M.current.unlock_medal(objective.medal_name, objective.medal_announce)
-
-	..() //Listing custom antagonists.
-*/
+/datum/game_mode/infiltrator/declare_completion()
+	. = ..()
 
 /datum/game_mode/infiltrator/proc/get_possible_infiltrators(minimum_infiltrators=1)
 	var/list/candidates = list()
@@ -166,7 +162,7 @@
 				candidates += player.mind
 
 	if(candidates.len < minimum_infiltrators)
-		logTheThing("debug", null, null, "<b>Enemy Assignment</b>: Not enough players with be_infiltrator set to yes, including players who don't want to be syndicates in the pool.")
+		logTheThing("debug", null, null, "<b>Enemy Assignment</b>: Not enough players with be_infiltrator set to yes, including players who don't want to be infiltrators in the pool.")
 		for(var/client/C)
 			var/mob/new_player/player = C.mob
 			if (!istype(player)) continue

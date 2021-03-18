@@ -137,7 +137,7 @@
 	intercepttext += " Cent. Com has recently been contacted by the following syndicate affiliated organisations in your area, please investigate any information you may have:"
 
 	var/list/possible_modes = list()
-	possible_modes.Add("revolution", "wizard", "nuke", "traitor", "changeling")
+	possible_modes.Add("revolution", "wizard", "nuke", "traitor", "changeling", "infiltrator")
 	possible_modes -= "[ticker.mode]"
 	var/number = pick(2, 3)
 	var/i = 0

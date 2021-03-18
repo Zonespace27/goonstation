@@ -1316,6 +1316,11 @@ proc/get_angle(atom/a, atom/b)
 			for(var/datum/mind/M in someEnemies)
 				if (M.current)
 					enemies += M
+		else if (istype(ticker.mode, /datum/game_mode/infiltrator))
+			someEnemies = ticker.mode:infiltrators
+			for(var/datum/mind/M in someEnemies)
+				if (M.current)
+					enemies += M
 		else if (istype(ticker.mode, /datum/game_mode/spy))
 			someEnemies = ticker.mode:spies
 			for(var/datum/mind/M in someEnemies)

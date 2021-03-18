@@ -46,6 +46,9 @@
 			src.text = ""
 			src.build_changeling(correct_mob)
 			return src.text
+		if("infiltrator")
+			src.text = ""
+			src.build_infiltrator(correct_mob)
 		else
 			return null
 
@@ -141,3 +144,8 @@
 	src.text += "<BR><BR>We have intercepted reports that a Space Wizard Federation menagerie facility in your sector has suffered a containment breach. "
 	src.text += "It is possible that a Vampire has escaped from their cells and is likely to have taken refuge on the station. It is likely weak from its "
 	src.text += "extended containment, but it will become increasingly more powerful if allowed to consume human blood. If caught, it must be terminated."
+
+/datum/intercept_text/proc/build_infiltrator(correct_mob)
+	src.text += "<BR><BR>Cent. Com recently intercepted reports that an elite Syndicate infiltration team is planning on boarding the station."
+	src.text += "Their current goals are unknown, but the utmost caution must be taken. All station personnel should be on alert for any suspicious "
+	src.text += "characters on board. Any manifest discreptancies are to be investigated with haste."

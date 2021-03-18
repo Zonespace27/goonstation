@@ -132,7 +132,7 @@
 	var/intercepttext = "Cent. Com. Update Requested staus information:<BR>"
 	intercepttext += " Cent. Com has recently been contacted by the following syndicate affiliated organisations in your area, please investigate any information you may have:"
 
-	var/list/possible_modes = list("revolution", "wizard", "nuke", "traitor", "changeling")
+	var/list/possible_modes = list("revolution", "wizard", "nuke", "traitor", "changeling", "infiltrator")
 	var/number = pick(2, 3)
 	var/i = 0
 	for(i = 0, i < number, i++)

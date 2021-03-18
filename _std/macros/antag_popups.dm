@@ -208,7 +208,7 @@
 			if ("nukeop")
 				SHOW_NUKEOP_TIPS(M)
 			if ("infiltrator")
-				SHOW_INFILTRATOR_TIPS(M) // change this too once I figure out where it goes
+				SHOW_INFILTRATOR_TIPS(M)
 			if ("revhead")
 				SHOW_REVHEAD_TIPS(M)
 			if ("revved")

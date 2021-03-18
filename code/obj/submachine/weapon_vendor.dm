@@ -224,9 +224,10 @@
 		materiel_stock += new/datum/materiel/utility/noslip_boots
 		materiel_stock += new/datum/materiel/utility/bomb_decoy
 
-		materiel_stock += new/datum/materiel/assistant/stealth1 // stealth 1-3 are temp names
-		materiel_stock += new/datum/materiel/assistant/stealth2
-		materiel_stock += new/datum/materiel/assistant/stealth3
+		materiel_stock += new/datum/materiel/assistant/stealth // stealth 1-3 are temp names
+		materiel_stock += new/datum/materiel/assistant/diversion
+		materiel_stock += new/datum/materiel/assistant/saboteur
+		materiel_stock += new/datum/materiel/assistant/wetwork
 		materiel_stock += new/datum/materiel/assistant/customstealth //Modified nukeop uplink
 
 	accepted_token(var/token)
@@ -358,7 +359,7 @@
 	name = "Assistant"
 	path = /obj/item/storage/belt/security/assistant
 	category = "Assistant"
-	cost = 0.9
+	cost = 1
 	description = "One belt containing a security barrier, a forensic scanner, and a security ticket writer."
 
 //SYNDIE
@@ -489,21 +490,27 @@
 	category = "Utility"
 	description = "A realistic inflatable nuclear bomb decoy, it'll fool anyone not looking closely but won't take much punishment before it pops."
 
-/datum/materiel/assistant/stealth1
-	name = "Stealth1"
-	path = /obj/ //add the crate here later
+/datum/materiel/assistant/stealth
+	name = "Stealth Agent"
+	path = /obj/storage/crate/classcrate/stealth
 	category = "Assistant"
 	description = "Change Me"
 
-/datum/materiel/assistant/stealth2
-	name = "Stealth2"
-	path = /obj/ //add the crate here later
+/datum/materiel/assistant/diversion
+	name = "Diversion Agent"
+	path = /obj/storage/crate/classcrate/diversion
 	category = "Assistant"
 	description = "Change Me"
 
-/datum/materiel/assistant/stealth3
-	name = "Stealth3"
-	path = /obj/ //add the crate here later
+/datum/materiel/assistant/saboteur
+	name = "Saboteur Agent"
+	path = /obj/storage/crate/classcrate/saboteur
+	category = "Assistant"
+	description = "Change Me"
+
+/datum/materiel/assistant/wetwork
+	name = "Wetwork Agent"
+	path = /obj/storage/crate/classcrate/wetwork
 	category = "Assistant"
 	description = "Change Me"
 

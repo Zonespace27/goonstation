@@ -649,19 +649,271 @@ proc/create_fluff(var/datum/mind/target)
 			if (N && istype(N) && (N.finished == -1 || N.finished == -2))
 				return 1
 		return 0
-
-/datum/objective/specialist/infiltrator/kidnapstirstir
-	explanation_text = "Make sure Monsieur Stirstir ends the shift off the Z-level, alive."
+/*
+/datum/objective/specialist/infiltrator/killcapandhos
+	explanation_text = "Assassinate [captain.current.real_name], the Captain and [.current.real_name] Head of Security."
+	var/list/targets = list("Captain", "Head of Security")
 
 	check_completion()
-		for(var/mob/living/carbon/human/npc/monkey/stirstir/M in mobs)
-			if(!isdead(M))
-			//	if(!Z_LEVEL_STATION) once i can fucking figure out how this works
-			//		return 1
+		for (var/datum/mind/M in ticker.minds)
+			if (!M.current)
+				continue
+			if (M.current == owner.current)
+				continue
+			if (!(M.assigned_role in targets))
+				continue
+			if (!isdead(M.current) && iscarbon(M.current))
 				return 0
-			return 0
 
+		return 1
+*/
+/datum/objective/specialist/infiltrator/assassinatecaptain
+	var/datum/mind/target
+	var/targetname
 
+	set_up()
+		var/list/possible_targets = list()
+
+		for(var/datum/mind/possible_target in ticker.minds)
+			if (possible_target && (possible_target != owner) && ishuman(possible_target.current))
+				if (possible_target.current.mind && possible_target.current.mind.is_target) // Cannot read null.is_target
+					continue
+				if (!possible_target.current.client)
+					continue
+				possible_targets += possible_target
+
+		if(possible_targets.len > 0)
+			target = pick(possible_targets)
+			target.current.mind.is_target = 1
+
+		create_objective_string(target)
+
+		return target
+
+	proc/find_target_by_role(var/role)
+		for(var/datum/mind/possible_target in ticker.minds)
+			if((possible_target != owner) && ishuman(possible_target.current) && (possible_target.assigned_role == role || (possible_target.assigned_role == "Captain" && possible_target.special_role == role)))
+				target = possible_target
+				break
+
+		create_objective_string(target)
+
+		return target
+
+	check_completion()
+		if(target?.current)
+			if(isdead(target.current) || !iscarbon(target.current) || inafterlife(target.current))
+				return 1
+			else
+				return 0
+		else
+			return 1
+	proc/create_objective_string(var/datum/mind/target)
+		if(!(target?.current))
+			explanation_text = "Be dastardly as heck!"
+			return
+		var/objective_text = "Assassinate [target.current.real_name], the [target.assigned_role == "MODE" ? target.special_role : target.assigned_role]"
+		objective_text += " [create_fluff(target)]."
+
+		explanation_text = objective_text
+		targetname = target.current.real_name
+
+/datum/objective/specialist/infiltrator/assassinatehos
+	var/datum/mind/target
+	var/targetname
+
+	set_up()
+		var/list/possible_targets = list()
+
+		for(var/datum/mind/possible_target in ticker.minds)
+			if (possible_target && (possible_target != owner) && ishuman(possible_target.current))
+				if (possible_target.current.mind && possible_target.current.mind.is_target) // Cannot read null.is_target
+					continue
+				if (!possible_target.current.client)
+					continue
+				possible_targets += possible_target
+
+		if(possible_targets.len > 0)
+			target = pick(possible_targets)
+			target.current.mind.is_target = 1
+
+		create_objective_string(target)
+
+		return target
+
+	proc/find_target_by_role(var/role)
+		for(var/datum/mind/possible_target in ticker.minds)
+			if((possible_target != owner) && ishuman(possible_target.current) && (possible_target.assigned_role == role || (possible_target.assigned_role == "Head of Security" && possible_target.special_role == role)))
+				target = possible_target
+				break
+
+		create_objective_string(target)
+
+		return target
+
+	check_completion()
+		if(target?.current)
+			if(isdead(target.current) || !iscarbon(target.current) || inafterlife(target.current))
+				return 1
+			else
+				return 0
+		else
+			return 1
+	proc/create_objective_string(var/datum/mind/target)
+		if(!(target?.current))
+			explanation_text = "Be dastardly as heck!"
+			return
+		var/objective_text = "Assassinate [target.current.real_name], the [target.assigned_role == "MODE" ? target.special_role : target.assigned_role]"
+		objective_text += " [create_fluff(target)]."
+
+		explanation_text = objective_text
+		targetname = target.current.real_name
+
+/*
+/datum/objective/specialist/infiltrator/stealhighvalue
+	var/obj/item/steal_target = list()
+	var/target_name
+	var/amount_theft
+	var/theft_list
+	var/stolen_amount
+#ifdef MAP_OVERRIDE_MANTA
+	set_up()
+		var/list/items = list("Head of Security\'s beret", "authentication disk",
+		"\'freeform\' AI module", "mainframe memory board",  "aurora MKII utility belt", "Head of Security\'s war medal", "Research Director\'s Diploma", "Medical Director\'s Medical License", "Head of Personnel\'s First Bill")
+		theft_list =  "The Head of Security\'s Beret, Nuclear Authentication Disk, the \'Freeform\' AI Module, a Mainframe Memory Board, the Aurora MKII Utility Belt, the Research Director\'s Diploma, the Medical Director\'s Medical License, and the Head of Personnel\'s First Bill."
+		target_name = pick(items)
+		amount_theft = 5
+		switch(target_name)
+			if("Head of Security\'s beret")
+				steal_target = /obj/item/clothing/head/helmet/HoS
+			if("authentication disk")
+				steal_target = /obj/item/disk/data/floppy/read_only/authentication
+			if("\'freeform\' AI module")
+				steal_target = /obj/item/aiModule/freeform
+			if("mainframe memory board")
+				steal_target = /obj/item/disk/data/memcard/main2
+			if("aurora MKII utility belt")
+				steal_target = /obj/item/storage/belt/utility/prepared/ceshielded
+			if("Head of Security\'s war medal")
+				steal_target = /obj/item/clothing/suit/hosmedal
+			if("Research Director\'s Diploma")
+				steal_target = /obj/item/rddiploma
+			if("Medical Director\'s Medical License")
+				steal_target = /obj/item/mdlicense
+			if("Head of Personnel\'s First Bill")
+				steal_target = /obj/item/firstbill
+#else
+	set_up()
+		var/list/items = list("Head of Security\'s beret", "authentication disk",
+		"\'freeform\' AI module", "mainframe memory board", "aurora MKII utility belt", "golden crayon")
+		theft_list = "The Head of Security\'s Beret, Nuclear Authentication Disk, the \'Freeform\' AI Module, a Mainframe Memory Board, the Aurora MKII Utility Belt, and the Head of Personnel's Golden Crayon"
+		amount_theft = 3
+		target_name = pick(items)
+		switch(target_name)
+			if("Head of Security\'s beret")
+				steal_target += /obj/item/clothing/head/helmet/HoS
+			if("authentication disk")
+				steal_target += /obj/item/disk/data/floppy/read_only/authentication
+			if("\'freeform\' AI module")
+				steal_target += /obj/item/aiModule/freeform
+			if("mainframe memory board")
+				steal_target += /obj/item/disk/data/memcard/main2
+			if("aurora MKII utility belt")
+				steal_target += /obj/item/storage/belt/utility/prepared/ceshielded
+			if("golden crayon")
+				steal_target += /obj/item/pen/crayon/golden
+#endif
+
+		explanation_text = "Steal at least [amount_theft] of the following; [theft_list]."
+	check_completion()
+		if(owner.current && owner.current.check_contents_for(/obj/item/clothing/head/helmet/HoS, 1, 1))
+			stolen_amount += 1
+		if(owner.current && owner.current.check_contents_for(/obj/item/disk/data/floppy/read_only/authentication, 1, 1))
+			stolen_amount += 1
+		if(owner.current && owner.current.check_contents_for(/obj/item/aiModule/freeform, 1, 1))
+			stolen_amount += 1
+		if(owner.current && owner.current.check_contents_for(/obj/item/disk/data/memcard/main2, 1, 1))
+			stolen_amount += 1
+		if(owner.current && owner.current.check_contents_for(/obj/item/storage/belt/utility/prepared/ceshielded, 1, 1))
+			stolen_amount += 1
+		if(owner.current && owner.current.check_contents_for(/obj/item/pen/crayon/golden, 1, 1))
+			stolen_amount += 1
+		if(stolen_amount >= 1)
+			command_alert("It worked, probably", "Yay")
+			return 1
+		else
+			command_alert("Shit's broke, dumbass", "FUCK")
+			return 0 */
+
+/datum/objective/specialist/infiltrator/stealhighvalue
+	var/obj/item/steal_target
+	var/target_name
+	var/someone_else_got_it = 0
+#ifdef MAP_OVERRIDE_MANTA
+	set_up()
+		var/list/items = list("Head of Security\'s beret", "authentication disk",
+		"\'freeform\' AI module", "mainframe memory board", "yellow cake", "aurora MKII utility belt", "Head of Security\'s war medal", "Research Director\'s Diploma", "Medical Director\'s Medical License", "Head of Personnel\'s First Bill"
+		)
+
+		target_name = pick(items)
+		switch(target_name)
+			if("Head of Security\'s beret")
+				steal_target = /obj/item/clothing/head/helmet/HoS
+			if("authentication disk")
+				steal_target = /obj/item/disk/data/floppy/read_only/authentication
+			if("\'freeform\' AI module")
+				steal_target = /obj/item/aiModule/freeform
+			if("mainframe memory board")
+				steal_target = /obj/item/disk/data/memcard/main2
+			if("yellow cake")
+				steal_target = /obj/item/reagent_containers/food/snacks/yellow_cake_uranium_cake
+			if("aurora MKII utility belt")
+				steal_target = /obj/item/storage/belt/utility/prepared/ceshielded
+			if("Head of Security\'s war medal")
+				steal_target = /obj/item/clothing/suit/hosmedal
+			if("Research Director\'s Diploma")
+				steal_target = /obj/item/rddiploma
+			if("Medical Director\'s Medical License")
+				steal_target = /obj/item/mdlicense
+			if("Head of Personnel\'s First Bill")
+				steal_target = /obj/item/firstbill
+			if("much coveted Gooncode")
+				steal_target = /obj/item/toy/gooncode
+#else
+	set_up()
+		var/list/items = list("Head of Security\'s beret", "prisoner\'s beret", "authentication disk",
+		"\'freeform\' AI module", "mainframe memory board", "yellow cake", "aurora MKII utility belt", "golden crayon")
+
+		target_name = pick(items)
+		switch(target_name)
+			if("Head of Security\'s beret")
+				steal_target = /obj/item/clothing/head/helmet/HoS
+			if("authentication disk")
+				steal_target = /obj/item/disk/data/floppy/read_only/authentication
+			if("\'freeform\' AI module")
+				steal_target = /obj/item/aiModule/freeform
+			if("mainframe memory board")
+				steal_target = /obj/item/disk/data/memcard/main2
+			if("yellow cake")
+				steal_target = /obj/item/reagent_containers/food/snacks/yellow_cake_uranium_cake
+			if("aurora MKII utility belt")
+				steal_target = /obj/item/storage/belt/utility/prepared/ceshielded
+			if("golden crayon")
+				steal_target = /obj/item/pen/crayon/golden
+#endif
+
+		explanation_text = "Steal the [target_name]."
+		return steal_target
+
+	check_completion()
+		if(steal_target)
+			if(owner.current && owner.current.check_contents_for(steal_target, 1, 1))
+				someone_else_got_it = 1
+				return 1
+			else if(someone_else_got_it = 1)
+				return 1
+			else
+				return 0
 
 /datum/objective/specialist/conspiracy
 	explanation_text = "Identify and eliminate any competing syndicate operatives on the station. Be careful not to be too obvious yourself, or they'll come after you!"
@@ -1325,6 +1577,12 @@ ABSTRACT_TYPE(/datum/objective/conspiracy)
 	objective_list = list(/datum/objective/specialist/absorb)
 	escape_choices = list(/datum/objective/escape,
 	/datum/objective/escape/hijack)
+
+/datum/objective_set/infiltrator
+	objective_list = list(/datum/objective/specialist/infiltrator/assassinatecaptain,
+	/datum/objective/specialist/infiltrator/assassinatehos,
+	/datum/objective/specialist/infiltrator/stealhighvalue)
+	escape_choices = list(/datum/objective/escape)
 
 /datum/objective_set/vampire
 	objective_list = list(/datum/objective/specialist/drinkblood)

@@ -496,6 +496,47 @@
 		/obj/item/clothing/suit/space/syndicate/specialist/sniper,
 		/obj/item/clothing/head/helmet/space/syndicate/specialist/sniper)
 
+	stealth
+		name = "Infiltration Agent Crate - Stealth"
+		desc = "A crate containing a Infiltration Agent loadout."
+		spawn_contents = list(/obj/item/clothing/under/chameleon,
+		/obj/item/pen/sleepypen,
+		/obj/item/radiojammer,
+		/obj/item/storage/box/syndibox,
+		/obj/item/genetics_injector/dna_scrambler,
+		/obj/item/device/radio_upgrade)
+
+	diversion
+		name = "Infiltration Agent Crate - Diverter"
+		desc = "A crate containing a Infiltration Agent loadout."
+		spawn_contents = list(/obj/item/disk/data/cartridge/syndicate,
+		/obj/item/device/pda2,
+		/obj/item/disk/data/cartridge/ringtone_syndie,
+		/obj/item/gun/kinetic/derringer,
+		/obj/item/voice_changer,
+		/obj/item/kudzuseed,
+		/obj/item/lightbreaker)
+
+	saboteur
+		name = "Infiltration Agent Crate - Saboteur"
+		desc = "A crate containing a Infiltration Agent loadout."
+		spawn_contents = list(/obj/item/device/powersink,
+		/obj/item/card/emag,
+		/obj/item/storage/box/emp_kit,
+		/obj/item/device/disguiser,
+		/obj/item/dagger/syndicate
+		)
+
+	wetwork
+		name = "Infiltration Agent Crate - Wetwork"
+		desc = "A crate containing a Infiltration Agent loadout."
+		spawn_contents = list(/obj/item/storage/box/pistol,
+		/obj/item/radiojammer,
+		/obj/item/garrote,
+		/obj/item/cloaking_device,
+		/obj/item/voice_changer
+		)
+
 	melee //wip, not ready for use
 		name = "Class Crate - Templar"
 		desc = "A crate containing a Specialist Operative loadout."
