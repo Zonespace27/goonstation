@@ -29,7 +29,7 @@ proc/build_syndi_buylist_cache()
 	proc/run_on_spawn(obj/item, mob/living/owner, in_surplus_crate=FALSE) // Use this to run code when the item is spawned.
 		return
 
-////////////////////////////////////////// Standard items (generic & nukeops uplink) ///////////////////////////////
+////////////////////////////////////////// Standard items (generic, nukeops, and infil uplink) ///////////////////////////////
 
 // Note: traitor uplinks also list these, so you don't have to make two separate entries.
 // Note #2: Nuke ops-exclusive item: /datum/syndicate_buylist/traitor + "objective = /datum/objective/specialist/nuclear".
@@ -74,8 +74,6 @@ proc/build_syndi_buylist_cache()
 	cost = 3
 	desc = "Commonly used by special forces for silent removal of isolated targets. Ensure you are out of sight, apply to the target's neck from behind with a firm two-hand grip and wait for death to occur."
 	blockedmode = list(/datum/game_mode/revolution)
-
-
 
 /datum/syndicate_buylist/generic/empgrenades
 	name = "EMP Grenades"

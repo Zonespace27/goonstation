@@ -100,7 +100,7 @@ Note: Add new traitor items to syndicate_buylist.dm, not here.
 				if (ownermind || istype(ownermind))
 					if (ownermind.special_role != "infiltrator" && istype(S, /datum/syndicate_buylist/traitor))
 						if (!S.objective && !S.job && !src.items_general.Find(S))
-							src.items_general.Add(S) //this has the rampage-ey items removed, at least it should
+							src.items_general.Add(S) //removes rampage items, with the "exception" of the derringer
 
 					if (S.objective)
 						if (ownermind.objectives)

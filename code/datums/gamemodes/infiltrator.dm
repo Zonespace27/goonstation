@@ -6,10 +6,9 @@
 	shuttle_available = 1
 	var/agent_number = 1
 	var/list/datum/mind/infiltrators = list()
-	var/finished = 0
 	var/agent_radiofreq = 0 //:h for syndies, randomized per round
 	var/infiltratorlist = list()
-	var/const/agents_possible = 5 //If we ever need more syndicate agents. cogwerks - raised from 5 | Changed it back to 5 for balance reasons of RP and infils
+	var/const/agents_possible = 5 // Changed it back to 5 for balance reasons of RP and infils
 
 
 	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
@@ -26,7 +25,7 @@
 	var/list/possible_infiltrators = list()
 
 	if (!landmarks[LANDMARK_SYNDICATE])
-		boutput(world, "<span class='alert'><b>ERROR: couldn't find Syndicate spawn landmark, aborting infil round pre-setup.</b></span>")
+		boutput(world, "<span class='alert'><b>ERROR: couldn't find spawn (LANDMARK_SYNDICATE), aborting infil round pre-setup.</b></span>")
 		return 0
 
 	var/num_players = 0
@@ -44,7 +43,6 @@
 		boutput(world, "<span class='alert'><b>ERROR: couldn't assign any players as Syndicate operatives, aborting infil round pre-setup.</b></span>")
 		return 0
 
-	// now that we've done everything that could cause the round to fail to start (in this proc, at least), we can deal with antag tokens
 	token_players = antag_token_list()
 	for (var/datum/mind/tplayer in token_players)
 		if (!token_players.len)
@@ -95,12 +93,11 @@
 		ticker.mode.bestow_objective(synd_mind, pickedHighValue4Manta)
 		ticker.mode.bestow_objective(synd_mind, pickedHighValue5Manta)
 #endif
-		//bestow_objective(synd_mind,/datum/objective/specialist/infiltrator/stealhighvalue)
 
 		var/obj_count = 1
 		boutput(synd_mind.current, "<span class='notice'>You are a [infiltrator_name()] agent!</span>")
 		for(var/datum/objective/objective in synd_mind.objectives)
-			boutput(synd_mind.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]") // I figure this'll be needed to add objectives
+			boutput(synd_mind.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 			obj_count++
 
 		boutput(synd_mind.current, "We a number of objectives that need to be completed discreetly on [station_name(1)].")
@@ -130,7 +127,8 @@
 
 	for(var/turf/T in landmarks[LANDMARK_SYNDICATE_GEAR_CLOSET])
 		new /obj/storage/closet/syndicate/personal(T)
-/*	for(var/turf/T in landmarks[LANDMARK_SYNDICATE_BREACHING_CHARGES])
+/*	removed these for the sake of a "stealth" team not really needing breaches, leaving them pre-merge
+for(var/turf/T in landmarks[LANDMARK_SYNDICATE_BREACHING_CHARGES])
 		for(var/i = 1 to 5)
 			new /obj/item/breaching_charge/thermite(T)*/
 

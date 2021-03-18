@@ -649,24 +649,6 @@ proc/create_fluff(var/datum/mind/target)
 			if (N && istype(N) && (N.finished == -1 || N.finished == -2))
 				return 1
 		return 0
-/*
-/datum/objective/specialist/infiltrator/killcapandhos
-	explanation_text = "Assassinate [captain.current.real_name], the Captain and [.current.real_name] Head of Security."
-	var/list/targets = list("Captain", "Head of Security")
-
-	check_completion()
-		for (var/datum/mind/M in ticker.minds)
-			if (!M.current)
-				continue
-			if (M.current == owner.current)
-				continue
-			if (!(M.assigned_role in targets))
-				continue
-			if (!isdead(M.current) && iscarbon(M.current))
-				return 0
-
-		return 1
-*/
 /datum/objective/specialist/infiltrator/assassinatecaptain
 	var/datum/mind/target
 	var/targetname
@@ -768,82 +750,6 @@ proc/create_fluff(var/datum/mind/target)
 
 		explanation_text = objective_text
 		targetname = target.current.real_name
-
-/*
-/datum/objective/specialist/infiltrator/stealhighvalue
-	var/obj/item/steal_target = list()
-	var/target_name
-	var/amount_theft
-	var/theft_list
-	var/stolen_amount
-#ifdef MAP_OVERRIDE_MANTA
-	set_up()
-		var/list/items = list("Head of Security\'s beret", "authentication disk",
-		"\'freeform\' AI module", "mainframe memory board",  "aurora MKII utility belt", "Head of Security\'s war medal", "Research Director\'s Diploma", "Medical Director\'s Medical License", "Head of Personnel\'s First Bill")
-		theft_list =  "The Head of Security\'s Beret, Nuclear Authentication Disk, the \'Freeform\' AI Module, a Mainframe Memory Board, the Aurora MKII Utility Belt, the Research Director\'s Diploma, the Medical Director\'s Medical License, and the Head of Personnel\'s First Bill."
-		target_name = pick(items)
-		amount_theft = 5
-		switch(target_name)
-			if("Head of Security\'s beret")
-				steal_target = /obj/item/clothing/head/helmet/HoS
-			if("authentication disk")
-				steal_target = /obj/item/disk/data/floppy/read_only/authentication
-			if("\'freeform\' AI module")
-				steal_target = /obj/item/aiModule/freeform
-			if("mainframe memory board")
-				steal_target = /obj/item/disk/data/memcard/main2
-			if("aurora MKII utility belt")
-				steal_target = /obj/item/storage/belt/utility/prepared/ceshielded
-			if("Head of Security\'s war medal")
-				steal_target = /obj/item/clothing/suit/hosmedal
-			if("Research Director\'s Diploma")
-				steal_target = /obj/item/rddiploma
-			if("Medical Director\'s Medical License")
-				steal_target = /obj/item/mdlicense
-			if("Head of Personnel\'s First Bill")
-				steal_target = /obj/item/firstbill
-#else
-	set_up()
-		var/list/items = list("Head of Security\'s beret", "authentication disk",
-		"\'freeform\' AI module", "mainframe memory board", "aurora MKII utility belt", "golden crayon")
-		theft_list = "The Head of Security\'s Beret, Nuclear Authentication Disk, the \'Freeform\' AI Module, a Mainframe Memory Board, the Aurora MKII Utility Belt, and the Head of Personnel's Golden Crayon"
-		amount_theft = 3
-		target_name = pick(items)
-		switch(target_name)
-			if("Head of Security\'s beret")
-				steal_target += /obj/item/clothing/head/helmet/HoS
-			if("authentication disk")
-				steal_target += /obj/item/disk/data/floppy/read_only/authentication
-			if("\'freeform\' AI module")
-				steal_target += /obj/item/aiModule/freeform
-			if("mainframe memory board")
-				steal_target += /obj/item/disk/data/memcard/main2
-			if("aurora MKII utility belt")
-				steal_target += /obj/item/storage/belt/utility/prepared/ceshielded
-			if("golden crayon")
-				steal_target += /obj/item/pen/crayon/golden
-#endif
-
-		explanation_text = "Steal at least [amount_theft] of the following; [theft_list]."
-	check_completion()
-		if(owner.current && owner.current.check_contents_for(/obj/item/clothing/head/helmet/HoS, 1, 1))
-			stolen_amount += 1
-		if(owner.current && owner.current.check_contents_for(/obj/item/disk/data/floppy/read_only/authentication, 1, 1))
-			stolen_amount += 1
-		if(owner.current && owner.current.check_contents_for(/obj/item/aiModule/freeform, 1, 1))
-			stolen_amount += 1
-		if(owner.current && owner.current.check_contents_for(/obj/item/disk/data/memcard/main2, 1, 1))
-			stolen_amount += 1
-		if(owner.current && owner.current.check_contents_for(/obj/item/storage/belt/utility/prepared/ceshielded, 1, 1))
-			stolen_amount += 1
-		if(owner.current && owner.current.check_contents_for(/obj/item/pen/crayon/golden, 1, 1))
-			stolen_amount += 1
-		if(stolen_amount >= 1)
-			command_alert("It worked, probably", "Yay")
-			return 1
-		else
-			command_alert("Shit's broke, dumbass", "FUCK")
-			return 0 */
 
 /datum/objective/specialist/infiltrator/stealhighvalue
 	var/obj/item/steal_target
