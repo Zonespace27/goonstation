@@ -110,9 +110,6 @@
 			equip_infiltrator(synd_mind.current, 1)
 			if (ishuman(synd_mind.current))
 				var/mob/living/carbon/human/M = synd_mind.current
-				M.equip_if_possible(new /obj/item/pinpointer/disk(M), M.slot_in_backpack)
-			else
-				new /obj/item/pinpointer/disk(synd_mind.current.loc)
 			leader_selected = 1
 		else
 			synd_mind.current.set_loc(pick_landmark(LANDMARK_SYNDICATE))
