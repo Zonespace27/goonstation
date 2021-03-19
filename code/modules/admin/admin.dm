@@ -784,7 +784,7 @@ var/global/noir = 0
 							<A href='?src=\ref[src];action=[cmd];type=mixed_rp'>Mixed (Mild)</A><br>
 							<A href='?src=\ref[src];action=[cmd];type=traitor'>Traitor</A><br>
 							<A href='?src=\ref[src];action=[cmd];type=nuclear'>Nuclear Emergency</A><br>
-							<A href='?src=\ref[src]:action=[cmd];type=infiltrator'>Infiltrator</A><br>
+							<A href='?src=\ref[src];action=[cmd];type=infiltrator'>Infiltrator</A><br>
 							<A href='?src=\ref[src];action=[cmd];type=wizard'>Wizard</A><br>
 							<A href='?src=\ref[src];action=[cmd];type=changeling'>Changeling</A><br>
 							<A href='?src=\ref[src];action=[cmd];type=vampire'>Vampire</A><br>
