@@ -266,36 +266,6 @@
 	synd_mob.equip_if_possible(new /obj/item/requisition_token/syndicate(synd_mob), synd_mob.slot_r_store)
 	synd_mob.equip_if_possible(new /obj/item/tank/emergency_oxygen(synd_mob), synd_mob.slot_l_store)
 
-/proc/equip_infiltrator(mob/living/carbon/human/synd_mob, var/leader = 0)
-	if (!ishuman(synd_mob))
-		return
-
-	if(leader == 1)
-		synd_mob.equip_if_possible(new /obj/item/clothing/head/helmet/space/syndicate/commissar_cap(synd_mob), synd_mob.slot_head)
-		synd_mob.equip_if_possible(new /obj/item/clothing/suit/space/syndicate/commissar_greatcoat(synd_mob), synd_mob.slot_wear_suit)
-		synd_mob.equip_if_possible(new /obj/item/device/radio/headset/syndicate/leader(synd_mob), synd_mob.slot_ears)
-		synd_mob.equip_if_possible(new /obj/item/katana_sheath/nukeop(synd_mob), synd_mob.slot_l_hand)
-	else
-		//synd_mob.equip_if_possible(new /obj/item/clothing/head/helmet/swat(synd_mob), synd_mob.slot_head)
-		//synd_mob.equip_if_possible(new /obj/item/clothing/suit/armor/vest(synd_mob), synd_mob.slot_wear_suit)
-		synd_mob.equip_if_possible(new /obj/item/device/radio/headset/syndicate(synd_mob), synd_mob.slot_ears)
-
-	//synd_mob.equip_if_possible(new /obj/item/reagent_containers/pill/tox(synd_mob), synd_mob.slot_in_backpack)
-	synd_mob.equip_if_possible(new /obj/item/clothing/under/misc/syndicate(synd_mob), synd_mob.slot_w_uniform)
-	synd_mob.equip_if_possible(new /obj/item/clothing/shoes/swat(synd_mob), synd_mob.slot_shoes)
-	synd_mob.equip_if_possible(new /obj/item/clothing/gloves/swat(synd_mob), synd_mob.slot_gloves)
-	synd_mob.equip_if_possible(new /obj/item/storage/backpack/syndie/tactical(synd_mob), synd_mob.slot_back)
-	synd_mob.equip_if_possible(new /obj/item/clothing/mask/breath(synd_mob), synd_mob.slot_wear_mask)
-	synd_mob.equip_if_possible(new /obj/item/clothing/glasses/sunglasses(synd_mob), synd_mob.slot_glasses)
-	synd_mob.equip_if_possible(new /obj/item/requisition_token/syndicate/infiltrator(synd_mob), synd_mob.slot_r_store)
-	synd_mob.equip_if_possible(new /obj/item/tank/emergency_oxygen(synd_mob), synd_mob.slot_l_store)
-/*
-	var/obj/item/uplink/syndicate/U = new /obj/item/uplink/syndicate/alternate(synd_mob)
-	if (synd_mob.mind && istype(synd_mob.mind))
-		U.setup(synd_mob.mind)
-	synd_mob.equip_if_possible(U, synd_mob.slot_r_store)
-*/
-
 	var/obj/item/card/id/syndicate/I = new /obj/item/card/id/syndicate(synd_mob) // for whatever reason, this is neccessary
 	if(leader)
 		I = new /obj/item/card/id/syndicate/commander(synd_mob)
@@ -312,6 +282,53 @@
 	if (ticker?.mode && istype(ticker.mode, /datum/game_mode/nuclear))
 		var/datum/game_mode/nuclear/N = ticker.mode
 		the_frequency = N.agent_radiofreq
+
+	for (var/obj/item/device/radio/headset/R in synd_mob.contents)
+		R.set_secure_frequency("h", the_frequency)
+
+		R.secure_classes = list(RADIOCL_SYNDICATE)
+		R.protected_radio = 1 // Ops can spawn with the deaf trait.
+		R.frequency = the_frequency // let's see if this stops rounds from being ruined every fucking time
+
+	return
+
+/proc/equip_infiltrator(mob/living/carbon/human/synd_mob, var/leader = 0)
+	if (!ishuman(synd_mob))
+		return
+
+	if(leader == 1)
+		synd_mob.equip_if_possible(new /obj/item/clothing/head/helmet/space/syndicate/commissar_cap(synd_mob), synd_mob.slot_head) //It may not be discreet, but goddamn does this coat look good
+		synd_mob.equip_if_possible(new /obj/item/clothing/suit/space/syndicate/commissar_greatcoat(synd_mob), synd_mob.slot_wear_suit)
+		synd_mob.equip_if_possible(new /obj/item/device/radio/headset/syndicate/leader(synd_mob), synd_mob.slot_ears)
+		synd_mob.equip_if_possible(new /obj/item/katana_sheath/nukeop(synd_mob), synd_mob.slot_l_hand)
+	else
+		synd_mob.equip_if_possible(new /obj/item/device/radio/headset/syndicate(synd_mob), synd_mob.slot_ears)
+	synd_mob.equip_if_possible(new /obj/item/clothing/under/misc/syndicate(synd_mob), synd_mob.slot_w_uniform)
+	synd_mob.equip_if_possible(new /obj/item/clothing/shoes/swat(synd_mob), synd_mob.slot_shoes)
+	synd_mob.equip_if_possible(new /obj/item/clothing/gloves/swat(synd_mob), synd_mob.slot_gloves)
+	synd_mob.equip_if_possible(new /obj/item/storage/backpack/syndie/tactical(synd_mob), synd_mob.slot_back)
+	synd_mob.equip_if_possible(new /obj/item/clothing/mask/breath(synd_mob), synd_mob.slot_wear_mask)
+	synd_mob.equip_if_possible(new /obj/item/clothing/glasses/sunglasses(synd_mob), synd_mob.slot_glasses)
+	synd_mob.equip_if_possible(new /obj/item/requisition_token/syndicate/infiltrator(synd_mob), synd_mob.slot_r_store)
+	synd_mob.equip_if_possible(new /obj/item/tank/emergency_oxygen(synd_mob), synd_mob.slot_l_store)
+
+	var/obj/item/card/id/syndicate/I = new /obj/item/card/id/syndicate(synd_mob) // for whatever reason, this is neccessary
+	if(leader)
+		I = new /obj/item/card/id/syndicate/commander(synd_mob)
+	I.icon_state = "id"
+	I.icon = 'icons/obj/items/card.dmi'
+	synd_mob.equip_if_possible(I, synd_mob.slot_wear_id)
+
+/* I don't think this is explicitly necessary for a stealth team
+	var/obj/item/implant/microbomb/M = new /obj/item/implant/microbomb(synd_mob)
+	M.implanted = 1
+	synd_mob.implant.Add(M)
+	M.implanted(synd_mob) */
+
+	var/the_frequency = R_FREQ_SYNDICATE
+	if (ticker?.mode && istype(ticker.mode, /datum/game_mode/infiltrator))
+		var/datum/game_mode/infiltrator/L = ticker.mode
+		the_frequency = L.agent_radiofreq
 
 	for (var/obj/item/device/radio/headset/R in synd_mob.contents)
 		R.set_secure_frequency("h", the_frequency)

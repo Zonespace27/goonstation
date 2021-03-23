@@ -517,6 +517,16 @@
 		/obj/item/clothing/suit/space/syndicate/specialist/sniper,
 		/obj/item/clothing/head/helmet/space/syndicate/specialist/sniper)
 
+	melee //wip, not ready for use
+		name = "Class Crate - Templar"
+		desc = "A crate containing a Specialist Operative loadout."
+		spawn_contents = list(/obj/item/heavy_power_sword,
+		/obj/item/syndicate_barrier,
+		/obj/item/clothing/shoes/magnetic,
+		/obj/item/clothing/suit/space/syndicate/heavy,
+		/obj/item/clothing/head/helmet/space/syndicate/specialist)
+
+  // Infiltration stuff here, don't mind me
 	stealth
 		name = "Infiltration Agent Crate - Stealth"
 		desc = "A crate containing a Infiltration Agent loadout."
@@ -552,20 +562,13 @@
 		name = "Infiltration Agent Crate - Wetwork"
 		desc = "A crate containing a Infiltration Agent loadout."
 		spawn_contents = list(/obj/item/storage/box/pistol,
+		/obj/item/clothing/under/misc/syndicateinfilsuit,
 		/obj/item/radiojammer,
 		/obj/item/garrote,
 		/obj/item/cloaking_device,
 		/obj/item/voice_changer
 		)
 
-	melee //wip, not ready for use
-		name = "Class Crate - Templar"
-		desc = "A crate containing a Specialist Operative loadout."
-		spawn_contents = list(/obj/item/heavy_power_sword,
-		/obj/item/syndicate_barrier,
-		/obj/item/clothing/shoes/magnetic,
-		/obj/item/clothing/suit/space/syndicate/heavy,
-		/obj/item/clothing/head/helmet/space/syndicate/specialist)
 
 	qm //Hi Gannets, I like your crate and wanted to use it for some QM stuff. Come yell at Azungar if this is not ok.
 		name = "Weapons crate"

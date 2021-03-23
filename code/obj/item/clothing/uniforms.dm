@@ -708,6 +708,18 @@
 	icon_state = "syndicate"
 	item_state = "syndicate"
 
+/obj/item/clothing/under/misc/syndicateinfilsuit
+	name = "Infiltration Jumpsuit"
+	desc = "A thermally insulated and slightly armored jumpsuit suited for infiltration ops."
+	icon_state = "syndicateinfilsuit"
+	item_state = "syndicateinfilsuit"
+	setupProperties()
+		..()
+		setProperty("coldprot", 45)
+		setProperty("heatprot", 45)
+		setProperty("rangedprot", 2)
+		setProperty("meleeprot", 6)
+
 /obj/item/clothing/under/misc/turds
 	name = "NT-SO Jumpsuit"
 	desc = "A Nanotrasen Special Operations jumpsuit."

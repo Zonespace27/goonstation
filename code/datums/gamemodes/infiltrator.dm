@@ -9,8 +9,6 @@
 	var/agent_radiofreq = 0 //:h for syndies, randomized per round
 	var/infiltratorlist = list()
 	var/const/agents_possible = 5 // Changed it back to 5 for balance reasons of RP and infils
-
-
 	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 	var/token_players_assigned = 0
@@ -40,7 +38,7 @@
 	possible_infiltrators = get_possible_infiltrators(num_infil)
 
 	if (!islist(possible_infiltrators) || possible_infiltrators.len < 1)
-		boutput(world, "<span class='alert'><b>ERROR: couldn't assign any players as Syndicate operatives, aborting infil round pre-setup.</b></span>")
+		boutput(world, "<span class='alert'><b>ERROR: couldn't assign any players as syndicate infiltrators, aborting infil round pre-setup.</b></span>")
 		return 0
 
 	token_players = antag_token_list()
@@ -108,8 +106,6 @@
 				synd_mind.current.set_loc(pick_landmark(LANDMARK_SYNDICATE))
 			synd_mind.current.real_name = "[infiltrator_name()] [leader_title]"
 			equip_infiltrator(synd_mind.current, 1)
-			if (ishuman(synd_mind.current))
-				var/mob/living/carbon/human/M = synd_mind.current
 			leader_selected = 1
 		else
 			synd_mind.current.set_loc(pick_landmark(LANDMARK_SYNDICATE))
@@ -124,7 +120,7 @@
 
 	for(var/turf/T in landmarks[LANDMARK_SYNDICATE_GEAR_CLOSET])
 		new /obj/storage/closet/syndicate/personal(T)
-/*	removed these for the sake of a "stealth" team not really needing breaches, leaving them pre-merge
+/*	removed these for the sake of a "stealth" team not really needing breaches, leaving them just in case
 for(var/turf/T in landmarks[LANDMARK_SYNDICATE_BREACHING_CHARGES])
 		for(var/i = 1 to 5)
 			new /obj/item/breaching_charge/thermite(T)*/

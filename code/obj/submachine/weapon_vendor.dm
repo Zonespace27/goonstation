@@ -508,31 +508,31 @@
 	name = "Stealth Agent"
 	path = /obj/storage/crate/classcrate/stealth
 	category = "Assistant"
-	description = "Change Me"
+	description = "Wiretap Radio Upgrade, DNA Scrambler, Sleepy Pen, a Stealth Container, Signal Jammer, and a Chameleon Jumpsuit, perfect for the average stealthy operator."
 
 /datum/materiel/assistant/diversion
 	name = "Diversion Agent"
 	path = /obj/storage/crate/classcrate/diversion
 	category = "Assistant"
-	description = "Change Me"
+	description = "Includes everything needed to cause a distraction: A SounDreams PRO and detomatix cartridge, a Kudzu Seed, Light Breaker, voice changer, and a backup derringer."
 
 /datum/materiel/assistant/saboteur
 	name = "Saboteur Agent"
 	path = /obj/storage/crate/classcrate/saboteur
 	category = "Assistant"
-	description = "Change Me"
+	description = "Cripple the station with this crate, includes: A Power Sink, EMAG, EMP Grenades, holographic disguiser, and a dagger."
 
 /datum/materiel/assistant/wetwork
 	name = "Wetwork Agent"
 	path = /obj/storage/crate/classcrate/wetwork
 	category = "Assistant"
-	description = "Change Me"
+	description = "For when you need to get up close and personal. Has: Infiltration Jumpsuit, .22 Silenced Pistol, Fibre Wire, Signal Jammer, Cloaking Device, and a voice changer."
 
 /datum/materiel/assistant/customstealth
 	name = "Syndicate Custom Stealth Uplink"
 	path = /obj/item/uplink/syndicateinfil
 	category = "Assistant"
-	description = "Change Me"
+	description = "A modified syndicate uplink containing 12 telecrystals, allowing you to choose your loadout."
 
 // Requisition tokens
 
