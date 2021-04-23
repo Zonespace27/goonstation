@@ -923,7 +923,7 @@
 
 /datum/commodity/contraband/hosberet
 	comname = "Head of Security Beret"
-	comtype = /obj/item/clothing/head/helmet/HoS
+	comtype = /obj/item/clothing/head/hos_hat
 	desc = "The beloved beret of an NT HoS."
 	price = 10000
 	baseprice = 10000
@@ -2748,3 +2748,12 @@
 	baseprice = 2000
 	upperfluc = 1700
 	lowerfluc = -1700
+
+/datum/commodity/expensive_card
+	comname = "Incredibly Expensive Card"
+	desc = "Wow...people really pay a lot for these cards..."
+	comtype = /obj/item/playing_card/expensive
+	onmarket = 1
+	price = 21000
+	upperfluc = 20000
+	lowerfluc = -28500

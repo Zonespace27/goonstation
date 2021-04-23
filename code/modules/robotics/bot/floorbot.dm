@@ -10,7 +10,7 @@
 	throwforce = 10.0
 	throw_speed = 2
 	throw_range = 5
-	w_class = 3.0
+	w_class = W_CLASS_NORMAL
 	flags = TABLEPASS
 
 /obj/item/toolbox_tiles_sensor
@@ -22,7 +22,7 @@
 	throwforce = 10.0
 	throw_speed = 2
 	throw_range = 5
-	w_class = 3.0
+	w_class = W_CLASS_NORMAL
 	flags = TABLEPASS
 
 //Floorbot
@@ -309,14 +309,14 @@
 		src.search_range = 1
 
 		// are we there yet
-		if (get_turf(src.loc) == get_turf(src.target))
+		if (IN_RANGE(get_turf(src), get_turf(src.target), 1))
 			do_the_thing()
 			return
 
 		// we are not there. how do we get there
-		if (!src.path || !src.path.len)
+		if (!src.path || !length(src.path))
 			src.navigate_to(get_turf(src.target), FLOORBOT_MOVE_SPEED, max_dist = 120)
-			if (!src.path || !src.path.len)
+			if (!src.path || !length(src.path))
 				// answer: we don't. try to find something else then.
 				src.KillPathAndGiveUp(1)
 	else // No targets found in range? Increase the range!
@@ -528,7 +528,7 @@
 		if (new_tile)
 			// Make a new tile
 			var/obj/item/tile/T = new /obj/item/tile/steel
-			T.build(master.loc)
+			T.build(target)
 		else
 			// Fix yo shit
 			var/turf/simulated/floor/F = target

@@ -233,7 +233,7 @@
 		if(src.traitHolder)
 			for(var/T in src.traitHolder.traits)
 				var/obj/trait/O = getTraitById(T)
-				O.onLife(src)
+				O.onLife(src, life_mult)
 
 		update_icons_if_needed()
 
@@ -684,17 +684,7 @@
 		// calculate 0-100% insulation from rads
 		if (!src)
 			return 0
-
-		var/rad_protection = 0
-
-		// Resistance from Clothing
-		rad_protection += GET_MOB_PROPERTY(src, PROP_RADPROT)
-
-		if (bioHolder?.HasEffect("food_rad_resist"))
-			rad_protection += 100
-
-		rad_protection = clamp(rad_protection, 0, 100)
-		return rad_protection
+		return clamp(GET_MOB_PROPERTY(src, PROP_RADPROT), 0, 100)
 
 	get_ranged_protection()
 		if (!src)
@@ -714,23 +704,18 @@
 		var/a_zone = zone
 		if (a_zone in list("l_leg", "r_arm", "l_leg", "r_leg"))
 			a_zone = "chest"
-		if(a_zone=="All")
-			protection=(5*get_melee_protection("chest",damage_type)+get_melee_protection("head",damage_type))/6
-
-		else
-
 			//protection from clothing
-			if (a_zone == "chest")
-				protection = GET_MOB_PROPERTY(src, PROP_MELEEPROT_BODY)
-			else //can only be head
-				protection = GET_MOB_PROPERTY(src, PROP_MELEEPROT_HEAD)
-			protection += GET_MOB_PROPERTY(src, PROP_ENCHANT_ARMOR)/2
-			//protection from blocks
-			var/obj/item/grab/block/G = src.check_block()
-			if (G)
-				protection += 1
-				if (G != src.equipped()) // bare handed block is less protective
-					protection += G.can_block(damage_type)
+		if(a_zone == "All")
+			protection = (5 * GET_MOB_PROPERTY(src, PROP_MELEEPROT_BODY) + GET_MOB_PROPERTY(src, PROP_MELEEPROT_HEAD))/6
+		if (a_zone == "chest")
+			protection = GET_MOB_PROPERTY(src, PROP_MELEEPROT_BODY)
+		else //can only be head
+			protection = GET_MOB_PROPERTY(src, PROP_MELEEPROT_HEAD)
+		protection += GET_MOB_PROPERTY(src, PROP_ENCHANT_ARMOR)/2
+		//protection from blocks
+		var/obj/item/grab/block/G = src.check_block()
+		if (G && damage_type)
+			protection += G.can_block(damage_type)
 
 		if (isnull(protection)) //due to GET_MOB_PROPERTY returning null if it doesnt exist
 			protection = 0
