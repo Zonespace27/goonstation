@@ -3,8 +3,8 @@
 	config_tag = "blob"
 	shuttle_available = 2
 
-	var/const/blobs_minimum = 2
-	var/const/blobs_possible = 3
+	var/const/blobs_minimum = 1
+	var/const/blobs_possible = 2
 	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 	var/finish_counter = 0
@@ -24,8 +24,8 @@
 		if(player.ready)
 			num_players++
 
-	var/i = rand(-5, 0)
-	var/num_blobs = max(2, min(round((num_players + i) / 20), blobs_possible))
+	var/i = rand(-1, 2)
+	var/num_blobs = max(1, min(round((num_players + i) / 10), blobs_possible))
 
 	var/list/possible_blobs = get_possible_blobs(num_blobs)
 

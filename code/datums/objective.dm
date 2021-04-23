@@ -670,6 +670,25 @@ proc/create_fluff(var/datum/mind/target)
 
 		return 1
 
+/datum/objective/spy_theft/assasinate
+	explanation_text = "Identify, locate, and terminate the other spy on the station."
+
+	check_completion()
+		for (var/datum/mind/M in ticker.mode.traitors)
+			if (owner == M)
+				continue
+			if (!M.current)
+				continue
+			if(isghostcritter(M.current))
+				continue
+			if (isrobot(M.current))
+				continue
+			if (!isdead(M.current))
+				return 0
+
+
+		return 1
+
 /datum/objective/specialist/absorb
 	var/absorb_count
 
@@ -1561,7 +1580,7 @@ ABSTRACT_TYPE(/datum/objective/conspiracy)
 ///datum/objective_set/spy_theft/vigilante
 //	objective_list = list(/datum/objective/spy_theft/assasinate)
 //	escape_choices = list(/datum/objective/escape/survive)
-
+/*
 /datum/objective_set/spy_theft/bodyguard_gimmick
 	objective_list = list(/datum/objective/regular/assassinate/bodyguard,/datum/objective/regular/assassinate/bodyguard,/datum/objective/regular/gimmick)
 	escape_choices = list(/datum/objective/escape/survive)
@@ -1581,3 +1600,6 @@ ABSTRACT_TYPE(/datum/objective/conspiracy)
 /datum/objective_set/spy_theft/stealy
 	objective_list = list(/datum/objective/regular/gimmick,/datum/objective/regular/steal)
 	escape_choices = list(/datum/objective/escape)
+*/
+/datum/objective_set/spy_theft/spyvsspy
+	objective_list = list(/datum/objective/spy_theft/assasinate)

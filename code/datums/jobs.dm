@@ -205,7 +205,7 @@ ABSTRACT_TYPE(/datum/job/command)
 
 /datum/job/command/head_of_personnel
 	name = "Head of Personnel"
-	limit = 1
+	limit = 0
 	wages = PAY_IMPORTANT
 
 	allow_spy_theft = 0
@@ -238,9 +238,9 @@ ABSTRACT_TYPE(/datum/job/command)
 
 /datum/job/command/head_of_security
 	name = "Head of Security"
-	limit = 1
+	limit = 0
 	wages = PAY_IMPORTANT
-	requires_whitelist = 1
+	requires_whitelist = 0
 	recieves_miranda = 1
 	allow_traitors = 0
 	allow_spy_theft = 0
@@ -459,9 +459,9 @@ ABSTRACT_TYPE(/datum/job/security)
 /datum/job/security/security_officer
 	name = "Security Officer"
 #ifdef MAP_OVERRIDE_MANTA
-	limit = 4
+	limit = 1
 #else
-	limit = 5
+	limit = 0
 #endif
 	wages = PAY_TRADESMAN
 	allow_traitors = 0
@@ -497,7 +497,7 @@ ABSTRACT_TYPE(/datum/job/security)
 
 	assistant
 		name = "Security Assistant"
-		limit = 3
+		limit = 0
 		cant_spawn_as_con = 1
 		wages = PAY_UNTRAINED
 		slot_jump = /obj/item/clothing/under/rank/security/assistant
@@ -538,9 +538,11 @@ ABSTRACT_TYPE(/datum/job/security)
 	name = "Detective"
 	limit = 1
 	wages = PAY_TRADESMAN
-	//allow_traitors = 0
+	allow_traitors = 0
+	high_priority_job = 1
 	receives_badge = 1
 	cant_spawn_as_rev = 1
+	recieves_implant = /obj/item/implant/health/security/anti_mindslave
 	slot_back = /obj/item/storage/backpack/withO2
 	slot_belt = /obj/item/storage/belt/security/shoulder_holster
 	slot_poc1 = /obj/item/device/pda2/forensic
@@ -548,6 +550,7 @@ ABSTRACT_TYPE(/datum/job/security)
 	slot_foot = /obj/item/clothing/shoes/detective
 	slot_head = /obj/item/clothing/head/det_hat
 	slot_glov = /obj/item/clothing/gloves/black
+	slot_eyes = /obj/item/clothing/glasses/sunglasses/sechud
 	slot_suit = /obj/item/clothing/suit/det_suit
 	slot_ears = /obj/item/device/radio/headset/detective
 	items_in_backpack = list(/obj/item/clothing/glasses/vr,/obj/item/storage/box/detectivegun)
@@ -575,7 +578,7 @@ ABSTRACT_TYPE(/datum/job/research)
 
 /datum/job/research/geneticist
 	name = "Geneticist"
-	limit = 2
+	limit = 1
 	wages = PAY_DOCTORATE
 	slot_belt = /obj/item/device/pda2/genetics
 	slot_jump = /obj/item/clothing/under/rank/geneticist
@@ -618,7 +621,7 @@ ABSTRACT_TYPE(/datum/job/research)
 
 /datum/job/research/roboticist
 	name = "Roboticist"
-	limit = 3
+	limit = 2
 	wages = 200
 	slot_belt = /obj/item/device/pda2/medical/robotics
 	slot_jump = /obj/item/clothing/under/rank/roboticist
@@ -643,7 +646,7 @@ ABSTRACT_TYPE(/datum/job/research)
 
 /datum/job/research/scientist
 	name = "Scientist"
-	limit = 5
+	limit = 2
 	wages = PAY_DOCTORATE
 	slot_belt = /obj/item/device/pda2/toxins
 	slot_jump = /obj/item/clothing/under/rank/scientist
@@ -661,7 +664,7 @@ ABSTRACT_TYPE(/datum/job/research)
 
 /datum/job/research/medical_doctor
 	name = "Medical Doctor"
-	limit = 5
+	limit = 2
 	wages = PAY_DOCTORATE
 	slot_back = /obj/item/storage/backpack/medic
 	slot_belt = /obj/item/storage/belt/medical
@@ -715,7 +718,7 @@ ABSTRACT_TYPE(/datum/job/engineering)
 	name = "Construction Worker"
 	allow_traitors = 0
 	cant_spawn_as_rev = 1
-	limit = 1
+	limit = 0
 	wages = PAY_TRADESMAN
 
 	slot_back = /obj/item/storage/backpack/withO2
@@ -753,7 +756,7 @@ ABSTRACT_TYPE(/datum/job/engineering)
 
 /datum/job/engineering/quartermaster
 	name = "Quartermaster"
-	limit = 3
+	limit = 1
 	wages = PAY_TRADESMAN
 	slot_glov = /obj/item/clothing/gloves/black
 	slot_foot = /obj/item/clothing/shoes/black
@@ -769,7 +772,7 @@ ABSTRACT_TYPE(/datum/job/engineering)
 
 /datum/job/engineering/miner
 	name = "Miner"
-	limit = 3
+	limit = 1
 	wages = PAY_TRADESMAN
 	slot_back = /obj/item/storage/backpack/withO2
 	slot_belt = /obj/item/device/pda2/mining
@@ -796,7 +799,7 @@ ABSTRACT_TYPE(/datum/job/engineering)
 
 /datum/job/engineering/mechanic
 	name = "Mechanic"
-	limit = 3
+	limit = 2
 	wages = PAY_DOCTORATE
 
 	slot_back = /obj/item/storage/backpack/withO2
@@ -815,11 +818,7 @@ ABSTRACT_TYPE(/datum/job/engineering)
 
 /datum/job/engineering/engineer
 	name = "Engineer"
-#ifdef MAP_OVERRIDE_MANTA
-	limit = 4
-#else
-	limit = 5
-#endif
+	limit = 2
 	wages = PAY_TRADESMAN
 	slot_back = /obj/item/storage/backpack/withO2
 	slot_belt = /obj/item/storage/belt/utility/prepared
@@ -913,9 +912,9 @@ ABSTRACT_TYPE(/datum/job/civilian)
 /datum/job/civilian/botanist
 	name = "Botanist"
 	#ifdef MAP_OVERRIDE_DONUT3
-	limit = 7
+	limit = 3
 	#else
-	limit = 5
+	limit = 2
 	#endif
 	wages = PAY_TRADESMAN
 	slot_belt = /obj/item/device/pda2/botanist
@@ -932,7 +931,7 @@ ABSTRACT_TYPE(/datum/job/civilian)
 
 /datum/job/civilian/rancher
 	name = "Rancher"
-	limit = 1
+	limit = 0
 	wages = PAY_TRADESMAN
 	slot_belt = /obj/item/device/pda2/botanist
 	slot_jump = /obj/item/clothing/under/rank/rancher
@@ -1056,7 +1055,7 @@ ABSTRACT_TYPE(/datum/job/civilian)
 /datum/job/civilian/cyborg
 	name = "Cyborg"
 	linkcolor = "#999999"
-	limit = 8
+	limit = 2
 	no_late_join = 1
 	allow_traitors = 0
 	cant_spawn_as_rev = 1

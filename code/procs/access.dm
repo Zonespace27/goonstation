@@ -281,7 +281,16 @@
 		if("Security Assistant")
 			return list(access_security, access_carrypermit, access_contrabandpermit, access_brig, access_maint_tunnels)
 		if("Detective", "Forensic Technician")
-			return list(access_brig, access_carrypermit, access_contrabandpermit, access_security, access_forensics_lockers, access_morgue, access_maint_tunnels, access_crematorium, access_medical, access_research)
+			return list(access_security, access_brig, access_forensics_lockers, access_armory,
+				access_medical, access_medlab, access_morgue, access_securitylockers,
+				access_tox, access_tox_storage, access_chemistry, access_carrypermit, access_contrabandpermit,
+				access_emergency_storage, access_chapel_office, access_kitchen, access_medical_lockers,
+				access_bar, access_janitor, access_crematorium, access_robotics, access_cargo, access_construction, access_hydro, access_mail,
+				access_engineering, access_maint_tunnels, access_external_airlocks,
+				access_tech_storage, access_engineering_storage, access_engineering_eva,
+				access_engineering_power, access_engineering_engine, access_mining_shuttle,
+				access_engineering_control, access_engineering_mechanic, access_mining, access_mining_outpost,
+				access_research, access_engineering_atmos, access_hangar, access_ranch, access_pathology)
 		if("Lawyer")
 			return list(access_maint_tunnels, access_security, access_brig)
 

@@ -1,6 +1,8 @@
 /datum/game_mode/spy_theft
 	name = "spy_thief"
 	config_tag = "spy_theft"
+	#define INCLUDE_ANTAGS 1
+	#define STRIP_ANTAG 1
 
 	//maybe not??
 	//latejoin_antag_compatible = 1
@@ -8,10 +10,10 @@
 	var/const/waittime_l = 600
 	var/const/waittime_h = 1800
 
-	var/const/bounty_refresh_interval = 25 MINUTES
+	var/const/bounty_refresh_interval = 15 MINUTES
 	var/last_refresh_time = 0
 
-	var/const/spies_possible = 7
+	var/const/spies_possible = 10 //change me to two dunbass
 
 	var/list/station_bounties = list() // on-station items that can have bounties placed on them, pair list
 	var/list/big_station_bounties = list() // on-station machines/other big objects that can have bounties placed on them, pair list
@@ -19,11 +21,11 @@
 	var/list/organ_bounties = list() // things that belong to people that are on the inside
 	var/list/photo_bounties = list() // photos of people (Operates by text, because that's the only info that photos store)
 
-	var/const/organ_bounty_amt = 4
-	var/const/person_bounty_amt = 5
-	var/const/photo_bounty_amt = 4
-	var/const/station_bounty_amt = 4
-	var/const/big_station_bounty_amt = 2
+	var/const/organ_bounty_amt = 2
+	var/const/person_bounty_amt = 3
+	var/const/photo_bounty_amt = 2
+	var/const/station_bounty_amt = 5 //change to 3 when done testing
+	var/const/big_station_bounty_amt = 5 //change to 2 when done testing
 
 	var/list/possible_areas = list()
 	var/list/active_bounties = list()
@@ -133,7 +135,7 @@
 
 /datum/game_mode/spy_theft/announce()
 	boutput(world, "<B>The current game mode is - Spy!</B>")
-	boutput(world, "<B>There are spies planted on [station_or_ship()]. They plan to steal valuables and assasinate rival spies  - Do not let them succeed!</B>")
+	boutput(world, "<B>There two spies planted on [station_or_ship()]. They plan to steal valuables and eliminate the other spy!</B>")
 
 /datum/game_mode/spy_theft/pre_setup()
 	var/num_players = 0
@@ -141,13 +143,13 @@
 		var/mob/new_player/player = C.mob
 		if (!istype(player)) continue
 
-		if(player.ready) num_players++
+		if(player.ready)
+			num_players++
 
-	var/randomizer = rand(0,6)
-	var/num_spies = 2 //minimum
+	var/num_spies = 1 //change me back, dumbass
 
 	if(traitor_scaling)
-		num_spies = max(2, min(round((num_players + randomizer) / 6), spies_possible))
+		num_spies = max(1, min(round(num_players / 6), spies_possible))//change / 6 to /10 when done
 
 	var/list/possible_spies = get_possible_spies(num_spies)
 
@@ -172,13 +174,9 @@
 	return 1
 
 /datum/game_mode/spy_theft/post_setup()
-	var/objective_set_path = null
 	for(var/datum/mind/spy in traitors)
-		objective_set_path = null // Gotta reset this.
+		bestow_objective(/datum/objective/spy_theft/assasinate)
 
-		objective_set_path = pick(typesof(/datum/objective_set/spy_theft))
-
-		new objective_set_path(spy)
 		SPAWN_DBG(1 SECOND) //dumb delay to avoid race condition where spy assignment bugs (can't find PDA)
 			equip_spy_theft(spy.current)
 
@@ -226,10 +224,37 @@
 		return candidates
 
 /datum/game_mode/spy_theft/process()
+	var/fatalities = 0
+	var/alive_count = 0
+	var/whilelooptrue = TRUE
 	..()
 	if (ticker.round_elapsed_ticks - last_refresh_time >= bounty_refresh_interval)
 		src.build_bounty_list()
 		src.update_bounty_readouts()
+
+	while(whilelooptrue)
+		for (var/datum/mind/M in ticker.minds)
+			if (M.current && istype(M.current,/mob/dead/observer/))
+				var/mob/dead/observer/O = M.current
+				if (O.observe_round)
+					continue
+
+			alive_count++
+
+			if (!M.current || (M.current && isdead(M.current))) // DEAD
+				fatalities++
+
+			if (alive_count == fatalities)
+				command_alert("An NT-SO squad is en route to [station_or_ship()], please take shelter while the situation is handled.", "Major Loss of Life Detected.")
+				sleep(60)
+				var/datum/special_respawn/SR = new /datum/special_respawn/
+				var/datum/job/job = /datum/job/special/ntso_specialist_weak
+				if(!job) return
+				var/amount = 5
+				if(!amount) return
+				SR.spawn_as_job(amount, job, INCLUDE_ANTAGS, STRIP_ANTAG)
+				logTheThing("admin", src, null, "has spawned [amount] players, and stripped any antag statuses.")
+				logTheThing("diary", src, null, "has spawned [amount] players, and stripped any antag statuses.", "admin")
 
 /datum/game_mode/spy_theft/send_intercept()
 	var/intercepttext = "Cent. Com. Update Requested status information:<BR>"
@@ -742,3 +767,5 @@
 			B.delivery_area = pick(possible_areas)
 
 	return
+#undef INCLUDE_ANTAGS
+#undef STRIP_ANTAG

@@ -49,14 +49,14 @@ proc/build_syndi_buylist_cache()
 /datum/syndicate_buylist/generic/pistol
 	name = "Suppressed .22 Pistol"
 	item = /obj/item/storage/box/pistol
-	cost = 3
+	cost = 4
 	desc = "A fairly weak yet sneaky pistol, it can still be heard but it won't alert anyone about who fired it."
 	blockedmode = list(/datum/game_mode/revolution)
 
 /datum/syndicate_buylist/generic/shotgun
 	name = "Shotgun"
 	item = /obj/item/storage/box/shotgun
-	cost = 8
+	cost = 10
 	desc = "Not exactly stealthy, but it'll certainly make an impression."
 	not_in_crates = 1
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/spy_theft, /datum/game_mode/revolution)
@@ -74,8 +74,6 @@ proc/build_syndi_buylist_cache()
 	cost = 3
 	desc = "Commonly used by special forces for silent removal of isolated targets. Ensure you are out of sight, apply to the target's neck from behind with a firm two-hand grip and wait for death to occur."
 	blockedmode = list(/datum/game_mode/revolution)
-
-
 
 /datum/syndicate_buylist/generic/empgrenades
 	name = "EMP Grenades"
@@ -186,7 +184,7 @@ proc/build_syndi_buylist_cache()
 /datum/syndicate_buylist/generic/esword
 	name = "Cyalume Saber"
 	item = /obj/item/sword
-	cost = 7
+	cost = 9
 	desc = "A powerful melee weapon, crafted using the latest in applied photonics! When inactive, it is small enough to fit in a pocket!"
 	not_in_crates = 1
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/spy_theft, /datum/game_mode/revolution)
@@ -194,15 +192,15 @@ proc/build_syndi_buylist_cache()
 /datum/syndicate_buylist/generic/katana
 	name = "Katana"
 	item = /obj/item/katana_sheath
-	cost = 7
+	cost = 9
 	desc = "A Japanese sword created in the fire of a dying star. Comes with a sheath for easier storage"
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
 
 /datum/syndicate_buylist/generic/wrestling
 	name = "Wrestling Belt"
 	item = /obj/item/storage/belt/wrestling
-	cost = 7
-	desc = "A haunted antique wrestling belt, imbued with the spirits of wrestlers past. Wearing it unlocks a number of wrestling moves, which can be accessed in a separate command tab."
+	cost = 8
+	desc = "A haunted antique wrestling belt, imbued with the spirits of wrestlers past. Wearing it unlocks a number of wrestling moves."
 	blockedmode = list(/datum/game_mode/revolution)
 
 /datum/syndicate_buylist/generic/spy_sticker_kit
@@ -287,21 +285,21 @@ proc/build_syndi_buylist_cache()
 /datum/syndicate_buylist/traitor/bowling
 	name = "Bowling Kit"
 	item = /obj/item/storage/bowling
-	cost = 7
+	cost = 8
 	desc = "Comes with several bowling balls and a suit. You won't be able to pluck up the courage to throw them very hard without wearing the suit!"
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
 
 /datum/syndicate_buylist/traitor/football
 	name = "Space-American Football Kit"
 	item = /obj/item/storage/football
-	cost = 7
+	cost = 8
 	desc = "This kit contains everything you need to become a great football player! Wearing all of the equipment inside will grant you the ability to rush down and tackle foes. You'll also make amazing throws!"
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
 
 /datum/syndicate_buylist/traitor/mindslave
 	name = "Mind Slave implant"
 	item = /obj/item/implanter/mindslave
-	cost = 3
+	cost = 4
 	vr_allowed = 0
 	desc = "Temporarily place an injected victim under your complete control! Faster and more effective than hypnotism! Warning: Implant effects are NOT indefinite."
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution) // Whatever you do, don't allow mindslave implants in spy or rev.
@@ -309,7 +307,7 @@ proc/build_syndi_buylist_cache()
 /datum/syndicate_buylist/traitor/deluxe_mindslave
 	name = "Deluxe Mind Slave implant"
 	item = /obj/item/implanter/super_mindslave
-	cost = 6
+	cost = 8
 	vr_allowed = 0
 	desc = "Place an injected victim under your complete control! Enhanced neurostimulators make this version last virtually indefinitely!"
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
@@ -392,12 +390,11 @@ This is basically useless for anyone but miners.
 /datum/syndicate_buylist/traitor/idtracker/spy
 	name = "Target ID Tracker (SPY)"
 	item = /obj/item/idtracker/spy
-	cost = 1
-	desc = "Allows you to track the IDs of all other antagonists, but only the ID. If they have changed or destroyed it, the pin pointer will not be useful."
+	cost = 8
+	desc = "Allows you to track the IDs of any other spies, but only the ID. If they have changed or destroyed it, the pin pointer will not be useful."
 	vr_allowed = 0
 	not_in_crates = 1
 	objective = /datum/objective/spy_theft/assasinate
-	blockedmode = list(/datum/game_mode/spy_theft) // Unused due to balance. Previously disabled by not_in_crates, now blocked directly
 
 	run_on_spawn(var/obj/item/idtracker/tracker,var/mob/living/owner, in_surplus_crate)
 		tracker.owner = owner
@@ -529,7 +526,7 @@ This is basically useless for anyone but miners.
 /datum/syndicate_buylist/traitor/contract
 	name = "Faustian Bargain Kit"
 	item = /obj/item/storage/briefcase/satan
-	cost = 8
+	cost = 7
 	desc = "Comes complete with three soul binding contracts, three extra-pointy pens, and one suit provided by Lucifer himself."
 	job = list("Chaplain")
 	not_in_crates = 1
@@ -562,7 +559,7 @@ This is basically useless for anyone but miners.
 /datum/syndicate_buylist/traitor/maneater
 	name = "Maneater Seed"
 	item = /obj/item/seed/maneater
-	cost = 1
+	cost = 3
 	desc = "A boon for the green-thumbed agent! Simply plant and nurture to raise your own faithful guard-plant! Feed me, Seymour!"
 	not_in_crates = 1
 	job = list("Botanist")
@@ -571,7 +568,7 @@ This is basically useless for anyone but miners.
 /datum/syndicate_buylist/traitor/saw
 	name = "Chainsaw"
 	item = /obj/item/saw/syndie
-	cost = 7
+	cost = 8
 	desc = "This old earth beauty is made by hand with strict attention to detail. Unlike today's competing botanical chainsaw, it actually cuts things!"
 	not_in_crates = 1
 	job = list("Botanist")
@@ -648,7 +645,7 @@ This is basically useless for anyone but miners.
 /datum/syndicate_buylist/traitor/stimulants
 	name = "Stimulants"
 	item = /obj/item/stimpack
-	cost = 4
+	cost = 9
 	desc = "When top agents need energy, they turn to our new line of X-Cite 500 stimulants. This all-natural* and worry-free** blend accelerates perception, endurance, and reaction time to superhuman levels! Shrug off even the cruelest of blows without a scratch! <br><br><font size=-1>*Contains less than 0.5 grams unnatural material per 0.49 gram serving.<br>**May cause dizziness, blurred vision, heart failure, renal compaction, adenoid calcification, or death. Women who are currently pregnant or may be pregnant should not handle X-Cite due to the risk of a specific birth defect.</font>"
 	job = list("Medical Doctor","Medical Director","Scientist","Geneticist","Pathologist","Research Director")
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
@@ -689,7 +686,7 @@ This is basically useless for anyone but miners.
 /datum/syndicate_buylist/traitor/poisonbundle
 	name = "Poison Bottle Bundle"
 	item = /obj/item/storage/box/poison
-	cost = 7
+	cost = 6
 	desc = "A box filled with seven random poison bottles."
 	job = list("Medical Doctor", "Medical Director", "Research Director", "Scientist", "Bartender")
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
@@ -697,7 +694,7 @@ This is basically useless for anyone but miners.
 /datum/syndicate_buylist/traitor/chemicompiler
 	name = "Chemicompiler"
 	item = /obj/item/device/chemicompiler
-	cost = 5
+	cost = 4
 	not_in_crates = 1
 	desc = "A handheld version of the Chemicompiler machine in Chemistry."
 	job = list("Research Director", "Scientist")
@@ -716,7 +713,7 @@ This is basically useless for anyone but miners.
 /datum/syndicate_buylist/traitor/conversion_chamber
 	name = "Conversion Chamber"
 	item = /obj/machinery/recharge_station/syndicate
-	cost = 6
+	cost = 7
 	vr_allowed = 0
 	desc = "A modified standard-issue cyborg recharging station that will automatically convert any human placed inside into a cyborg. Be aware that cyborgs will follow the active lawset in place on-station."
 	job = list("Roboticist")
@@ -818,7 +815,7 @@ This is basically useless for anyone but miners.
 	item = /obj/item/storage/box/ammo38AP
 	cost = 2
 	desc = "Armor-piercing ammo for a .38 Special revolver (not included)."
-	job = list("Detective")
+	job = list("Detective", "Staff Assistant")
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution, /datum/game_mode/spy_theft)
 
 /datum/syndicate_buylist/traitor/traitorthermalscanner
@@ -826,13 +823,13 @@ This is basically useless for anyone but miners.
 	item = /obj/item/clothing/glasses/thermal/traitor
 	cost = 3
 	desc = "An advanced optical thermal scanner capable of seeing living entities through walls and smoke."
-	job = list("Detective")
+	job = list("Scientist","Research Director","Detective",)
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
 
 /datum/syndicate_buylist/traitor/cargo_transporter
 	name = "Syndicate Cargo Transporter"
 	item = /obj/item/cargotele/traitor
-	cost = 3
+	cost = 4
 	vr_allowed = 0
 	desc = "A modified cargo transporter which teleports containers to a random spot in space and welds them shut."
 	job = list("Quartermaster","Miner","Engineer")

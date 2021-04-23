@@ -7,11 +7,11 @@ var/datum/geneticsResearchManager/genResearch = new()
 	var/lock_breakers = 0
 	var/cost_discount = 0 // decimal value for how much is taken off the cost
 	var/time_discount = 0 // same but for time to research
-	var/mut_research_cost = 20 // how much it costs to research mutations
+	var/mut_research_cost = 15 // how much it costs to research mutations
 	var/mut_research_time = 600
 	var/mutations_researched = 0
-	var/injector_cost = 30
-	var/genebooth_cost = 30
+	var/injector_cost = 25
+	var/genebooth_cost = 20
 	var/debug_mode = 0
 	var/see_secret = 0
 	var/emitter_radiation = 75
@@ -227,21 +227,21 @@ var/datum/geneticsResearchManager/genResearch = new()
 	desc = {"Installs Radiation Emitters in the scanner.<br>
 	This allows you to reroll the pool of potential mutations of a person.<br>
 	Obviously, this will cause severe radiation poisoning that will have to be treated."}
-	researchTime = 900
-	researchCost = 80
+	researchTime = 450
+	researchCost = 60
 	tier = 1
 
 /datum/geneticsResearchEntry/checker
 	name = "Gene Sequence Checker"
 	desc = "Installs analysers in the scanner that allow users to check how many base pairs are stable."
-	researchTime = 900
-	researchCost = 50
+	researchTime = 450
+	researchCost = 40
 	tier = 1
 
 /datum/geneticsResearchEntry/improvedmutres
 	name = "Advanced Mutation Research"
 	desc = "Halves the base cost and time of researching a mutation, and enables the ability to see secret mutations."
-	researchTime = 900
+	researchTime = 450
 	researchCost = 50
 	requiredTotalMutRes = 20
 	tier = 1
@@ -255,8 +255,8 @@ var/datum/geneticsResearchManager/genResearch = new()
 /datum/geneticsResearchEntry/improvedcooldowns
 	name = "Biotic Cooling Mechanisms"
 	desc = "Applies genetic research to halve the cooldown times for all equipment."
-	researchTime = 900
-	researchCost = 150
+	researchTime = 450
+	researchCost = 120
 	requiredMutRes = list("fire_resist", "cold_resist", "resist_electric")
 	tier = 1
 
@@ -267,8 +267,8 @@ var/datum/geneticsResearchManager/genResearch = new()
 /datum/geneticsResearchEntry/genebooth
 	name = "Gene Booth"
 	desc = "Allows you to sell unlocked mutations through a public Gene Booth."
-	researchTime = 600
-	researchCost = 50
+	researchTime = 400
+	researchCost = 35
 	tier = 1
 
 // Rewards for unlocking Complex DNA
@@ -276,8 +276,8 @@ var/datum/geneticsResearchManager/genResearch = new()
 /datum/geneticsResearchEntry/fqresearch_complex
 	name = "Complex DNA Research Efficiency"
 	desc = "Research costs and time decrease by 15%."
-	researchTime = 1200
-	researchCost = 50
+	researchTime = 600
+	researchCost = 40
 	tier = 1
 	requiredMutRes = list("early_secret_access")
 
@@ -289,8 +289,8 @@ var/datum/geneticsResearchManager/genResearch = new()
 /datum/geneticsResearchEntry/complex_saver
 	name = "Complex DNA Mutation Storage"
 	desc = "Adds five saving slots for storing mutations."
-	researchTime = 1200
-	researchCost = 50
+	researchTime = 600
+	researchCost = 40
 	tier = 1
 	requiredMutRes = list("early_secret_access")
 
@@ -301,8 +301,8 @@ var/datum/geneticsResearchManager/genResearch = new()
 /datum/geneticsResearchEntry/complex_max_materials
 	name = "Complex Material Storage"
 	desc = "Increases maximum materials storage by 50."
-	researchTime = 1200
-	researchCost = 50
+	researchTime = 600
+	researchCost = 40
 	tier = 1
 	requiredMutRes = list("early_secret_access")
 
@@ -315,16 +315,16 @@ var/datum/geneticsResearchManager/genResearch = new()
 /datum/geneticsResearchEntry/reclaimer
 	name = "DNA Reclaimer"
 	desc = "Allows unwanted genes to be converted into research materials. It has a two minute cooldown and has a chance to fail depending on what gene is being reclaimed."
-	researchTime = 1200
-	researchCost = 100
+	researchTime = 600
+	researchCost = 80
 	tier = 2
 	requiredResearch = list(/datum/geneticsResearchEntry/checker)
 
 /datum/geneticsResearchEntry/injector
 	name = "DNA Injectors"
 	desc = "Allows the manufacture of syringes that can insert researched genes into other subjects. Syringes cost 40 materials to manufacture."
-	researchTime = 1200
-	researchCost = 120
+	researchTime = 600
+	researchCost = 100
 	requiredTotalMutRes = 20
 	tier = 2
 	requiredResearch = list(/datum/geneticsResearchEntry/checker)
@@ -332,8 +332,8 @@ var/datum/geneticsResearchManager/genResearch = new()
 /datum/geneticsResearchEntry/rad_dampers
 	name = "Radiation Dampeners"
 	desc = "Reduces the amount of harmful radiation caused by Radiation Emitters."
-	researchTime = 1800
-	researchCost = 80
+	researchTime = 900
+	researchCost = 65
 	tier = 2
 	requiredResearch = list(/datum/geneticsResearchEntry/rademitter)
 
@@ -344,8 +344,8 @@ var/datum/geneticsResearchManager/genResearch = new()
 /datum/geneticsResearchEntry/rad_coolant
 	name = "Emitter Coolant System"
 	desc = "Reduces the amount of time required for Radiation Emitters to cool down."
-	researchTime = 1800
-	researchCost = 120
+	researchTime = 900
+	researchCost = 90
 	tier = 2
 	requiredResearch = list(/datum/geneticsResearchEntry/rademitter)
 
@@ -354,8 +354,8 @@ var/datum/geneticsResearchManager/genResearch = new()
 /datum/geneticsResearchEntry/saver
 	name = "Mutation Storage"
 	desc = "Allows up to three active researched mutations to be removed from subjects and stored in genetics equipment."
-	researchTime = 3000
-	researchCost = 100
+	researchTime = 1500
+	researchCost = 80
 	tier = 3
 	requiredResearch = list(/datum/geneticsResearchEntry/reclaimer)
 
@@ -367,16 +367,16 @@ var/datum/geneticsResearchManager/genResearch = new()
 	name = "Precision Radiation Emitters"
 	desc = {"Upgrades the Radiation Emitters in the scanner so they can target single genes at a time.<br>
 	The gene must have been researched first. Doing this has a shorter cooldown than regular emitters."}
-	researchTime = 3000
-	researchCost = 150
+	researchTime = 1500
+	researchCost = 125
 	tier = 3
 	requiredResearch = list(/datum/geneticsResearchEntry/rad_dampers,/datum/geneticsResearchEntry/rad_coolant)
 
 /datum/geneticsResearchEntry/extra_max_materials
 	name = "Improved Material Storage"
 	desc = "Increases maximum materials storage by 50."
-	researchTime = 3000
-	researchCost = 125
+	researchTime = 1500
+	researchCost = 100
 	tier = 3
 	requiredResearch = list(/datum/geneticsResearchEntry/reclaimer)
 
@@ -387,8 +387,8 @@ var/datum/geneticsResearchManager/genResearch = new()
 /datum/geneticsResearchEntry/bio_rad_dampers
 	name = "Biotic Radiation Dampeners"
 	desc = "Applies genetic research to completley eliminate all harmful radiation from the emitters."
-	researchTime = 2500
-	researchCost = 100
+	researchTime = 1250
+	researchCost = 80
 	tier = 3
 	requiredResearch = list(/datum/geneticsResearchEntry/rad_dampers)
 	requiredMutRes = list("food_rad_resist","radioactive")
@@ -402,8 +402,8 @@ var/datum/geneticsResearchManager/genResearch = new()
 /datum/geneticsResearchEntry/saver_slots
 	name = "Expanded Mutation Storage"
 	desc = "Adds two additional saving slots for mutations."
-	researchTime = 4500
-	researchCost = 120
+	researchTime = 2250
+	researchCost = 100
 	tier = 4
 	requiredResearch = list(/datum/geneticsResearchEntry/saver)
 

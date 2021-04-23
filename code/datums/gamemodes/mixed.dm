@@ -332,8 +332,6 @@
 					if(player.client.preferences.be_wraith) candidates += player.mind
 				if("blob")
 					if(player.client.preferences.be_blob) candidates += player.mind
-				if("spy_thief")
-					if(player.client.preferences.be_spy) candidates += player.mind
 				if("werewolf")
 					if(player.client.preferences.be_werewolf) candidates += player.mind
 				else

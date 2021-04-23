@@ -180,6 +180,8 @@
 
 /mob/living/death(gibbed)
 	#define VALID_MOB(M) (!isVRghost(M) && !isghostcritter(M) && !inafterlife(M))
+	#define INCLUDE_ANTAGS
+	#define STRIP_ANTAG
 	src.remove_ailments()
 	if (src.key) statlog_death(src, gibbed)
 	if (src.client && ticker.round_elapsed_ticks >= 12000 && VALID_MOB(src))
@@ -190,13 +192,25 @@
 			if (!isdead(player) && VALID_MOB(player))
 				num_players++
 
-		if (num_players <= 5 && master_mode != "battle_royale")
-			if (!emergency_shuttle.online && current_state != GAME_STATE_FINISHED && ticker.mode.crew_shortage_enabled)
+		if (num_players <= 0 && master_mode != "battle_royale")
+			command_alert("An NT-SO squad is en route to [station_or_ship()], please take shelter while the situation is handled.", "Major Loss of Life Detected.")
+			sleep(60)
+			var/datum/special_respawn/SR = new /datum/special_respawn/
+			var/datum/job/job = /datum/job/special/ntso_specialist_weak
+			if(!job) return
+			var/amount = 5
+			if(!amount) return
+			SR.spawn_as_job(amount, job, INCLUDE_ANTAGS, STRIP_ANTAG)
+			logTheThing("admin", src, null, "has spawned [amount] players, and stripped any antag statuses.")
+			logTheThing("diary", src, null, "has spawned [amount] players, and stripped any antag statuses.")
+			/*if (!emergency_shuttle.online && current_state != GAME_STATE_FINISHED && ticker.mode.crew_shortage_enabled)
 				emergency_shuttle.incall()
 				boutput(world, "<span class='notice'><B>Alert: The emergency shuttle has been called.</B></span>")
 				boutput(world, "<span class='notice'>- - - <b>Reason:</b> Crew shortages and fatalities.</span>")
-				boutput(world, "<span class='notice'><B>It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.</B></span>")
+				boutput(world, "<span class='notice'><B>It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.</B></span>")*/
 	#undef VALID_MOB
+	#undef INCLUDE_ANTAGS
+	#undef STRIP_ANTAG
 
 	if (deathConfettiActive || (src.mind && src.mind.assigned_role == "Clown")) //Active if XMAS or manually toggled. Or if theyre a clown. Clowns always have death confetti.
 		src.deathConfetti()
