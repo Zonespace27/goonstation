@@ -162,6 +162,7 @@ ABSTRACT_TYPE(/datum/job/command)
 	announce_on_join = 1
 	allow_spy_theft = 0
 
+	recieves_implant = /obj/item/implant/health/security/anti_mindslave
 	slot_back = /obj/item/storage/backpack/withO2
 	slot_card = /obj/item/card/id/gold
 	slot_belt = /obj/item/device/pda2/captain
@@ -541,6 +542,7 @@ ABSTRACT_TYPE(/datum/job/security)
 	allow_traitors = 0
 	high_priority_job = 1
 	receives_badge = 1
+	receives_disk = 1
 	cant_spawn_as_rev = 1
 	recieves_implant = /obj/item/implant/health/security/anti_mindslave
 	slot_back = /obj/item/storage/backpack/withO2
@@ -621,7 +623,7 @@ ABSTRACT_TYPE(/datum/job/research)
 
 /datum/job/research/roboticist
 	name = "Roboticist"
-	limit = 2
+	limit = 0
 	wages = 200
 	slot_belt = /obj/item/device/pda2/medical/robotics
 	slot_jump = /obj/item/clothing/under/rank/roboticist
@@ -759,7 +761,7 @@ ABSTRACT_TYPE(/datum/job/engineering)
 
 /datum/job/engineering/mechanic
 	name = "Mechanic"
-	limit = 2
+	limit = 1
 	wages = PAY_DOCTORATE
 
 	slot_back = /obj/item/storage/backpack/withO2
@@ -824,7 +826,7 @@ ABSTRACT_TYPE(/datum/job/civilian)
 
 /datum/job/civilian/chef
 	name = "Chef"
-	limit = 1
+	limit = 0
 	wages = PAY_UNTRAINED
 	slot_belt = /obj/item/device/pda2/chef
 	slot_jump = /obj/item/clothing/under/rank/chef
@@ -847,7 +849,7 @@ ABSTRACT_TYPE(/datum/job/civilian)
 /datum/job/civilian/bartender
 	name = "Bartender"
 	alias_names = list("Barman")
-	limit = 1
+	limit = 0
 	wages = PAY_UNTRAINED
 	slot_belt = /obj/item/device/pda2/bartender
 	slot_jump = /obj/item/clothing/under/rank/bartender
@@ -861,6 +863,31 @@ ABSTRACT_TYPE(/datum/job/civilian)
 	New()
 		..()
 		src.access = get_access("Bartender")
+		return
+
+	special_setup(var/mob/living/carbon/human/M)
+		..()
+		if (!M)
+			return
+		M.traitHolder.addTrait("training_drinker")
+
+/datum/job/civilian/caterer
+	name = "Caterer"
+	limit = 1
+	wages = PAY_UNTRAINED
+	slot_belt = /obj/item/device/pda2/bartender
+	slot_jump = /obj/item/clothing/under/rank/bartender
+	slot_foot = /obj/item/clothing/shoes/black
+	slot_suit = /obj/item/clothing/suit/armor/vest
+	slot_ears = /obj/item/device/radio/headset/civilian
+	slot_poc1 = /obj/item/paper/book/pocketguide/bartending
+	slot_lhan = /obj/item/reagent_containers/food/drinks/cocktailshaker
+	items_in_backpack = list(/obj/item/gun/kinetic/riotgun,
+	/obj/item/kitchen/rollingpin)
+
+	New()
+		..()
+		src.access = get_access("Caterer")
 		return
 
 	special_setup(var/mob/living/carbon/human/M)
@@ -2357,7 +2384,7 @@ ABSTRACT_TYPE(/datum/job/special/halloween)
 	cant_spawn_as_rev = 1
 	receives_badge = 1
 	recieves_miranda = 1
-	recieves_implant = /obj/item/implant/health
+	recieves_implant = /obj/item/implant/health/security/anti_mindslave
 	slot_back = /obj/item/storage/backpack/NT
 	slot_belt = /obj/item/storage/belt/security/ntso //special secbelt subtype that spawns with the NTSO gear inside
 	slot_jump = /obj/item/clothing/under/misc/turds

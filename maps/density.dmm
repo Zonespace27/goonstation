@@ -2882,6 +2882,9 @@
 /obj/landmark/start{
 	name = "Bartender"
 	},
+/obj/landmark/start{
+	name = "Caterer"
+	},
 /turf/simulated/floor/specialroom/bar,
 /area/station/crew_quarters/bar)
 "gz" = (

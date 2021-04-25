@@ -92,6 +92,12 @@
 		SPAWN_DBG(0)
 			JobEquipSpawned("Bartender")
 
+/mob/living/carbon/human/normal/caterer
+	New()
+		..()
+		SPAWN_DBG(0)
+			JobEquipSpawned("Caterer")
+
 /mob/living/carbon/human/normal/botanist
 	New()
 		..()

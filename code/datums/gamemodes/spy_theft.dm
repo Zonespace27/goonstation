@@ -1,8 +1,6 @@
 /datum/game_mode/spy_theft
 	name = "spy_thief"
 	config_tag = "spy_theft"
-	#define INCLUDE_ANTAGS 1
-	#define STRIP_ANTAG 1
 
 	//maybe not??
 	//latejoin_antag_compatible = 1
@@ -21,11 +19,11 @@
 	var/list/organ_bounties = list() // things that belong to people that are on the inside
 	var/list/photo_bounties = list() // photos of people (Operates by text, because that's the only info that photos store)
 
-	var/const/organ_bounty_amt = 2
-	var/const/person_bounty_amt = 3
-	var/const/photo_bounty_amt = 2
-	var/const/station_bounty_amt = 5 //change to 3 when done testing
-	var/const/big_station_bounty_amt = 5 //change to 2 when done testing
+	var/const/organ_bounty_amt = 10 //change to 2
+	var/const/person_bounty_amt = 10 //change to 3
+	var/const/photo_bounty_amt = 10 //change to 2
+	var/const/station_bounty_amt = 10 //change to 3 when done testing
+	var/const/big_station_bounty_amt = 10 //change to 2 when done testing
 
 	var/list/possible_areas = list()
 	var/list/active_bounties = list()
@@ -149,7 +147,7 @@
 	var/num_spies = 1 //change me back, dumbass
 
 	if(traitor_scaling)
-		num_spies = max(1, min(round(num_players / 6), spies_possible))//change / 6 to /10 when done
+		num_spies = max(1, min(round(num_players / 1), spies_possible))//change / 6 to /10 when done
 
 	var/list/possible_spies = get_possible_spies(num_spies)
 
@@ -224,37 +222,10 @@
 		return candidates
 
 /datum/game_mode/spy_theft/process()
-	var/fatalities = 0
-	var/alive_count = 0
-	var/whilelooptrue = TRUE
 	..()
 	if (ticker.round_elapsed_ticks - last_refresh_time >= bounty_refresh_interval)
 		src.build_bounty_list()
 		src.update_bounty_readouts()
-
-	while(whilelooptrue)
-		for (var/datum/mind/M in ticker.minds)
-			if (M.current && istype(M.current,/mob/dead/observer/))
-				var/mob/dead/observer/O = M.current
-				if (O.observe_round)
-					continue
-
-			alive_count++
-
-			if (!M.current || (M.current && isdead(M.current))) // DEAD
-				fatalities++
-
-			if (alive_count == fatalities)
-				command_alert("An NT-SO squad is en route to [station_or_ship()], please take shelter while the situation is handled.", "Major Loss of Life Detected.")
-				sleep(60)
-				var/datum/special_respawn/SR = new /datum/special_respawn/
-				var/datum/job/job = /datum/job/special/ntso_specialist_weak
-				if(!job) return
-				var/amount = 5
-				if(!amount) return
-				SR.spawn_as_job(amount, job, INCLUDE_ANTAGS, STRIP_ANTAG)
-				logTheThing("admin", src, null, "has spawned [amount] players, and stripped any antag statuses.")
-				logTheThing("diary", src, null, "has spawned [amount] players, and stripped any antag statuses.", "admin")
 
 /datum/game_mode/spy_theft/send_intercept()
 	var/intercepttext = "Cent. Com. Update Requested status information:<BR>"
@@ -772,5 +743,3 @@
 			B.delivery_area = pick(possible_areas)
 
 	return
-#undef INCLUDE_ANTAGS
-#undef STRIP_ANTAG

@@ -14191,6 +14191,9 @@
 /obj/landmark/start{
 	name = "Bartender"
 	},
+/obj/landmark/start{
+	name = "Caterer"
+	},
 /turf/simulated/floor/carpet/grime,
 /area/station/crew_quarters/bar)
 "aOi" = (

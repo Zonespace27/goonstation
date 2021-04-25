@@ -4064,6 +4064,9 @@
 /obj/landmark/start{
 	name = "Bartender"
 	},
+/obj/landmark/start{
+	name = "Caterer"
+	},
 /obj/decal/poster/wallsign/poster_rand{
 	pixel_y = 26
 	},

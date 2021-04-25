@@ -91,6 +91,7 @@
 //		jobs["Elite Security"] = PAY_TRADESMAN
 		jobs["Bartender"] = PAY_UNTRAINED
 		jobs["Chef"] = PAY_UNTRAINED
+		jobs["Caterer"] = PAY_UNTRAINED
 		jobs["Janitor"] = PAY_TRADESMAN
 		jobs["Clown"] = PAY_DUMBCLOWN
 //		jobs["Chemist"] = PAY_DOCTORATE

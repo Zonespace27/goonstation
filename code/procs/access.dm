@@ -296,7 +296,7 @@
 
 		///////////////////////////// Medical
 		if("Medical Doctor")
-			return list(access_medical, access_medical_lockers, access_morgue, access_maint_tunnels)
+			return list(access_robotics, access_tech_storage, access_medical, access_medical_lockers, access_morgue, access_maint_tunnels)
 		if("Geneticist")
 			return list(access_medical, access_medical_lockers, access_morgue, access_medlab, access_maint_tunnels)
 		if("Pathologist")
@@ -358,6 +358,8 @@
 			return list(access_kitchen)
 		if("Bartender")
 			return list(access_bar)
+		if("Caterer")
+			return list(access_bar, access_kitchen)
 		if("Waiter")
 			return list(access_bar, access_kitchen)
 		if("Clown", "Boxer", "Barber", "Mime")

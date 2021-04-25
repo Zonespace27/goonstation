@@ -170,7 +170,7 @@ proc/build_syndi_buylist_cache()
 /datum/syndicate_buylist/generic/derringer
 	name = "Derringer"
 	item = /obj/item/gun/kinetic/derringer
-	cost = 2
+	cost = 3
 	desc = "A small pistol that can be hidden inside worn clothes and retrieved using the wink emote. Comes with two shots and does extreme damage at close range."
 	blockedmode = list(/datum/game_mode/revolution)
 
@@ -390,7 +390,7 @@ This is basically useless for anyone but miners.
 /datum/syndicate_buylist/traitor/idtracker/spy
 	name = "Target ID Tracker (SPY)"
 	item = /obj/item/idtracker/spy
-	cost = 8
+	cost = 0
 	desc = "Allows you to track the IDs of any other spies, but only the ID. If they have changed or destroyed it, the pin pointer will not be useful."
 	vr_allowed = 0
 	not_in_crates = 1
@@ -656,7 +656,7 @@ This is basically useless for anyone but miners.
 	item = /obj/item/gun/reagent/syringe
 	cost = 3
 	desc = "This stainless-steel, revolving wonder fires needles. Perfect for today's safari-loving Syndicate doctor! Loaded by transferring reagents to the gun's internal reservoir."
-	job = list("Medical Doctor", "Medical Director", "Research Director", "Scientist", "Bartender")
+	job = list("Medical Doctor", "Medical Director", "Research Director", "Scientist", "Bartender", "Caterer")
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
 
 /datum/syndicate_buylist/traitor/powergloves
@@ -681,7 +681,7 @@ This is basically useless for anyone but miners.
 	item = /obj/item/reagent_containers/glass/bottle/poison
 	cost = 1
 	desc = "A bottle of poison. Which poison? Who knows."
-	job = list("Medical Doctor", "Medical Director", "Research Director", "Scientist", "Bartender")
+	job = list("Medical Doctor", "Medical Director", "Research Director", "Scientist", "Bartender", "Caterer")
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
 
 /datum/syndicate_buylist/traitor/poisonbundle
@@ -689,7 +689,7 @@ This is basically useless for anyone but miners.
 	item = /obj/item/storage/box/poison
 	cost = 6
 	desc = "A box filled with seven random poison bottles."
-	job = list("Medical Doctor", "Medical Director", "Research Director", "Scientist", "Bartender")
+	job = list("Medical Doctor", "Medical Director", "Research Director", "Scientist", "Bartender", "Caterer")
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
 
 /datum/syndicate_buylist/traitor/chemicompiler
@@ -708,7 +708,7 @@ This is basically useless for anyone but miners.
 	desc = "A cyborg shell crafted from the finest recycled steel and reverse-engineered microelectronics. A cyborg crafted from this will see only Syndicate operatives (Such as yourself!) as human. Cyborg also comes preloaded with popular game \"Angry About the Bird\" and is compatible with most headphones."
 	not_in_crates = 1
 	vr_allowed = 0
-	job = list("Roboticist")
+	job = list("Medical Doctor")
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/spy_theft, /datum/game_mode/revolution)
 
 /datum/syndicate_buylist/traitor/conversion_chamber
@@ -717,7 +717,7 @@ This is basically useless for anyone but miners.
 	cost = 7
 	vr_allowed = 0
 	desc = "A modified standard-issue cyborg recharging station that will automatically convert any human placed inside into a cyborg. Be aware that cyborgs will follow the active lawset in place on-station."
-	job = list("Roboticist")
+	job = list("Medical Doctor")
 	not_in_crates = 1
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/spy_theft, /datum/game_mode/revolution)
 
@@ -734,7 +734,7 @@ This is basically useless for anyone but miners.
 	item = /obj/item/kitchen/utensil/knife/pizza_cutter/traitor
 	cost = 5
 	desc = "Have you ever been making a pizza and thought \"this pizza would be better if I could fatally injure someone by throwing it at them\"? Well think no longer! Because you're sharpening pizzas now. You weirdo."
-	job = list("Chef")
+	job = list("Chef", "Caterer")
 	blockedmode = list(/datum/game_mode/revolution)
 
 
@@ -743,7 +743,7 @@ This is basically useless for anyone but miners.
 	item = /obj/item/reagent_containers/food/snacks/condiment/syndisauce
 	cost = 1
 	desc = "Our patented secret blend of herbs and spices! Guaranteed to knock even the harshest food critic right off their feet! And into the grave. Because this is poison."
-	job = list("Chef", "Bartender")
+	job = list("Chef", "Bartender", "Caterer")
 	blockedmode = list(/datum/game_mode/revolution)
 
 /datum/syndicate_buylist/traitor/donkpockets
@@ -751,16 +751,16 @@ This is basically useless for anyone but miners.
 	item = /obj/item/storage/box/donkpocket_w_kit
 	cost = 2
 	desc = "Ready to eat, no microwave required! The pocket-sandwich station personnel crave, now with added medical agents to heal you up in a pinch! Zero grams trans-fat per serving*!<br><br><font size=1>*Made with partially-hydrogenated wizard blood.</font>"
-	job = list("Chef")
+	job = list("Chef", "Caterer")
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
 
 /datum/syndicate_buylist/traitor/butcherknife
 	name = "Butcher's Knife"
 	item = /obj/item/knife/butcher
-	cost = 7
+	cost = 8
 	desc = "An extremely sharp knife with a weighted handle for accurate throwing. Caution: May cause extreme bleeding if the cutting edge comes into contact with human flesh."
 	not_in_crates = 1
-	job = list("Chef")
+	job = list("Chef", "Caterer")
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/spy_theft, /datum/game_mode/revolution)
 
 /datum/syndicate_buylist/traitor/moonshine
@@ -768,7 +768,7 @@ This is basically useless for anyone but miners.
 	item = /obj/item/reagent_containers/food/drinks/moonshine
 	cost = 2
 	desc = "A jug full of incredibly potent alcohol. Not recommended for human consumption."
-	job = list("Bartender")
+	job = list("Bartender", "Caterer")
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
 
 /datum/syndicate_buylist/traitor/shotglass
@@ -776,7 +776,7 @@ This is basically useless for anyone but miners.
 	item = /obj/item/storage/box/glassbox/syndie
 	cost = 2
 	desc = "A box of shot glasses that hold WAAAY more that normal. Cheat at drinking games!"
-	job = list("Bartender")
+	job = list("Bartender", "Caterer")
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
 
 /datum/syndicate_buylist/traitor/vuvuzelagun
@@ -800,7 +800,7 @@ This is basically useless for anyone but miners.
 	item = /obj/item/gimmickbomb/hotdog
 	cost = 1
 	desc = "Turn your worst enemies into hotdogs."
-	job = list("Chef", "Sous-Chef", "Waiter", "Clown")
+	job = list("Chef", "Sous-Chef", "Waiter", "Clown", "Caterer")
 	blockedmode = list(/datum/game_mode/revolution)
 
 /datum/syndicate_buylist/traitor/chemgrenades
@@ -1050,7 +1050,7 @@ This is basically useless for anyone but miners.
 	item = /obj/item/storage/box/lawndart_kit
 	cost = 0 // 20 brute damage, 10 bleed throwing weapon. Embed is nice but rad poison bow is stealthier and more effective
 	desc = "Three deadly throwing darts that embed themselves into your target."
-	job = list("Assistant","Technical Assistant","Medical Assistant","Staff Assistant","Bartender","Clown")
+	job = list("Assistant","Technical Assistant","Medical Assistant","Staff Assistant","Bartender","Clown","Caterer")
 	blockedmode = list(/datum/game_mode/revolution)
 
 // round specific

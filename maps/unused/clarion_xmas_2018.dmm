@@ -1240,6 +1240,9 @@
 	name = "Bartender"
 	},
 /obj/landmark/start{
+	name = "Caterer"
+	},
+/obj/landmark/start{
 	name = "Botanist"
 	},
 /obj/landmark/start{

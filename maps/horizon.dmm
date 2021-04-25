@@ -37731,6 +37731,9 @@
 /obj/landmark/start{
 	name = "Bartender"
 	},
+/obj/landmark/start{
+	name = "Caterer"
+	},
 /obj/disposalpipe/segment/brig{
 	dir = 8
 	},

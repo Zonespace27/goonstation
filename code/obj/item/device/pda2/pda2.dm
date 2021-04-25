@@ -260,6 +260,9 @@
 	bartender
 		mailgroups = list(MGD_KITCHEN,MGD_PARTY)
 
+	caterer
+		mailgroups = list(MGD_KITCHEN,MGD_PARTY)
+
 	mechanic
 		icon_state = "pda-a"
 		setup_default_module = /obj/item/device/pda_module/tray

@@ -10433,6 +10433,9 @@
 /obj/landmark/start{
 	name = "Bartender"
 	},
+/obj/landmark/start{
+	name = "Caterer"
+	},
 /obj/machinery/phone/wall{
 	pixel_x = 24;
 	pixel_y = 4

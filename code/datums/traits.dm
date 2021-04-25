@@ -624,7 +624,7 @@
 	desc = "Subject is trained in generalized robustness and asskicking."
 	id = "training_security"
 
-// bartender, detective, HoS
+// bartender, detective, HoS, Caterer
 /obj/trait/job/drinker
 	name = "Professional Drinker"
 	cleanName = "Professional Drinker"

@@ -500,6 +500,17 @@
 					return
 				user.visible_message("<span class='alert'>[user] makes [M] drink from the [src].</span>")
 
+			if (M.mind && M.mind.assigned_role == "Caterer")
+				var/reag_list = ""
+				for (var/current_id in reagents.reagent_list)
+					var/datum/reagent/current_reagent = reagents.reagent_list[current_id]
+					if (reagents.reagent_list.len > 1 && reagents.reagent_list[reagents.reagent_list.len] == current_id)
+						reag_list += " and [current_reagent.name]"
+						continue
+					reag_list += ", [current_reagent.name]"
+				reag_list = copytext(reag_list, 3)
+				boutput(M, "<span class='notice'>Tastes like there might be some [reag_list] in this.</span>")
+
 			if (M.mind && M.mind.assigned_role == "Bartender")
 				var/reag_list = ""
 				for (var/current_id in reagents.reagent_list)
@@ -908,6 +919,14 @@
 		else if (user.reagents && user.reagents.has_reagent("ethanol"))
 			success_prob = 75
 			hurt_prob = 75
+
+		if (user.reagents && user.reagents.has_reagent("ethanol") && user.mind && user.mind.assigned_role == "Caterer")
+			success_prob = 75
+			hurt_prob = 25
+
+		else if (user.mind && user.mind.assigned_role == "Caterer")
+			success_prob = 50
+			hurt_prob = 10
 
 		//have to do all this stuff anyway, so do it now
 		playsound(U, "sound/impact_sounds/Glass_Shatter_[rand(1,3)].ogg", 100, 1)

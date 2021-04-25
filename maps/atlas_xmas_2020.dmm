@@ -5036,6 +5036,9 @@
 /obj/landmark/start{
 	name = "Bartender"
 	},
+/obj/landmark/start{
+	name = "Caterer"
+	},
 /obj/cable{
 	icon_state = "4-8"
 	},
