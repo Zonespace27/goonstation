@@ -188,6 +188,7 @@ var/global
 	"Shoulder-Length" = "shoulderl",
 	"Shoulder-Length Mess" = "slightlymessy_s",
 	"Mermaid" = "mermaid",
+	"Mermaid: Faded" = "mermaidfade",
 	"Mid-Back Length" = "midb",
 	"Mid-Length Curl" = "bluntbangs_s",
 	"Very Long" = "vlong",
@@ -229,6 +230,7 @@ var/global
 	"Goatee" = "gt",
 	"Hipster" = "hip",
 	"Long Beard" = "longbeard",
+	"Long Beard: Faded" = "longbeardfade",
 	"Motley" = "motley",
 	"Neckbeard" = "neckbeard",
 	"Puffy Beard" = "puffbeard",
@@ -491,6 +493,7 @@ var/global
 	list/warned_keys = list()	// tracking warnings per round, i guess
 
 	datum/dj_panel/dj_panel = new()
+	datum/player_panel/player_panel = new()
 
 	list/prisonwarped = list()	//list of players already warped
 	list/wormholeturfs = list()

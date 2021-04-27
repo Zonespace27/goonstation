@@ -217,7 +217,6 @@ powmonkey
 hephasto
 bobsedgws
 leadrobot
-omjenkins
 hufflaw
 sgtbriar
 thetrixrabitt
@@ -299,3 +298,9 @@ awarriorbunny
 ftlaudeye
 maegor
 thisisanicegame
+synthfox
+telareti
+botchking
+deluuk
+mexicat
+luxizzle

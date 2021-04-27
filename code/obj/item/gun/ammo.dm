@@ -9,7 +9,7 @@
 	m_amt = 40000
 	g_amt = 0
 	throwforce = 2
-	w_class = 1.0
+	w_class = W_CLASS_TINY
 	throw_speed = 4
 	throw_range = 20
 	var/datum/projectile/ammo_type
@@ -654,7 +654,7 @@
 	icon_state = "40mmR"
 	ammo_type = new/datum/projectile/bullet/cannon
 	caliber = 0.787
-	w_class = 2
+	w_class = W_CLASS_SMALL
 	icon_dynamic = 1
 	icon_empty = "40mmR-0"
 	sound_load = 'sound/weapons/gunload_heavy.ogg'
@@ -671,7 +671,7 @@
 	icon_state = "40mmR"
 	ammo_type = new/datum/projectile/bullet/autocannon
 	caliber = 1.57
-	w_class = 3
+	w_class = W_CLASS_NORMAL
 	icon_dynamic = 0
 	icon_empty = "40mmR-0"
 	sound_load = 'sound/weapons/gunload_heavy.ogg'
@@ -698,7 +698,7 @@
 	icon_state = "40mmR"
 	ammo_type = new/datum/projectile/bullet/grenade_round/
 	caliber = 1.57
-	w_class = 3
+	w_class = W_CLASS_NORMAL
 	icon_dynamic = 0
 	icon_empty = "40mmR-0"
 	sound_load = 'sound/weapons/gunload_40mm.ogg'
@@ -723,7 +723,7 @@
 	icon_state = "40mmB"
 	ammo_type = new/datum/projectile/bullet/smoke
 	caliber = 1.57
-	w_class = 3
+	w_class = W_CLASS_NORMAL
 	icon_dynamic = 0
 	icon_empty = "40mmB-0"
 	sound_load = 'sound/weapons/gunload_40mm.ogg'
@@ -740,7 +740,7 @@
 	max_amount = 2
 	icon_state = "40mmB"
 	caliber = 1.57
-	w_class = 3
+	w_class = W_CLASS_NORMAL
 	icon_dynamic = 0
 	icon_empty = "40mmB-0"
 	sound_load = 'sound/weapons/gunload_40mm.ogg'
@@ -755,7 +755,7 @@
 	icon_state = "paintballr-4"
 	ammo_type = new/datum/projectile/bullet/grenade_shell
 	caliber = 1.57
-	w_class = 3
+	w_class = W_CLASS_NORMAL
 	icon_dynamic = 0
 	icon_empty = "paintballb-4"
 	delete_on_reload = 0 //deleting it before the shell can be fired breaks things
@@ -814,7 +814,7 @@
 	icon_state = "rpg_rocket"
 	ammo_type = new /datum/projectile/bullet/rpg
 	caliber = 1.58
-	w_class = 3
+	w_class = W_CLASS_NORMAL
 	delete_on_reload = 1
 	sound_load = 'sound/weapons/gunload_heavy.ogg'
 
@@ -1100,7 +1100,7 @@
 	charge = 100.0
 	max_charge = 100.0
 	cycle = 0
-	recharge_rate = 5.0
+	recharge_rate = 7.5
 
 /obj/item/ammo/power_cell/self_charging/ntso_baton
 	name = "Power Cell - NTSO Stun Baton"
@@ -1170,7 +1170,7 @@
 	icon_state = "regularrocket"
 	ammo_type = new /datum/projectile/bullet/antisingularity
 	caliber = 1.12
-	w_class = 3
+	w_class = W_CLASS_NORMAL
 	delete_on_reload = 1
 	sound_load = 'sound/weapons/gunload_heavy.ogg'
 
@@ -1183,7 +1183,7 @@
 	icon_state = "mininuke"
 	ammo_type = new /datum/projectile/bullet/mininuke
 	caliber = 1.12
-	w_class = 3
+	w_class = W_CLASS_NORMAL
 	delete_on_reload = 1
 	sound_load = 'sound/weapons/gunload_heavy.ogg'
 
@@ -1195,7 +1195,7 @@
 	max_amount = 6
 	icon_state = "gungun"
 	throwforce = 2
-	w_class = 1.0
+	w_class = W_CLASS_TINY
 	throw_speed = 4
 	throw_range = 20
 	ammo_type = new /datum/projectile/special/spawner/gun
@@ -1212,7 +1212,7 @@
 	max_amount = 1
 	ammo_type = new/datum/projectile/special/meowitzer
 	caliber = 20
-	w_class = 3
+	w_class = W_CLASS_NORMAL
 
 
 /obj/item/ammo/bullets/meowitzer/inert
