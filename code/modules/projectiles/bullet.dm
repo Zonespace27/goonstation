@@ -77,6 +77,31 @@ toxic - poisons
 	hit_type = DAMAGE_CUT
 	implanted = /obj/item/implant/projectile/bullet_22HP
 
+/datum/projectile/bullet/bullet_32
+	name = "bullet"
+	power = 30
+	shot_sound = "sound/weapons/smallcaliber.ogg"
+	damage_type = D_KINETIC
+	hit_type = DAMAGE_CUT
+	implanted = /obj/item/implant/projectile/bullet_32
+	casing = /obj/item/casing/small
+	caliber = 0.32
+	icon_turf_hit = "bhole-small"
+	silentshot = 1
+
+/datum/projectile/bullet/bullet_32/CHEM
+	name = "chemical bullet"
+	power = 10
+	shot_sound = "sound/weapons/smallcaliber.ogg"
+	damage_type = D_TOXIC
+	hit_type = DAMAGE_CUT
+	implanted = /obj/item/implant/projectile/bullet_32chem
+	casing = /obj/item/casing/small
+	caliber = 0.32
+	icon_turf_hit = "bhole-small"
+	reagent_payload = "sodium_thiopental"
+	silentshot = 1
+
 /datum/projectile/bullet/bullet_9mm
 	name = "bullet"
 	power = 25

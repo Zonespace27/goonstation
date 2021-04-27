@@ -76,17 +76,25 @@
 	var/pickedHighValue1 = pick(typesof(/datum/objective/specialist/infiltrator/stealhighvalue))
 	var/pickedHighValue2 = pick(typesof(/datum/objective/specialist/infiltrator/stealhighvalue))
 	var/pickedHighValue3 = pick(typesof(/datum/objective/specialist/infiltrator/stealhighvalue))
+	var/pickedKidnap = pick(typesof(/datum/objective/specialist/infiltrator/kidnaphead))
+	var/pickedFortify = pick(typesof(/datum/objective/specialist/infiltrator/fortify))
+	var/makeSilicon = /datum/objective/specialist/infiltrator/makesilicon
 #ifdef MAP_OVERRIDE_MANTA
 	var/pickedHighValue4Manta = pick(typesof(/datum/objective/specialist/infiltrator/stealhighvalue))
 	var/pickedHighValue5Manta = pick(typesof(/datum/objective/specialist/infiltrator/stealhighvalue))
 #endif
-
+	var/bigObjective = pick(list(pickedKidnap, pickedFortify, makeSilicon))
+//	var/pickedBigObjective = pick(bigObjective)
+	var/assassinateImportant = pick(list(/datum/objective/specialist/infiltrator/assassinatecaptain,/datum/objective/specialist/infiltrator/assassinatehos))
+//	var/pickedAssassinateImportant = pick(assassinateImportant)
 	for(var/datum/mind/synd_mind in infiltrators)
-		bestow_objective(synd_mind,/datum/objective/specialist/infiltrator/assassinatecaptain)
-		bestow_objective(synd_mind,/datum/objective/specialist/infiltrator/assassinatehos)
+		//bestow_objective(synd_mind,/datum/objective/specialist/infiltrator/assassinatecaptain)
+		//bestow_objective(synd_mind,/datum/objective/specialist/infiltrator/assassinatehos)
+		ticker.mode.bestow_objective(synd_mind, assassinateImportant)
 		ticker.mode.bestow_objective(synd_mind, pickedHighValue1)
 		ticker.mode.bestow_objective(synd_mind, pickedHighValue2)
 		ticker.mode.bestow_objective(synd_mind, pickedHighValue3)
+		ticker.mode.bestow_objective(synd_mind, bigObjective)
 #ifdef MAP_OVERRIDE_MANTA
 		ticker.mode.bestow_objective(synd_mind, pickedHighValue4Manta)
 		ticker.mode.bestow_objective(synd_mind, pickedHighValue5Manta)

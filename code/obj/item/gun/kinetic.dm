@@ -24,6 +24,7 @@ ABSTRACT_TYPE(/obj/item/gun/kinetic)
 	// caliber list: update as needed
 	// 0.22 - pistols
 	// 0.308 - rifles
+	// 0.32 - welrod
 	// 0.357 - revolver
 	// 0.38 - detective
 	// 0.41 - derringer
@@ -821,9 +822,86 @@ ABSTRACT_TYPE(/obj/item/gun/kinetic)
 	fire_animation = TRUE
 
 	New()
-		ammo = new/obj/item/ammo/bullets/bullet_22HP
+		ammo = new/obj/item/ammo/bullets/bullet_22
 		set_current_projectile(new/datum/projectile/bullet/bullet_22/HP)
 		..()
+
+/obj/item/gun/kinetic/welrod
+	name = "Welrod Pistol"
+	desc = "A miniature pistol with an ancient design, it features an integral sound and flash suppressor. Uses .32 caliber rounds."
+	icon_state = "welrod"
+	w_class = 2 //this should fit in pockets, fix if not.
+	silenced = 1
+	force = 3
+	contraband = 4
+	caliber = 0.32
+	max_ammo_capacity = 8
+	auto_eject = 0
+	hide_attack = 1
+	muzzle_flash = null
+	has_empty_state = 0
+	fire_animation = TRUE
+	var/racked_slide = FALSE
+	spread_angle = 8
+
+	New()
+		ammo = new/obj/item/ammo/bullets/bullet_32
+		set_current_projectile(new/datum/projectile/bullet/bullet_32)
+		..()
+
+	update_icon() //dont mind me just stealing shotgun code for a welrod
+		. = ..()
+		src.icon_state = "welrod" + (racked_slide ? "" : "-open-chamber" )
+
+	canshoot()
+		return(..() && src.racked_slide)
+
+	shoot(var/target,var/start ,var/mob/user)
+		if(ammo.amount_left > 0 && !racked_slide)
+			boutput(user, "<span class='notice'>You need to chamber a round before you can fire!</span>")
+		..()
+		src.racked_slide = FALSE
+		src.casings_to_eject = 1
+		if (src.ammo.amount_left == 0) // change icon_state to empty if 0 shells left
+			src.update_icon()
+			src.casings_to_eject = 0
+
+	shoot_point_blank(user, user)
+		if(ammo.amount_left > 0 && !racked_slide)
+			boutput(user, "<span class='notice'>You need to chamber a round before you can fire!</span>")
+			return
+		..()
+		src.racked_slide = FALSE
+		src.casings_to_eject = 1
+		if (src.ammo.amount_left == 0) // change icon_state to empty if 0 shells left
+			src.update_icon()
+			src.casings_to_eject = 0
+
+	attack_self(mob/user as mob)
+		..()
+		if (!src.racked_slide) //Are we racked?
+			if (src.ammo.amount_left == 0)
+				boutput(user, "<span class ='notice'>You are out of rounds!</span>")
+				update_icon()
+			else
+				if (src.icon_state == "welrod") //"animated" racking
+					src.icon_state = "welrod-open-chamber" // having update_icon() here breaks
+					animate(src, time = 1 SECONDS)
+					animate(icon_state = "welrod")
+					sleep(1 SECONDS)
+					src.racked_slide = TRUE
+				else
+					update_icon() // Slide already open? Just close the slide
+					src.racked_slide = TRUE
+				boutput(user, "<span class='notice'>You chamber a new round!</span>")
+				playsound(user.loc, "sound/weapons/shotgunpump.ogg", 50, 1)
+				src.casings_to_eject = 0
+				if (src.ammo.amount_left < 8) // Do not eject shells if you're racking a full "clip"
+					var/turf/T = get_turf(src)
+					if (T) // Eject shells on rack instead of on shoot()
+						var/obj/item/casing/C = new src.current_projectile.casing(T)
+						C.forensic_ID = src.forensic_ID
+						C.set_loc(T)
 
 /obj/item/gun/kinetic/vgun
 	name = "Virtual Pistol"
@@ -1312,20 +1390,13 @@ ABSTRACT_TYPE(/obj/item/gun/kinetic)
 			return ..()
 		if (over_object == usr && src.icon_state == "slamgun-open-loaded") // sorry for doing it like this, but i have no idea how to do it cleaner.
 			src.add_fingerprint(usr)
-			if (src.sanitycheck(0, 1) == 0)
-				usr.show_text("You can't unload this gun.", "red")
-				return
 			if (src.ammo.amount_left <= 0)
 				if ((src.casings_to_eject > 0))
-					if (src.sanitycheck(1, 0) == 0)
-						src.casings_to_eject = 0
-						return
-					else
-						usr.show_text("You eject [src.casings_to_eject] casings from [src].", "red")
-						src.ejectcasings()
-						src.casings_to_eject = 0 // needed for bullets that don't have casings (???)
-						src.update_icon()
-						return
+					usr.show_text("You eject [src.casings_to_eject] casings from [src].", "red")
+					src.ejectcasings()
+					src.casings_to_eject = 0 // needed for bullets that don't have casings (???)
+					src.update_icon()
+					return
 				else
 					usr.show_text("[src] is empty!", "red")
 					return

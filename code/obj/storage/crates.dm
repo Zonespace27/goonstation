@@ -531,11 +531,13 @@
 		name = "Infiltration Agent Crate - Stealth"
 		desc = "A crate containing a Infiltration Agent loadout."
 		spawn_contents = list(/obj/item/clothing/under/chameleon,
-		/obj/item/pen/sleepypen,
+		/obj/item/storage/box/welrod,
 		/obj/item/radiojammer,
 		/obj/item/storage/box/syndibox,
 		/obj/item/genetics_injector/dna_scrambler,
-		/obj/item/device/radio_upgrade)
+		/obj/item/device/radio_upgrade,
+		/obj/item/chem_grenade/knockout //this is probably a bit much for the loadout but im leaving this here temporarily
+		)
 
 	diversion
 		name = "Infiltration Agent Crate - Diverter"
@@ -546,7 +548,8 @@
 		/obj/item/gun/kinetic/derringer,
 		/obj/item/voice_changer,
 		/obj/item/kudzuseed,
-		/obj/item/lightbreaker)
+		/obj/item/storage/box/smallsyndibox
+		)
 
 	saboteur
 		name = "Infiltration Agent Crate - Saboteur"
@@ -555,7 +558,8 @@
 		/obj/item/card/emag,
 		/obj/item/storage/box/emp_kit,
 		/obj/item/device/disguiser,
-		/obj/item/dagger/syndicate
+		/obj/item/dagger/syndicate,
+		/obj/item/storage/box/smallsyndibox
 		)
 
 	wetwork
@@ -566,7 +570,8 @@
 		/obj/item/radiojammer,
 		/obj/item/garrote,
 		/obj/item/cloaking_device,
-		/obj/item/voice_changer
+		/obj/item/voice_changer,
+		/obj/item/storage/box/smallsyndibox
 		)
 
 

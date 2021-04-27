@@ -824,6 +824,14 @@ THROWING DARTS
 		name = ".22 hollow point round"
 		desc = "A small calibre hollow point bullet for use against unarmored targets. Wait, aren't these a war crime?"
 
+	bullet_32
+		name = ".32 ACP round"
+		desc = "A small calibre bullet, rarely seen compared to the ubiquitous .22 rounds."
+
+	bullet_32chem
+		name = ".32 ACP round"
+		desc = "A small calibre bullet, this one has a small hole on the front of it, and seems hollow."
+
 	bullet_41
 		name = ".41 round"
 		desc = ".41? What the heck? Who even uses these anymore?"

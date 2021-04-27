@@ -353,6 +353,24 @@
 	ammo_type = new/datum/projectile/bullet/bullet_22/HP
 	caliber = 0.22
 
+/obj/item/ammo/bullets/bullet_32
+	sname = ".32 ACP"
+	name = ".32 ACP magazine"
+	icon_state = "pistol_magazine_32"
+	amount_left = 8.0
+	max_amount = 8.0
+	ammo_type = new/datum/projectile/bullet/bullet_32
+	caliber = 0.32
+
+/obj/item/ammo/bullets/bullet_32/CHEM
+	sname = ".32 Chemical ACP"
+	name = ".32 Chemical ACP magazine"
+	icon_state = "pistol_magazine_32_chemical"
+	amount_left = 8.0
+	max_amount = 8.0
+	ammo_type = new/datum/projectile/bullet/bullet_32/CHEM
+	caliber = 0.32
+
 /obj/item/ammo/bullets/a357
 	sname = ".357 Mag"
 	name = ".357 speedloader"

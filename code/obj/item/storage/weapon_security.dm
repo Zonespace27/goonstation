@@ -82,6 +82,14 @@
 	spawn_contents = list(/obj/item/gun/kinetic/silenced_22,\
 	/obj/item/ammo/bullets/bullet_22HP = 3)
 
+/obj/item/storage/box/welrod
+	name = "welrod pistol box"
+	icon_state = "hard_case"
+	desc = "A box containing a miniature pistol and two kinds of ammo."
+	spawn_contents = list (/obj/item/gun/kinetic/welrod,\
+	/obj/item/ammo/bullets/bullet_32 = 1,\
+	/obj/item/ammo/bullets/bullet_32/CHEM = 2)
+
 /obj/item/storage/box/derringer
 	name = "derringer box"
 	icon_state = "hard_case"
@@ -287,6 +295,59 @@
 			src.item_state = W.item_state
 			src.inhand_image = W.inhand_image
 			boutput(user, "<span class='notice'>The secret storage changes form to look like [W.name]!<br>Use the reset command to change it back.</span>")
+			src.cloaked = 1
+			return
+
+	verb/reset()
+		set src in usr
+
+		if (src.cloaked)
+			src.name = initial(src.name)
+			src.real_name = initial(src.real_name)
+			src.desc = initial(src.desc)
+			src.real_desc = initial(src.real_desc)
+			src.icon = initial(src.icon)
+			src.icon_state = initial(src.icon_state)
+			src.item_state = initial(src.item_state)
+			src.inhand_image = initial(src.inhand_image)
+			boutput(usr, "<span class='alert'>You reset the [src.name].</span>")
+			src.cloaked = 0
+			src.add_fingerprint(usr)
+
+/obj/item/storage/box/smallsyndibox
+	name = "small stealth storage"
+	desc = "Can take on the appearance of another item. Creates a small dimensional rift in space-time, allowing it to hold a few items."
+	icon_state = "box"
+	sneaky = 1
+	var/cloaked = 0
+	flags = FPRINT | TABLEPASS | NOSPLASH
+	w_class = 2
+	max_wclass = 3
+	slots = 3
+
+	New()
+		..()
+		src.cloaked = 0
+
+	UpdateName()
+		src.name = "[name_prefix(null, 1)][src.real_name][name_suffix(null, 1)]"
+
+	attackby(obj/item/W as obj, mob/user as mob)
+		if(src.cloaked == 1)
+			..()
+		else
+			if (!isitem(W) || isnull(initial(W.icon)) || isnull(initial(W.icon_state)) || !W.icon || !W.icon_state)
+				user.show_text("The [W.name] is not compatible with this device.", "red")
+				return
+			src.name = W.name
+			src.real_name = W.name
+			src.desc = "[W.desc] It looks slightly heavy, somehow."
+			src.real_desc = "[W.desc] It looks slightly heavy, somehow."
+			src.icon = W.icon
+			src.icon_state = W.icon_state
+			src.item_state = W.item_state
+			src.inhand_image = W.inhand_image
+			boutput(user, "<span class='notice'>The stealth storage changes form to look like [W.name]!<br>Use the reset command to change it back.</span>")
 			src.cloaked = 1
 			return
 

@@ -750,6 +750,193 @@ proc/create_fluff(var/datum/mind/target)
 
 		explanation_text = objective_text
 		targetname = target.current.real_name
+/*
+/datum/objective/specialist/infiltrator/kidnaphead
+	var/datum/mind/target
+	var/targetname
+	var/objective_text
+	var/list/targets = list("Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Medical Director", "Research Director")
+	set_up() // test at home ideally with someone else
+		target = pick(typesof(targets))
+		if(!(target?.current))
+			explanation_text = "Be dastardly as heck!"
+			return
+		explanation_text = "Kidnap [target.current.real_name], the [target.assigned_role == "MODE" ? target.special_role : target.assigned_role]. <i> This objective will succeed automatically! </i>"
+
+		//objective_text = explanation_text
+		explanation_text = objective_text
+		targetname = target.current.real_name
+	check_completion()
+		return 1*/
+/*
+/datum/objective/specialist/infiltrator/kidnaphead
+	var/datum/mind/target
+	var/targetname
+
+	set_up()
+		var/list/possible_targets = list("Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Medical Director", "Research Director")
+
+		/*for(var/datum/mind/possible_target in ticker.minds)
+			if (possible_target && (possible_target != owner) && ishuman(possible_target.current))
+				if (possible_target.current.mind && possible_target.current.mind.is_target) // Cannot read null.is_target
+					continue
+				if (!possible_target.current.client)
+					continue
+				possible_targets += possible_target*/
+
+		if(possible_targets.len > 0)
+			target = pick(possible_targets)
+			target.current.mind.is_target = 1
+
+		create_objective_string(target)
+
+		return target
+
+	proc/find_target_by_role(var/role)
+		for(var/datum/mind/possible_target in ticker.minds)
+			if((possible_target != owner) && ishuman(possible_target.current) && (possible_target.assigned_role == role || (possible_target.assigned_role == "MODE" && possible_target.special_role == role)))
+				target = possible_target
+				break
+
+		create_objective_string(target)
+
+		return target
+
+	check_completion()
+		return 1
+
+	proc/create_objective_string(var/datum/mind/target)
+		if(!(target?.current))
+			explanation_text = "Be dastardly as heck!"
+			return
+		var/objective_text = "Kidnap [target.current.real_name], the [target.assigned_role == "MODE" ? target.special_role : target.assigned_role]. <i> This objective will succeed automatically, so have fun with it!</i>"
+		objective_text += " [create_fluff(target)]"
+
+		explanation_text = objective_text
+		targetname = target.current.real_name
+*/
+/datum/objective/specialist/infiltrator/kidnaphead
+	var/datum/mind/target
+	var/targetname
+
+	set_up()
+		var/list/possible_targets = list()
+		var/list/roles = list("Captain", "Head of Security", "Medical Director", "Chief Engineer", "Head of Personnel", "Research Director")
+
+		for(var/datum/mind/possible_target in ticker.minds)
+			if (possible_target && (possible_target != owner) && ishuman(possible_target.current))
+				if (!possible_target.special_role == roles)
+					continue
+				possible_targets += possible_target
+
+		if(possible_targets.len > 0)
+			target = pick(possible_targets)
+			target.current.mind.is_target = 1
+
+		create_objective_string(target)
+
+		return target
+
+	proc/find_target_by_role(var/role)
+		for(var/datum/mind/possible_target in ticker.minds)
+			if((possible_target != owner) && ishuman(possible_target.current) && (possible_target.assigned_role == role || (possible_target.assigned_role == "MODE" && possible_target.special_role == role)))
+				target = possible_target
+				break
+
+		create_objective_string(target)
+
+		return target
+
+	check_completion()
+		return 1
+
+	proc/create_objective_string(var/datum/mind/target)
+		if(!(target?.current))
+			explanation_text = "Be dastardly as heck!"
+			return
+		var/objective_text = "Kidnap [target.current.real_name], the [target.assigned_role == "MODE" ? target.special_role : target.assigned_role] <i> This objective will succeed automatically, so just have fun with it!</i>"
+
+		explanation_text = objective_text
+		targetname = target.current.real_name
+
+/datum/objective/specialist/infiltrator/fortify
+	var/place
+
+	set_up()
+		var/list/places = list("Cargo", "Medbay", "The Bridge", "Science", "The Bar", "The Engine")
+		var/chosenplace = pick(places)
+
+		create_objective_string(chosenplace)
+
+		return chosenplace
+
+	check_completion()
+		return 1
+
+	proc/create_objective_string(var/chosenplace)
+		var/objective_text = "Secure, fortify, and annex [chosenplace] in the name of the Syndicate. <i> This objective will succeed automatically, so just have fun with it!</i>"
+
+		explanation_text = objective_text
+
+/datum/objective/specialist/infiltrator/libelhead
+	var/datum/mind/target
+	var/targetname
+
+	set_up()
+		var/list/possible_targets = list()
+		var/list/roles = list("Captain", "Head of Security", "Medical Director", "Chief Engineer", "Head of Personnel", "Research Director")
+
+		for(var/datum/mind/possible_target in ticker.minds)
+			if (possible_target && (possible_target != owner) && ishuman(possible_target.current))
+				if (!possible_target.special_role == roles)
+					continue
+				possible_targets += possible_target
+
+		if(possible_targets.len > 0)
+			target = pick(possible_targets)
+			target.current.mind.is_target = 1
+
+		create_objective_string(target)
+
+		return target
+
+	proc/find_target_by_role(var/role)
+		for(var/datum/mind/possible_target in ticker.minds)
+			if((possible_target != owner) && ishuman(possible_target.current) && (possible_target.assigned_role == role || (possible_target.assigned_role == "MODE" && possible_target.special_role == role)))
+				target = possible_target
+				break
+
+		create_objective_string(target)
+
+		return target
+
+	check_completion()
+		return 1
+
+	proc/create_objective_string(var/datum/mind/target)
+		if(!(target?.current))
+			explanation_text = "Be dastardly as heck!"
+			return
+		var/objective_text = "Libel and frame [target.current.real_name], the [target.assigned_role == "MODE" ? target.special_role : target.assigned_role], until they lose their job. <i> This objective will succeed automatically, so just have fun with it!</i>"
+
+		explanation_text = objective_text
+		targetname = target.current.real_name
+
+/datum/objective/specialist/infiltrator/makesilicon
+	var/makesilicon
+
+	set_up()
+
+		create_objective_string(makesilicon)
+		return makesilicon
+
+	check_completion()
+		return 1
+
+	proc/create_objective_string(var/makesilicon)
+		var/objective_text = "Attempt to convert as much of the crew as possible into silicons. <i> This objective will succeed automatically, so just have fun with it!</i>"
+
+		explanation_text = objective_text
 
 /datum/objective/specialist/infiltrator/stealhighvalue
 	var/obj/item/steal_target
@@ -783,8 +970,6 @@ proc/create_fluff(var/datum/mind/target)
 				steal_target = /obj/item/mdlicense
 			if("Head of Personnel\'s First Bill")
 				steal_target = /obj/item/firstbill
-			if("much coveted Gooncode")
-				steal_target = /obj/item/toy/gooncode
 #else
 	set_up()
 		var/list/items = list("Head of Security\'s beret", "authentication disk",
