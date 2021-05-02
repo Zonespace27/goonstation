@@ -708,19 +708,6 @@
 	desc = "Non-descript, slightly suspicious civilian clothing."
 	icon_state = "syndicate"
 	item_state = "syndicate"
-/* commented pending rework/removal
-/obj/item/clothing/under/misc/syndicateinfilsuit //change this to an outersuit, maybe?
-	name = "Infiltration Jumpsuit"
-	desc = "A thermally insulated and slightly armored jumpsuit suited for infiltration ops."
-	icon_state = "syndicateinfilsuit"
-	item_state = "syndicateinfilsuit"
-	setupProperties()
-		..()
-		setProperty("coldprot", 25) //old: 45
-		setProperty("heatprot", 25) //old: 45 holy fuck the numbers need to be balanced correctly
-		setProperty("rangedprot", 0.5) //old: 2 apparently this is insanely high
-		setProperty("meleeprot", 2) //old: 6
-*/
 
 /obj/item/clothing/under/misc/turds
 	name = "NT-SO Jumpsuit"

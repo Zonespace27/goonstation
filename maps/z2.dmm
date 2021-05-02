@@ -62052,10 +62052,9 @@
 /area/syndicate_station/battlecruiser)
 "dgu" = (
 /obj/table/auto,
-/obj/item/old_grenade/stinger/frag,
-/obj/item/old_grenade/stinger/frag,
-/obj/item/old_grenade/stinger/frag,
-/obj/item/old_grenade/stinger/frag,
+/obj/landmark{
+	name = "Frag-Grenades"
+	},
 /obj/decal/tile_edge/stripe{
 	dir = 6;
 	icon_state = "delivery2"

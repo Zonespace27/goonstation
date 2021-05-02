@@ -829,7 +829,7 @@ ABSTRACT_TYPE(/obj/item/gun/kinetic)
 	fire_animation = TRUE
 
 	New()
-		ammo = new/obj/item/ammo/bullets/bullet_22
+		ammo = new/obj/item/ammo/bullets/bullet_22HP
 		set_current_projectile(new/datum/projectile/bullet/bullet_22/HP)
 		..()
 

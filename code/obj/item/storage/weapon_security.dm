@@ -78,7 +78,6 @@
 	name = "suppressed pistol box"
 	icon_state = "hard_case"
 	desc = "A box containing a sneaky pistol and some ammo."
-	// this might be a terrible idea giving them so much ammo, but whatevs
 	spawn_contents = list(/obj/item/gun/kinetic/silenced_22,\
 	/obj/item/ammo/bullets/bullet_22HP = 3)
 
@@ -86,10 +85,9 @@
 	name = "suppressed pistol box"
 	icon_state = "hard_case"
 	desc = "A box containing a sneaky pistol and two types of ammo."
-	// this might be a terrible idea giving them so much ammo, but whatevs
 	spawn_contents = list(/obj/item/gun/kinetic/silenced_22,\
 	/obj/item/ammo/bullets/bullet_22HP = 2,\
-	/obj/item/ammo/bullets/bullet_22AP = 2)
+	/obj/item/ammo/bullets/bullet_22AP = 2) //I have multiple reservations about giving em this much AP ammo but we'll see
 
 /obj/item/storage/box/welrod
 	name = "welrod pistol box"
