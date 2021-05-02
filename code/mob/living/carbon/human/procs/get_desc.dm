@@ -357,5 +357,7 @@
 			. += "<br><span class='alert'>Your health monitor analyzes [src]'s vitals.</span><br>[scan_health(src, 0, 0)]"
 			scan_health_overhead(src, usr)
 			update_medical_record(src)
+		if (istype(H.glasses, /obj/item/clothing/glasses/idsunglasses))
+			. += "<br><span class='alert'>Your sunglasses identify the person as [src.real_name].</span><br>"
 
 	return jointext(., "")

@@ -144,7 +144,7 @@
 	name = "Syndicate Weapons Vendor"
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "weapon"
-	desc = "An automated quartermaster service for supplying your nuclear operative team with weapons and gear."
+	desc = "An automated quartermaster service for supplying your operative team with weapons and gear."
 	token_accepted = /obj/item/requisition_token/syndicate
 	log_purchase = TRUE
 
@@ -428,34 +428,36 @@
 	path = /obj/bomb_decoy
 	description = "A realistic inflatable nuclear bomb decoy, it'll fool anyone not looking closely but won't take much punishment before it pops."
 
+// Infil Stuff
+
 /datum/materiel/assistant/stealth
 	name = "Stealth Agent"
 	path = /obj/storage/crate/classcrate/stealth
-	category = "Assistant"
-	description = "Wiretap Radio Upgrade, DNA Scrambler, Sleepy Pen, a Stealth Container, Signal Jammer, and a Chameleon Jumpsuit, perfect for the average stealthy operator."
+	cost = 0.9
+	description = "Welrod Pistol, DNA Scrambler, a Stealth Container, Signal Jammer, and a Chameleon Jumpsuit, perfect for the average stealthy operator."
 
 /datum/materiel/assistant/diversion
 	name = "Diversion Agent"
 	path = /obj/storage/crate/classcrate/diversion
-	category = "Assistant"
-	description = "Includes everything needed to cause a distraction: A SounDreams PRO and detomatix cartridge, a Kudzu Seed, Light Breaker, voice changer, and a backup derringer."
+	cost = 0.9
+	description = "Includes everything needed to cause a distraction: A Syndicate PDA, a Kudzu Seed, Light Breaker, voice changer, and a backup derringer."
 
 /datum/materiel/assistant/saboteur
 	name = "Saboteur Agent"
 	path = /obj/storage/crate/classcrate/saboteur
-	category = "Assistant"
-	description = "Cripple the station with this crate, includes: A Power Sink, EMAG, EMP Grenades, holographic disguiser, and a dagger."
+	cost = 0.9
+	description = "Cripple the station with this crate, includes: A handheld powersink teleporter, EMAG, EMP Grenades, holographic disguiser, and a dagger."
 
 /datum/materiel/assistant/wetwork
 	name = "Wetwork Agent"
 	path = /obj/storage/crate/classcrate/wetwork
-	category = "Assistant"
-	description = "For when you need to get up close and personal. Has: Infiltration Jumpsuit, .22 Silenced Pistol, Fibre Wire, Signal Jammer, Cloaking Device, and a voice changer."
+	cost = 0.9
+	description = "For when you need to get up close and personal. Has: A .22 Silenced Pistol, Fibre Wire, Signal Jammer, Cloaking Device, a pair of identifier sunglasses, and a voice changer."
 
 /datum/materiel/assistant/customstealth
 	name = "Syndicate Custom Stealth Uplink"
 	path = /obj/item/uplink/syndicateinfil
-	category = "Assistant"
+	cost = 0.9
 	description = "A modified syndicate uplink containing 12 telecrystals, allowing you to choose your loadout."
 
 // Requisition tokens

@@ -147,7 +147,7 @@ proc/create_fluff(var/datum/mind/target)
 		target_name = pick(items)
 		switch(target_name)
 			if("Head of Security\'s beret")
-				steal_target = /obj/item/clothing/head/hos_hat
+				steal_target = /obj/item/clothing/head/hosberet
 			if("prisoner\'s beret")
 				steal_target = /obj/item/clothing/head/beret/prisoner
 			if("DetGadget hat")
@@ -184,7 +184,7 @@ proc/create_fluff(var/datum/mind/target)
 		target_name = pick(items)
 		switch(target_name)
 			if("Head of Security\'s beret")
-				steal_target = /obj/item/clothing/head/hos_hat
+				steal_target = /obj/item/clothing/head/hosberet
 			if("prisoner\'s beret")
 				steal_target = /obj/item/clothing/head/beret/prisoner
 			if("DetGadget hat")
@@ -938,6 +938,22 @@ proc/create_fluff(var/datum/mind/target)
 
 		explanation_text = objective_text
 
+/datum/objective/specialist/infiltrator/impersonateheads
+	var/impersonateheads
+
+	set_up()
+
+		create_objective_string(impersonateheads)
+		return impersonateheads
+
+	check_completion()
+		return 1
+
+	proc/create_objective_string(var/impersonateheads)
+		var/objective_text = "Have your team impersonate as much of the command staff as possible. <i> This objective will succeed automatically, so just have fun with it!</i>"
+
+		explanation_text = objective_text
+
 /datum/objective/specialist/infiltrator/stealhighvalue
 	var/obj/item/steal_target
 	var/target_name
@@ -951,7 +967,7 @@ proc/create_fluff(var/datum/mind/target)
 		target_name = pick(items)
 		switch(target_name)
 			if("Head of Security\'s beret")
-				steal_target = /obj/item/clothing/head/helmet/HoS
+				steal_target = /obj/item/clothing/head/hosberet
 			if("authentication disk")
 				steal_target = /obj/item/disk/data/floppy/read_only/authentication
 			if("\'freeform\' AI module")
@@ -978,7 +994,7 @@ proc/create_fluff(var/datum/mind/target)
 		target_name = pick(items)
 		switch(target_name)
 			if("Head of Security\'s beret")
-				steal_target = /obj/item/clothing/head/helmet/HoS
+				steal_target = /obj/item/clothing/head/hosberet
 			if("authentication disk")
 				steal_target = /obj/item/disk/data/floppy/read_only/authentication
 			if("\'freeform\' AI module")

@@ -368,6 +368,7 @@
 			var/datum/computer/file/pda_program/missile/detofile = new /datum/computer/file/pda_program/missile(src)
 			detofile.charges = 4
 			src.root.add_file(detofile)
+			src.root.add_file( new /datum/computer/file/pda_program/ringtone/syndie(src))
 			src.root.add_file( new /datum/computer/file/text/bomb_manual(src))
 			//src.root.add_file( new /datum/computer/file/pda_program/door_control/syndicate(src))
 			src.read_only = 1

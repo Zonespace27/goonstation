@@ -535,26 +535,24 @@
 		/obj/item/radiojammer,
 		/obj/item/storage/box/syndibox,
 		/obj/item/genetics_injector/dna_scrambler,
-		/obj/item/device/radio_upgrade,
-		/obj/item/chem_grenade/knockout //this is probably a bit much for the loadout but im leaving this here temporarily
+		/obj/item/device/radio_upgrade
 		)
 
 	diversion
 		name = "Infiltration Agent Crate - Diverter"
 		desc = "A crate containing a Infiltration Agent loadout."
-		spawn_contents = list(/obj/item/disk/data/cartridge/syndicate,
-		/obj/item/device/pda2,
-		/obj/item/disk/data/cartridge/ringtone_syndie,
+		spawn_contents = list(/obj/item/device/pda2/syndicate,
 		/obj/item/gun/kinetic/derringer,
 		/obj/item/voice_changer,
-		/obj/item/kudzuseed,
+		/obj/item/kudzuseed, //im gonna regret giving them this but we'll have to see
+		/obj/item/chem_grenade/knockout,
 		/obj/item/storage/box/smallsyndibox
 		)
 
 	saboteur
 		name = "Infiltration Agent Crate - Saboteur"
 		desc = "A crate containing a Infiltration Agent loadout."
-		spawn_contents = list(/obj/item/device/powersink,
+		spawn_contents = list(/obj/item/device/powersinkteleporter,
 		/obj/item/card/emag,
 		/obj/item/storage/box/emp_kit,
 		/obj/item/device/disguiser,
@@ -565,12 +563,13 @@
 	wetwork
 		name = "Infiltration Agent Crate - Wetwork"
 		desc = "A crate containing a Infiltration Agent loadout."
-		spawn_contents = list(/obj/item/storage/box/pistol,
-		/obj/item/clothing/under/misc/syndicateinfilsuit,
+		spawn_contents = list(/obj/item/storage/box/pistolAP,
 		/obj/item/radiojammer,
 		/obj/item/garrote,
 		/obj/item/cloaking_device,
 		/obj/item/voice_changer,
+		/obj/item/clothing/glasses/idsunglasses,
+		/obj/item/clothing/suit/tuxedo_jacket, //really gotta get that hitman feel
 		/obj/item/storage/box/smallsyndibox
 		)
 

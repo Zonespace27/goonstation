@@ -353,6 +353,15 @@
 	ammo_type = new/datum/projectile/bullet/bullet_22/HP
 	caliber = 0.22
 
+/obj/item/ammo/bullets/bullet_22AP
+	sname = ".22 Armor Piercing"
+	name = ".22 AP magazine"
+	icon_state = "pistol_magazine_ap"
+	amount_left = 8.0
+	max_amount = 8.0
+	ammo_type = new/datum/projectile/bullet/bullet_22/AP
+	caliber = 0.22
+
 /obj/item/ammo/bullets/bullet_32
 	sname = ".32 ACP"
 	name = ".32 ACP magazine"
@@ -362,7 +371,7 @@
 	ammo_type = new/datum/projectile/bullet/bullet_32
 	caliber = 0.32
 
-/obj/item/ammo/bullets/bullet_32/CHEM
+/obj/item/ammo/bullets/bullet_32chem
 	sname = ".32 Chemical ACP"
 	name = ".32 Chemical ACP magazine"
 	icon_state = "pistol_magazine_32_chemical"

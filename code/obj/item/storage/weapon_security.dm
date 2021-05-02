@@ -82,13 +82,22 @@
 	spawn_contents = list(/obj/item/gun/kinetic/silenced_22,\
 	/obj/item/ammo/bullets/bullet_22HP = 3)
 
+/obj/item/storage/box/pistolAP
+	name = "suppressed pistol box"
+	icon_state = "hard_case"
+	desc = "A box containing a sneaky pistol and two types of ammo."
+	// this might be a terrible idea giving them so much ammo, but whatevs
+	spawn_contents = list(/obj/item/gun/kinetic/silenced_22,\
+	/obj/item/ammo/bullets/bullet_22HP = 2,\
+	/obj/item/ammo/bullets/bullet_22AP = 2)
+
 /obj/item/storage/box/welrod
 	name = "welrod pistol box"
 	icon_state = "hard_case"
 	desc = "A box containing a miniature pistol and two kinds of ammo."
 	spawn_contents = list (/obj/item/gun/kinetic/welrod,\
 	/obj/item/ammo/bullets/bullet_32 = 1,\
-	/obj/item/ammo/bullets/bullet_32/CHEM = 2)
+	/obj/item/ammo/bullets/bullet_32chem = 2)
 
 /obj/item/storage/box/derringer
 	name = "derringer box"

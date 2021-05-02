@@ -150,6 +150,21 @@
 	..()
 	return
 
+/obj/item/clothing/glasses/idsunglasses
+	name = "sunglasses"
+	desc = "Strangely ancient technology used to help provide rudimentary eye cover. This one seems to have a HUD in the lenses."
+	icon_state = "sun"
+	item_state = "sunglasses"
+	protective_temperature = 1300
+	var/already_worn = 0
+	color_r = 0.9 // darken a little
+	color_g = 0.9
+	color_b = 0.95 // kinda blue
+
+	setupProperties()
+		..()
+		setProperty("disorient_resist_eye", 100)
+
 /obj/item/clothing/glasses/sunglasses/tanning
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. This pair has a label that says: \"For tanning use only.\""
 	mats = 4

@@ -18,7 +18,8 @@ ABSTRACT_TYPE(/datum/projectile/bullet)
 	shot_number = 1
 
 	// caliber list: update as needed
-	// 0.22 pistol / zipgun
+	// 0.22 - pistol / zipgun
+	// 0.32 - welrod
 	// 0.308 - rifles
 	// 0.357 - revolver
 	// 0.38 - detective
@@ -76,6 +77,12 @@ toxic - poisons
 	damage_type = D_KINETIC
 	hit_type = DAMAGE_CUT
 	implanted = /obj/item/implant/projectile/bullet_22HP
+
+/datum/projectile/bullet/bullet_22/AP
+	power = 18
+	damage_type = D_PIERCING
+	hit_type = DAMAGE_STAB
+	implanted = /obj/item/implant/projectile/bullet_22AP
 
 /datum/projectile/bullet/bullet_32
 	name = "bullet"

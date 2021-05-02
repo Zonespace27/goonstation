@@ -114,3 +114,24 @@
 				processing_items.Remove(src)
 				explosion(src, src.loc, 3,6,9,12)
 				qdel(src)
+
+/obj/item/device/powersinkteleporter
+	name = "power sink teleporter"
+	icon = 'icons/obj/items/device.dmi'
+	desc = "A single-use teleporter remote that summons a power sink. Perfect for concealing it until ready to use!"
+	icon_state = "powersink_remote"
+	item_state = "electronic"
+	density = 0
+	anchored = 0.0
+	w_class = W_CLASS_SMALL
+	is_syndicate = 1
+	var/charges = 1
+	var/use_sound = "sound/machines/chime.ogg"
+
+/obj/item/device/powersinkteleporter/attack_self(mob/user as mob)
+	if(charges >= 1)
+		new /obj/item/device/powersink(get_turf(src))
+		charges = 0
+		boutput(user, "<span class='alert'>The teleporter chimes shortly before a powersink appears at your feet.</span>")
+	else
+		boutput(user, "<span class='alert'>The [src] is out of charge and can't be used again!</span>")

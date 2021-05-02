@@ -1462,6 +1462,19 @@
     item_state = "hitmanc"
     coat_style = "hitmanc"
 
+/obj/item/clothing/suit/hitman47 //currently unfinished, no unique sprite, leaving it as-is so I can make a new forum post
+  name = "black suit and tie"
+  desc = "A replica of the suit worn by a legendary hitman."
+  icon_state = "hitman47"
+  item_state = "hitman47"
+  coat_style = "hitman47"
+	setupProperties()
+		..()
+		setProperty("coldprot", 20)
+		setProperty("heatprot", 20)
+		setProperty("rangedprot", 1) //heh
+		setProperty("meleeprot", 4)
+
 /obj/item/clothing/suit/labcoat/hitman/satansuit
 	icon = 'icons/obj/clothing/overcoats/item_suit.dmi'
 	icon_state = "inspectorc"
