@@ -1,6 +1,7 @@
 /datum/game_mode/spy_theft
 	name = "spy_thief"
 	config_tag = "spy_theft"
+	crew_shortage_enabled = 1
 
 	//maybe not??
 	//latejoin_antag_compatible = 1

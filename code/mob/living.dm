@@ -192,8 +192,10 @@
 			if (!isdead(player) && VALID_MOB(player))
 				num_players++
 
-		if (num_players <= 1 && master_mode != "battle_royale")
-			command_alert("An NT-SO squad is en route to [station_or_ship()], please take shelter while the situation is handled.", "Major Loss of Life Detected.")
+		if (num_players < 2 && master_mode != "battle_royale")
+			//command_alert("An NT-SO squad is en route to [station_or_ship()], please take shelter while the situation is handled.", "Major Loss of Life Detected.")
+			boutput(world, "<span class='notice'><B>Alert: Major Loss of Life Detected.</B></span>")
+			boutput(world, "<span class='notice'>An NT-SO squad is en route to [station_or_ship()], please take shelter while the situation is handled.</span>")
 			var/datum/special_respawn/SR = new /datum/special_respawn/
 			var/datum/job/job = /datum/job/special/ntso_specialist_weak
 			if(!job) return
