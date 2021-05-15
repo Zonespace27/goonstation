@@ -1155,7 +1155,17 @@
 			var/obj/item/gun/kinetic/shootgun = src.budgun
 			if (shootgun.ammo) // is our gun even loaded with anything?
 				if (shootgun.ammo.amount_left >= shootgun.current_projectile.cost)
-					return 1 // good2shoot!
+					if (istype(src.budgun, /obj/item/gun/kinetic/riotgun)) //is this a riot shotgun (manual chambering)
+						speak("This is a riot shotgun!")
+						var/obj/item/gun/kinetic/riotgun/racked_slide = shootgun
+						if (racked_slide == FALSE)
+							SPAWN_DBG(1 SECONDS)
+							racked_slide = TRUE
+							return 1 //now it's chambered and ready to fire!
+						else
+							return 1 //it's chambered, so it'll fire
+					else
+						return 1 //truly good2shoot
 				else
 					return 0 // until we can fire an incomplete burst, our gun isnt good2shoot
 			else // no?
