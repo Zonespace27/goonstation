@@ -122,7 +122,7 @@
 
 	proc/add_object(atom/movable/A, layer = HUD_LAYER, loc)
 		if (loc)
-			A.screen_loc = loc
+			A.screen_loc = loc //runtime: Exception has occurred: Cannot modify /obj/item/storage/duffel.screen_loc
 		A.layer = layer
 		A.plane = PLANE_HUD
 		if (!(A in src.objects))

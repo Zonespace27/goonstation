@@ -445,51 +445,53 @@
 
 /mob/living/carbon/human/proc/Equip_Job_Slots(var/datum/job/JOB)
 	if (JOB.slot_back)
-		src.equip_new_if_possible(JOB.slot_back, slot_back)
-		if (istype(src.back, /obj/item/storage))
-			for (var/X in JOB.items_in_backpack)
-				if(ispath(X))
-					src.equip_new_if_possible(X, slot_in_backpack)
-			if(JOB.receives_disk)
-				var/obj/item/disk/data/floppy/read_only/D = new /obj/item/disk/data/floppy/read_only(src)
-				src.equip_if_possible(D, slot_in_backpack)
-				var/datum/computer/file/clone/R = new
-				R.fields["ckey"] = ckey(src.key)
-				R.fields["name"] = src.real_name
-				R.fields["id"] = copytext(md5(src.real_name), 2, 6)
+		if (src.traitHolder && src.traitHolder.hasTrait("duffelbag")&& ispath(JOB.slot_back, /obj/item/storage/backpack)) //breakpoints say that this happens regardless of if the trait's there
+			src.equip_new_if_possible(/obj/item/storage/duffel, slot_back)
+		else
+			src.equip_new_if_possible(JOB.slot_back, slot_back)
+		for (var/X in JOB.items_in_backpack)
+			if(ispath(X))
+				src.equip_new_if_possible(X, slot_in_backpack)
+		if(JOB.receives_disk)
+			var/obj/item/disk/data/floppy/read_only/D = new /obj/item/disk/data/floppy/read_only(src)
+			src.equip_if_possible(D, slot_in_backpack)
+			var/datum/computer/file/clone/R = new
+			R.fields["ckey"] = ckey(src.key)
+			R.fields["name"] = src.real_name
+			R.fields["id"] = copytext(md5(src.real_name), 2, 6)
 
-				var/datum/bioHolder/B = new/datum/bioHolder(null)
-				B.CopyOther(src.bioHolder)
+			var/datum/bioHolder/B = new/datum/bioHolder(null)
+			B.CopyOther(src.bioHolder)
 
-				R.fields["holder"] = B
+			R.fields["holder"] = B
 
-				R.fields["abilities"] = null
-				if (src.abilityHolder)
-					var/datum/abilityHolder/A = src.abilityHolder.deepCopy()
-					R.fields["abilities"] = A
+			R.fields["abilities"] = null
+			if (src.abilityHolder)
+				var/datum/abilityHolder/A = src.abilityHolder.deepCopy()
+				R.fields["abilities"] = A
 
-				SPAWN_DBG(0)
-					if(src.traitHolder && length(src.traitHolder.traits))
-						R.fields["traits"] = src.traitHolder.traits.Copy()
+			SPAWN_DBG(0)
+				if(src.traitHolder && length(src.traitHolder.traits))
+					R.fields["traits"] = src.traitHolder.traits.Copy()
 
-				R.fields["imp"] = null
-				R.fields["mind"] = src.mind
-				R.name = "CloneRecord-[ckey(src.real_name)]"
-				D.root.add_file(R)
+			R.fields["imp"] = null
+			R.fields["mind"] = src.mind
+			R.name = "CloneRecord-[ckey(src.real_name)]"
+			D.root.add_file(R)
 
-				if (JOB.receives_security_disk)
-					var/datum/computer/file/record/authrec = new /datum/computer/file/record {name = "SECAUTH";} (src)
-					authrec.fields = list("SEC"="[netpass_security]")
-					D.root.add_file( authrec )
-					D.read_only = 1
+			if (JOB.receives_security_disk)
+				var/datum/computer/file/record/authrec = new /datum/computer/file/record {name = "SECAUTH";} (src)
+				authrec.fields = list("SEC"="[netpass_security]")
+				D.root.add_file( authrec )
+				D.read_only = 1
 
-				D.name = "data disk - '[src.real_name]'"
+			D.name = "data disk - '[src.real_name]'"
 
-			if(JOB.receives_badge)
-				var/obj/item/clothing/suit/security_badge/B = new /obj/item/clothing/suit/security_badge(src)
-				src.equip_if_possible(B, slot_in_backpack)
-				B.badge_owner_name = src.real_name
-				B.badge_owner_job = src.job
+		if(JOB.receives_badge)
+			var/obj/item/clothing/suit/security_badge/B = new /obj/item/clothing/suit/security_badge(src)
+			src.equip_if_possible(B, slot_in_backpack)
+			B.badge_owner_name = src.real_name
+			B.badge_owner_job = src.job
 
 	if (src.traitHolder && src.traitHolder.hasTrait("pilot"))
 		var/obj/item/tank/emergency_oxygen/E = new /obj/item/tank/emergency_oxygen(src.loc)

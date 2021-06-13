@@ -289,6 +289,29 @@
 	item_state = "syndie"
 	slots = 7
 
+/* ----------------- Duffel Bags ----------------- */
+/obj/item/storage/duffel
+	name = "duffel bag"
+	desc = "A large container meant for storing large amounts of gear, but unfortunately has to be on the ground to reach into."
+	icon_state = "backpack"
+	inhand_image_icon = 'icons/mob/inhand/hand_storage.dmi'
+	item_state = "backpack"
+	flags = ONBACK | FPRINT | TABLEPASS | NOSPLASH | OPENGROUND
+	w_class = W_CLASS_BULKY
+	max_wclass = 3
+	wear_image_icon = 'icons/mob/back.dmi'
+	does_not_open_in_pocket = 0
+	spawn_contents = list(/obj/item/storage/box/starter)
+	slots = 9
+
+	New()
+		..()
+		BLOCK_SETUP(BLOCK_LARGE)
+		AddComponent(/datum/component/itemblock/backpackblock)
+
+/obj/item/storage/duffel/withO2
+	spawn_contents = list(/obj/item/storage/box/starter/withO2)
+
 /* -------------------- Belts -------------------- */
 
 /obj/item/storage/belt

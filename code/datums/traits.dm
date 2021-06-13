@@ -1079,6 +1079,15 @@ obj/trait/pilot
 	points = 0
 	isPositive = 0
 
+/obj/trait/duffelbag
+	name = "Duffel Kerfuffle (0)" //this was too funny not to have, will change
+	cleanName= "Duffel Kerfuffle"
+	desc = "You start out with a larger duffel bag, instead of a backpack. However, you need to place it on the ground to access it."
+	id = "duffelbag"
+	icon_state = "duffel"
+	points = 0
+	isPositive = 0
+
 /obj/trait/lizard
 	name = "Reptilian (-1) \[Species\]"
 	cleanName = "Reptilian"

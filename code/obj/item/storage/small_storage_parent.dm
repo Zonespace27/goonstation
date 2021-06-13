@@ -16,6 +16,7 @@
 	var/max_wclass = 2
 	var/slots = 7 // seems that even numbers are what breaks the on-ground hud layout
 	var/list/spawn_contents = list()
+	var/inhand = TRUE //used for duffle bags to test if inhand
 	move_triggered = 1
 	flags = FPRINT | TABLEPASS | NOSPLASH
 	w_class = W_CLASS_NORMAL
@@ -160,9 +161,19 @@
 			checkloc = checkloc.loc
 
 		if (T && istype(T, /obj/item/storage))
+			if (src.flags & OPENGROUND)
+				if (!isturf(loc))
+					if (usr && ismob(usr))
+						boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
+					return
 			src.add_contents(W)
 			T.hud.remove_item(W)
 		else
+			if (src.flags & OPENGROUND)
+				if (!isturf(loc))
+					if (usr && ismob(usr))
+						boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
+					return
 			src.add_contents(W)
 			user.u_equip(W)
 		hud.add_item(W, user)
@@ -200,18 +211,34 @@
 		var/atom/movable/screen/hud/S = over_object
 		if (istype(S))
 			playsound(src.loc, "rustle", 50, 1, -5)
+			boutput(usr, "<span class='alert'>Mousedrop is being triggered.</span>") //remove later
 			if (!usr.restrained() && !usr.stat && src.loc == usr)
 				if (S.id == "rhand")
 					if (!usr.r_hand)
+					/*	if (src.flags & OPENGROUND)
+							if (!isturf(loc))
+								if (usr && ismob(usr))
+									boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
+								return*/
 						usr.u_equip(src)
 						usr.put_in_hand(src, 0)
 				else
 					if (S.id == "lhand")
 						if (!usr.l_hand)
+					/*		if (src.flags & OPENGROUND)
+								if (!isturf(loc))
+									if (usr && ismob(usr))
+										boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
+									return*/
 							usr.u_equip(src)
 							usr.put_in_hand(src, 1)
 				return
 		if (over_object == usr && in_interact_range(src, usr) && isliving(usr) && !usr.stat)
+			if (src.flags & OPENGROUND)
+				if (!isturf(loc))
+					if (usr && ismob(usr))
+						boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
+					return
 			if (usr.s_active)
 				usr.detach_hud(usr.s_active)
 				usr.s_active = null
@@ -246,9 +273,24 @@
 							if (M.armed && M.used_up != 1)
 								M.visible_message("<span class='alert'>[M] triggers as it falls on the ground!</span>")
 								M.triggered(usr)
-						hud.remove_item(I)
+						if (src.flags & OPENGROUND)
+							if (!isturf(loc))
+								if (usr && ismob(usr))
+									boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
+								return
+						else
+							hud.remove_item(I)
 
 	attack_hand(mob/user as mob)
+		if (src.flags & OPENGROUND)
+			if (src.loc != user)
+				user.detach_hud(src)
+				user.s_active = null
+				hud.update(user)
+			if (!isturf(loc))
+				if (usr && ismob(usr))
+					boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
+				return
 		if (!src.sneaky)
 			playsound(src.loc, "rustle", 50, 1, -2)
 		if (src.loc == user && (!does_not_open_in_pocket || src == user.l_hand || src == user.r_hand))
@@ -260,6 +302,7 @@
 			if (user.s_active)
 				user.detach_hud(user.s_active)
 				user.s_active = null
+				hud.update(user)
 			if (src.mousetrap_check(user))
 				return
 			user.s_active = src.hud

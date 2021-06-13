@@ -44,6 +44,8 @@
 #define TGUI_INTERACTIVE		 (1<<19)
 /// Has a click delay for attack_self()
 #define ATTACK_SELF_DELAY		 (1<<20)
+/// Can only be opened on the ground (duffel bags)
+#define OPENGROUND		 (1<<21)
 
 
 //Item function flags
