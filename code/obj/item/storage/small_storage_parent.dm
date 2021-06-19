@@ -16,7 +16,7 @@
 	var/max_wclass = 2
 	var/slots = 7 // seems that even numbers are what breaks the on-ground hud layout
 	var/list/spawn_contents = list()
-	var/inhand = TRUE //used for duffle bags to test if inhand
+	var/in_hand_opening = TRUE // stops items from being opened in hand, for duffels
 	move_triggered = 1
 	flags = FPRINT | TABLEPASS | NOSPLASH
 	w_class = W_CLASS_NORMAL
@@ -35,6 +35,7 @@
 
 	New()
 		hud = new(src)
+
 		..()
 		SPAWN_DBG(1 DECI SECOND)
 			src.make_my_stuff()
@@ -106,6 +107,12 @@
 
 	//failure returns 0 or lower for diff messages - sorry
 	proc/check_can_hold(obj/item/W)
+	/*	var/obj/item/storage/S
+		if (S.flags & OPENGROUND)
+			if (!isturf(loc))
+				if (usr && ismob(usr))
+					for (var/obj/item/I in src.get_contents())
+						return 0*/
 		if (!W)
 			return 0
 		.= 1
@@ -129,7 +136,22 @@
 		if (my_contents.len >= slots)
 			return -2
 
+	/*proc/worn_check(obj/item/W) //TRUE means that it can be used (it lacks the OPENGROUND flag, or is on the ground); FALSE means that it can't.
+		//var/obj/item/storage/storage_check = new /obj/item/storage()
+		if (!src.in_hand_opening)
+			if (is_equipped())
+				var/mob/living/L = loc
+				if (istype(L))
+					boutput(L, "<span class='alert'>Doesn't work, dumbass. You're holding it!</span>")
+				if (!src.sneaky)
+					playsound(src.loc, "rustle", 50, 1, -5)
+				return FALSE
+		//if (src.flags & OPENGROUND)
+		//	storage_check.in_hand_opening = FALSE
+		return TRUE*/
+
 	attackby(obj/item/W, mob/user, obj/item/storage/T) // T for transfer - transferring items from one storage obj to another
+		var/obj/item/storage/duffel/storage_check = new /obj/item/storage/duffel()
 		if (W == src)
 			// Putting self in self! Was possible if weight class allows it, causing storage to disappear
 			boutput(user, "<span class='alert'>You can't put [W] into itself!</span>")
@@ -161,21 +183,23 @@
 			checkloc = checkloc.loc
 
 		if (T && istype(T, /obj/item/storage))
-			if (src.flags & OPENGROUND)
+			/*if (src.flags & OPENGROUND)
 				if (!isturf(loc))
 					if (usr && ismob(usr))
 						boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
-					return
-			src.add_contents(W)
-			T.hud.remove_item(W)
+					return*/
+			if (storage_check.worn_check())
+				src.add_contents(W)
+				T.hud.remove_item(W)
 		else
-			if (src.flags & OPENGROUND)
+			/*if (src.flags & OPENGROUND)
 				if (!isturf(loc))
 					if (usr && ismob(usr))
 						boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
-					return
-			src.add_contents(W)
-			user.u_equip(W)
+					return*/
+			if (storage_check.worn_check())
+				src.add_contents(W)
+				user.u_equip(W)
 		hud.add_item(W, user)
 		update_icon()
 		add_fingerprint(user)
@@ -234,20 +258,22 @@
 							usr.put_in_hand(src, 1)
 				return
 		if (over_object == usr && in_interact_range(src, usr) && isliving(usr) && !usr.stat)
-			if (src.flags & OPENGROUND)
+			var/obj/item/storage/duffel/storage_check = new /obj/item/storage/duffel()
+			if (storage_check.worn_check())
+			/*if (src.flags & OPENGROUND)
 				if (!isturf(loc))
 					if (usr && ismob(usr))
 						boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
+					return*/
+				if (usr.s_active)
+					usr.detach_hud(usr.s_active)
+					usr.s_active = null
+				if (src.mousetrap_check(usr))
 					return
-			if (usr.s_active)
-				usr.detach_hud(usr.s_active)
-				usr.s_active = null
-			if (src.mousetrap_check(usr))
+				usr.s_active = src.hud
+				hud.update(usr)
+				usr.attach_hud(src.hud)
 				return
-			usr.s_active = src.hud
-			hud.update(usr)
-			usr.attach_hud(src.hud)
-			return
 		if (usr.is_in_hands(src))
 			var/turf/T = over_object
 			if (istype(T, /obj/table))
@@ -273,49 +299,51 @@
 							if (M.armed && M.used_up != 1)
 								M.visible_message("<span class='alert'>[M] triggers as it falls on the ground!</span>")
 								M.triggered(usr)
-						if (src.flags & OPENGROUND)
+						/*if (src.flags & OPENGROUND)
 							if (!isturf(loc))
 								if (usr && ismob(usr))
 									boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
-								return
+								return*/
 						else
 							hud.remove_item(I)
 
 	attack_hand(mob/user as mob)
-		if (src.flags & OPENGROUND)
-			if (src.loc != user)
-				user.detach_hud(src)
-				user.s_active = null
+		var/obj/item/storage/duffel/storage_check = new /obj/item/storage/duffel()
+		if (storage_check.worn_check())
+			/*if (src.flags & OPENGROUND)
+				if (src.loc != user)
+					user.detach_hud(src)
+					user.s_active = null
+					hud.update(user)
+				if (!isturf(loc))
+					if (usr && ismob(usr))
+						boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
+					return*/
+			if (!src.sneaky)
+				playsound(src.loc, "rustle", 50, 1, -2)
+			if (src.loc == user && (!does_not_open_in_pocket || src == user.l_hand || src == user.r_hand))
+				if (ishuman(user))
+					var/mob/living/carbon/human/H = user
+					if (H.limbs) // this check is probably dumb. BUT YOU NEVER KNOW
+						if ((src == H.l_hand && istype(H.limbs.l_arm, /obj/item/parts/human_parts/arm/left/item)) || (src == H.r_hand && istype(H.limbs.r_arm, /obj/item/parts/human_parts/arm/right/item)))
+							return
+				if (user.s_active)
+					user.detach_hud(user.s_active)
+					user.s_active = null
+					hud.update(user)
+				if (src.mousetrap_check(user))
+					return
+				user.s_active = src.hud
 				hud.update(user)
-			if (!isturf(loc))
-				if (usr && ismob(usr))
-					boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
-				return
-		if (!src.sneaky)
-			playsound(src.loc, "rustle", 50, 1, -2)
-		if (src.loc == user && (!does_not_open_in_pocket || src == user.l_hand || src == user.r_hand))
-			if (ishuman(user))
-				var/mob/living/carbon/human/H = user
-				if (H.limbs) // this check is probably dumb. BUT YOU NEVER KNOW
-					if ((src == H.l_hand && istype(H.limbs.l_arm, /obj/item/parts/human_parts/arm/left/item)) || (src == H.r_hand && istype(H.limbs.r_arm, /obj/item/parts/human_parts/arm/right/item)))
-						return
-			if (user.s_active)
-				user.detach_hud(user.s_active)
-				user.s_active = null
+				user.attach_hud(src.hud)
+				src.add_fingerprint(user)
+				animate_storage_rustle(src)
+			else
+				..()
+				for (var/mob/M as anything in hud.mobs)
+					if (M != user)
+						M.detach_hud(hud)
 				hud.update(user)
-			if (src.mousetrap_check(user))
-				return
-			user.s_active = src.hud
-			hud.update(user)
-			user.attach_hud(src.hud)
-			src.add_fingerprint(user)
-			animate_storage_rustle(src)
-		else
-			..()
-			for (var/mob/M as anything in hud.mobs)
-				if (M != user)
-					M.detach_hud(hud)
-			hud.update(user)
 
 	attack_self(mob/user as mob)
 		..()
@@ -337,6 +365,24 @@
 		. += our_contents
 		for (var/obj/item/storage/S in our_contents)
 			. += S.get_all_contents()
+
+	/*pick_up_by(mob/user as mob)
+		/*var/obj/O
+		if (containsflag(src, OPENGROUND))
+			if (!isturf(loc))
+				if (usr && ismob(usr))
+					for (O in src)
+						boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
+						return ..()
+					return ..()*/
+		//if (user.contains(src))
+		//	boutput(usr, "<span class='alert'>Contains worked.</span>")
+		for (var/obj/item/I in src.contents)
+			if (src.flags & OPENGROUND)
+				if (!isturf(loc))
+					if (usr && ismob(usr))
+						boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
+					return ..()*/
 
 /obj/item/storage/box
 	name = "box"
@@ -473,3 +519,14 @@
 		I.throw_at(target, 8, 2, bonus_throwforce=8)
 
 		playsound(src, 'sound/effects/singsuck.ogg', 40, 1)
+
+proc/worn_check2(var/obj/item/storage/S) //TRUE means that it can be used (it lacks the OPENGROUND flag, or is on the ground); FALSE means that it can't.
+	if (istype(S, /obj/item/storage/duffel))
+		if (S.is_equipped())
+			var/mob/living/L = S.loc
+			if (istype(L))
+				boutput(L, "<span class='alert'>Doesn't work, dumbass. You're holding it!</span>")
+			if (!S.sneaky)
+				playsound(S.loc, "rustle", 50, 1, -5)
+			return FALSE
+	return TRUE

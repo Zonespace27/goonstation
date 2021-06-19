@@ -1563,3 +1563,9 @@
 
 /obj/item/proc/can_pickup(mob/user)
 	return !src.anchored
+
+/obj/item/proc/is_equipped()
+	if (ismob(loc))
+		return TRUE
+	else
+		return FALSE

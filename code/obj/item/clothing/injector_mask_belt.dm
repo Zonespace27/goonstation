@@ -142,7 +142,7 @@ There's A LOT of duplicate code here, which isn't ideal to say the least. Should
 		SPAWN_DBG(2.5 SECONDS)
 			if (src) check()
 
-	proc/is_equipped()
+	/*proc/is_equipped()
 		if(!owner) return 0
 		if(hasvar(owner, "belt"))
 			if(owner:belt == src)
@@ -150,7 +150,7 @@ There's A LOT of duplicate code here, which isn't ideal to say the least. Should
 			else
 				return 0
 		else
-			return 0
+			return 0*/
 
 //////////////////////////////////////
 
@@ -298,7 +298,7 @@ There's A LOT of duplicate code here, which isn't ideal to say the least. Should
 		SPAWN_DBG(2.5 SECONDS)
 			if (src) check()
 
-	proc/is_equipped()
+	/*proc/is_equipped()
 		if(!owner) return 0
 		if(hasvar(owner, "wear_mask"))
 			if(owner:wear_mask == src)
@@ -306,7 +306,7 @@ There's A LOT of duplicate code here, which isn't ideal to say the least. Should
 			else
 				return 0
 		else
-			return 0
+			return 0*/
 
 //////////////////////////////////////
 

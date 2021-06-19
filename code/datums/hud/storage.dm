@@ -179,8 +179,12 @@
 		master.update_icon()
 
 	proc/add_item(obj/item/I, mob/user = usr)
-		update(user)
+		var/obj/item/storage/duffel/storage_check = new /obj/item/storage/duffel()
+		if (storage_check.worn_check())
+			update(user)
 
 	proc/remove_item(obj/item/I)
-		remove_object(I)
-		update()
+		var/obj/item/storage/duffel/storage_check = new /obj/item/storage/duffel()
+		if (storage_check.worn_check())
+			remove_object(I)
+			update()

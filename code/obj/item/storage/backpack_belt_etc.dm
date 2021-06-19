@@ -302,12 +302,23 @@
 	wear_image_icon = 'icons/mob/back.dmi'
 	does_not_open_in_pocket = 0
 	spawn_contents = list(/obj/item/storage/box/starter)
+	in_hand_opening = FALSE
 	slots = 9
 
 	New()
 		..()
 		BLOCK_SETUP(BLOCK_LARGE)
 		AddComponent(/datum/component/itemblock/backpackblock)
+
+	proc/worn_check(obj/item/W) //TRUE means that it can be used; FALSE means that it can't.
+		if (!src.in_hand_opening)
+			if (isturf(src))
+				if (usr && ismob(usr))
+					boutput(usr, "<span class='alert'>Doesn't work, dumbass. You're holding it!</span>")
+				if (!src.sneaky)
+					playsound(src.loc, "rustle", 50, 1, -5)
+				return FALSE
+		return TRUE
 
 /obj/item/storage/duffel/withO2
 	spawn_contents = list(/obj/item/storage/box/starter/withO2)

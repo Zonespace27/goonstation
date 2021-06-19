@@ -2176,6 +2176,20 @@
 				for (var/obj/O8 in T8)
 					. |= O8
 
+	for (var/obj/item/storage/duffel/DF in src.contents) // duffels and boxes and all that jazz
+		for (var/obj/item/storage/S9 in DF.contents)
+			var/list/T9 = S9.get_all_contents()
+			for (var/obj/O9 in T9)
+				. |= O9
+
+		for (var/obj/item/gift/G5 in DF.contents)
+			. |= G5.gift
+			if (istype(G5.gift, /obj/item/storage))
+				var/obj/item/storage/S10 = G5.gift
+				var/list/T10 = S10.get_all_contents()
+				for (var/obj/O10 in T10)
+					. |= O10
+
 // Made these three procs use get_all_items_on_mob(). "Steal X" objective should work more reliably as a result (Convair880).
 /mob/proc/check_contents_for(A, var/accept_subtypes = 0)
  . = FALSE

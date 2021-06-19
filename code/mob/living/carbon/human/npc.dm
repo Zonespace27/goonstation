@@ -752,6 +752,10 @@
 			var/obj/item/storage/backpack/B = src.back
 			if(B.contents.len < 7)
 				B.attackby(GN,src)
+		else if(src.back && istype(src.back,/obj/item/storage/duffel))
+			var/obj/item/storage/duffel/D = src.back
+			if(D.contents.len < 9)
+				D.attackby(GN,src)
 
 	var/obj/item/pickup
 
