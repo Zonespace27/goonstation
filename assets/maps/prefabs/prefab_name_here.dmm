@@ -1,0 +1,85 @@
+"a" = (/turf/space,/area/space)
+"b" = (/obj/critter/zombie/security,/obj/decal/cleanable/blood/gibs,/turf/variableTurf/floor,/area/space)
+"c" = (/obj/stool/chair/comfy/shuttle{dir = 8},/obj/decal/cleanable/blood,/turf/simulated/floor/shuttle,/area/space)
+"d" = (/obj/critter/zombie{alive = 0},/turf/variableTurf/floor,/area/space)
+"e" = (/obj/decoration/bullethole{pixel_x = 3; pixel_y = 7},/turf/variableTurf/wall,/area/space)
+"f" = (/obj/decal/cleanable/blood/splatter,/turf/variableTurf/floor,/area/space)
+"i" = (/obj/critter/zombie,/turf/variableTurf/floor,/area/space)
+"j" = (/obj/decoration/bullethole,/turf/simulated/wall/auto/shuttle,/area/space)
+"r" = (/obj/decal/cleanable/blood/splatter/extra,/turf/variableTurf/floor,/area/space)
+"s" = (/obj/critter/zombie{_health = 66},/turf/variableTurf/floor,/area/space)
+"u" = (/turf/simulated/wall/auto/shuttle,/area/space)
+"w" = (/obj/decoration/bullethole{pixel_x = 9; pixel_y = -9},/obj/decoration/bullethole{pixel_x = -9; pixel_y = -2},/turf/variableTurf/wall,/area/space)
+"x" = (/obj/item/casing/small{dir = 9; pixel_x = -4; pixel_y = 3},/obj/item/casing/small{dir = 8; pixel_x = -10; pixel_y = 13},/obj/item/casing/small{dir = 5; pixel_x = 9; pixel_y = -8},/turf/variableTurf/floor,/area/space)
+"y" = (/obj/critter/zombie{alive = 0},/obj/decal/cleanable/blood/splatter,/turf/variableTurf/floor,/area/space)
+"z" = (/obj/decoration/bullethole{pixel_x = -7; pixel_y = -2},/turf/variableTurf/wall,/area/space)
+"B" = (/obj/stool/chair/comfy/shuttle{dir = 4},/turf/simulated/floor/shuttle,/area/space)
+"C" = (/obj/decal/cleanable/blood,/turf/variableTurf/floor,/area/space)
+"E" = (/obj/item/casing/small{dir = 5; pixel_x = -3; pixel_y = -6},/obj/item/casing/small{dir = 1; pixel_x = 3; pixel_y = 9},/obj/item/casing/small{dir = 8; pixel_x = 12; pixel_y = 2},/turf/variableTurf/floor,/area/space)
+"F" = (/obj/decal/fakeobjects/shuttlethruster{dir = 1},/turf/space,/area/space)
+"J" = (/turf/variableTurf/floor,/area/space)
+"K" = (/obj/stool/chair/comfy/shuttle{dir = 8},/turf/simulated/floor/shuttle,/area/space)
+"L" = (/obj/item/casing/small{dir = 1; pixel_x = -5; pixel_y = 12},/obj/item/casing/small{dir = 4; pixel_x = 6; pixel_y = -7},/turf/variableTurf/floor,/area/space)
+"N" = (/obj/item/casing/small{dir = 4; pixel_x = -3; pixel_y = -7},/obj/item/casing/small{dir = 6; pixel_x = 10; pixel_y = 8},/obj/item/casing/small{dir = 9; pixel_x = -12; pixel_y = 5},/turf/variableTurf/floor,/area/space)
+"O" = (/obj/stool/chair/comfy/shuttle{dir = 4},/obj/critter/zombie{alive = 0},/obj/decal/cleanable/blood/gibs/body,/turf/simulated/floor/shuttle,/area/space)
+"P" = (/obj/decoration/bullethole{pixel_x = -7; pixel_y = -1},/turf/variableTurf/wall,/area/space)
+"Q" = (/obj/item/casing/small{dir = 4; pixel_x = -9; pixel_y = 7},/obj/item/casing/small{dir = 6; pixel_x = 8; pixel_y = -4},/obj/item/casing/small{dir = 1; pixel_x = -11; pixel_y = -10},/turf/variableTurf/floor,/area/space)
+"T" = (/obj/decal/cleanable/blood/drip,/turf/variableTurf/floor,/area/space)
+"V" = (/obj/item/casing/small{dir = 5; pixel_x = -7; pixel_y = 11},/turf/variableTurf/floor,/area/space)
+"W" = (/obj/item/casing/small{dir = 4; pixel_x = -5; pixel_y = 5},/obj/item/casing/small{dir = 6; pixel_x = -14; pixel_y = 8},/obj/item/casing/small{dir = 10; pixel_x = 5; pixel_y = -6},/turf/variableTurf/floor,/area/space)
+"X" = (/turf/variableTurf/wall,/area/space)
+"Y" = (/obj/item/gun/kinetic/pistol/smart/mkII/sixammo,/obj/decal/cleanable/blood/drip,/turf/variableTurf/floor,/area/space)
+"Z" = (/obj/decoration/bullethole{pixel_x = -8; pixel_y = -2},/turf/simulated/wall/auto/shuttle,/area/space)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaFaaFaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaujuuaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaauBKuaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaauBKuaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaauBKZaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaXXXXuOcuXaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaXXXJJJJJJJJXXaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaXJXJJJJJQJXXJwaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaXJXXJJJJJXXJbYXaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaXXJJfJXJJJXXJrTJeaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaXJdJJJJXJJXJLJJJiXXXXXaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaXJfJJJXXJJJXJJVTJJJJTzaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaXJJJJXXJEJJJXJJJJJJJsPaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaXJJJJJJJJJJfXJTJJJJJJXaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaXJJJNJJJJJyJXJJxJJJJXaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaXJJJJJJJJXXXJJJJJXXXaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaXJJJJXXXXJJJJJJXXXXaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaXJJJXXXXXJJdJfJXXXaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaXJJJXXJJJJJJJJXXXaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaXJJJJJJrJWJJJJXXaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaXJJJCJJCJJJXXXaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaXXJJJJJJJJXaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaXXXXXXXXaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+"}

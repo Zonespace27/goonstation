@@ -1039,6 +1039,12 @@ ABSTRACT_TYPE(/obj/item/gun/kinetic)
 		set_current_projectile(new/datum/projectile/bullet/bullet_9mm/smartgun)
 		AddComponent(/datum/component/holdertargeting/smartgun/nukeop, 3)
 
+/obj/item/gun/kinetic/pistol/smart/mkII/sixammo //prefab's getting this
+
+	New()
+		..()
+		ammo.amount_left = 6
+		update_icon()
 
 /datum/component/holdertargeting/smartgun/nukeop/is_valid_target(mob/user, mob/M)
 	return ..() && !istype(M.get_id(), /obj/item/card/id/syndicate)

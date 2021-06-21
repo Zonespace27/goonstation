@@ -187,6 +187,13 @@ ABSTRACT_TYPE(/datum/generatorPrefab)
 		prefabSizeX = 20
 		prefabSizeY = 20
 
+	candy_shop //Ryn's store from out of time and out of place
+		maxNum = 1
+		probability = 25
+		prefabPath = "assets/maps/prefabs/prefab_candy_shop.dmm"
+		prefabSizeX = 20
+		prefabSizeY = 20
+
 	//UNDERWATER AREAS FOR OSHAN
 
 	pit
