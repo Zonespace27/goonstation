@@ -42,6 +42,7 @@
 
 #elif defined(MAP_OVERRIDE_ATLAS)
 
+#elif defined(MAP_OVERRIDE_DENSITY2)
 
 #elif defined(MAP_OVERRIDE_MANTA)
 

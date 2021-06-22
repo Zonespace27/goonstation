@@ -46,6 +46,9 @@
 #elif defined(MAP_OVERRIDE_ATLAS)
 #include "atlas.dm"
 
+#elif defined(MAP_OVERRIDE_DENSITY2)
+#include "density2.dm"
+
 #elif defined(MAP_OVERRIDE_MANTA)
 #include "manta.dm"
 
