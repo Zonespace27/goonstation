@@ -1,5 +1,6 @@
 #define MINUTES_TO_SWORD_LINK 30										//Feel free to tweak this number as you see fit. After all, my strong suit is originality, not balance.
 var/sword_summoned_before = false
+var/sword_core_summoned = false //just in case an actual SWORD signaller comes around when one of these is used
 
 /obj/item/makeshift_signaller_frame
 	name = "makeshift signaller frame"
@@ -155,6 +156,81 @@ var/sword_summoned_before = false
 			user.show_message("<span class='notice'>This device has been emagged already!</span>", 1)
 		return
 
+/obj/item/syndicate_core_signaller //used to summon a SWORD core
+	name = "syndicate core signaller"
+	icon = 'icons/misc/retribution/makeshift_signaller.dmi'
+	icon_state = "metadata_0"
+	flags = FPRINT | TABLEPASS | CONDUCT | ONBELT
+	w_class = W_CLASS_SMALL
+	throw_speed = 4
+	throw_range = 20
+	m_amt = 500
+	var/metadata = 0
+	var/was_emagged = false
+	var/is_exploding = false
+	is_syndicate = 1
+	mats = 4
+	desc = "This device seems to have been re-assembled several times."
+	contraband = 5
+
+	New()
+		RegisterSignal(GLOBAL_SIGNAL, COMSIG_GLOBAL_DRONE_DEATH, .proc/metadata_increase)
+		..()
+
+	attack_self(mob/user as mob)
+		if (metadata >= 10 && !is_exploding)
+			if (!isrestrictedz(src.z))
+				if (!sword_core_summoned)
+					var/list/nearby_turfs = list()
+					for (var/turf/T in oview(src.loc,10))
+						if (istype(T, /turf/space))
+							nearby_turfs += T
+					if (length(nearby_turfs))
+						var/coreplace = pick(nearby_turfs)
+						new/obj/item/sword_core(coreplace)
+						elecflash(coreplace, power=3)
+						sword_core_summoned = true
+						icon_state = "explosion"
+						user.show_message("<span class='notice'>You sent a signal to unknown coordinates derived from the uploaded metadata!</span>", 1)
+						desc = "Oh shit, it's overloading!"
+						tooltip_rebuild = 1
+						is_exploding = true
+						spawn(2 SECONDS)
+							logTheThing("combat", user, null, "has summoned a SWORD core.")
+							message_admins("[key_name(user)] has summoned a SWORD core.")
+							elecflash(src.loc)
+							qdel(src)
+						return
+					else
+						user.show_message("<span class='notice'>You failed to send a signal. To avoid interference, it's best to try again closer to open space.</span>", 1)
+				else
+					user.show_message("<span class='notice'>You failed to send a signal. The device seems oddly dormant...</span>", 1)
+					desc = "This device is dormant. It has no purpose now."
+					tooltip_rebuild = 1
+			else
+				user.show_message("<span class='notice'>You failed to send a signal. To avoid interference, it's best to try again in an unrestricted area.</span>", 1)
+		else if (metadata >= 0 && metadata < 10 && !is_exploding)			//If there are still unfilled metadata nodes left, display the filled nodes' amount.
+			user.show_message("<span class='notice'>Metadata nodes currently filled: [metadata]</span>", 1)
+			return
+		return
+
+	attackby(obj/item/W as obj, mob/user as mob)
+		if (istype(W,/obj/item/factionrep/ntboard) && !is_exploding)	//If a Syndicate Circuit Board is used on this item, turn the former into it's fried version and fill a metadata node.
+			if (metadata < 10)
+				qdel(W)
+				playsound(src.loc, "sound/effects/sparks4.ogg", 100, 0)
+				user.put_in_hand_or_drop(new /obj/item/factionrep/ntboardfried)
+				metadata += 1
+				user.show_message("<span class='notice'>You uploaded some metadata from the syndicate circuit board, frying it in the process.</span>", 1)
+				set_icon_state("metadata_[metadata]")
+				if (metadata >= 10)
+					desc = "This device has a menacing aura around it. All 10 nodes of metadata are filled. The signal is ready to be sent."
+					tooltip_rebuild = 1
+			else if (metadata >= 10)										//If all metadata nodes are filled, alert the player instead.
+				user.show_message("<span class='notice'>All 10 metadata nodes have been filled already!</span>", 1)
+			return
+		return
+
 /obj/item/makeshift_syndicate_signaller/proc/metadata_increase(source, dying_drone)
 	if (metadata >= 8)
 		return
@@ -171,5 +247,24 @@ var/sword_summoned_before = false
 				desc = "This device has a menacing aura around it. All 8 nodes of metadata are filled. The signal is ready to be sent."
 			else
 				desc = "This device has no menacing aura around it. In fact, it is completely dormant."
+			tooltip_rebuild = 1
+	return
+
+/obj/item/syndicate_core_signaller/proc/metadata_increase(source, dying_drone)
+	if (metadata >= 10)
+		return
+	var/turf/T1 = get_turf(src)
+	var/turf/T2 = get_turf(dying_drone)
+	if (!(istype(dying_drone, /obj/critter/gunbot/drone/buzzdrone/fish) || istype(dying_drone, /obj/critter/gunbot/drone/gunshark)) && T1.z == T2.z)	//Not increasing the filled metadata node amount if the dead drone is an aquatic one, as they drop Syndicate Circuit Boards already.
+		if (metadata < 10)
+			metadata += 1
+			playsound(src.loc, "sound/misc/flockmind/flockdrone_beep3.ogg", metadata * 12, 0)
+			set_icon_state("metadata_[metadata]")
+		if (metadata >= 10)
+			playsound(src.loc, "sound/misc/flockmind/flockdrone_beep4.ogg", 100, 0)
+			if(!sword_core_summoned)
+				desc = "This device seems to have been re-assembled several times. All 10 nodes of metadata are filled. The signal is ready to be sent."
+			else
+				desc = "This device seems to have been re-assembled several times. In fact, it is completely dormant."
 			tooltip_rebuild = 1
 	return
