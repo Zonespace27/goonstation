@@ -1101,8 +1101,10 @@
 				SEND_SIGNAL(src, COMSIG_CLOAKING_DEVICE_DEACTIVATE)
 				src.throw_item(target, params)
 				return
+	if (src.client) //figure this out, sometime. Also, FUCK
 
-	return ..()
+	else
+		return ..()
 
 /mob/living/carbon/human/update_cursor()
 	if (src.client)

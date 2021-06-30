@@ -346,15 +346,15 @@
 		BLOCK_SETUP(BLOCK_LARGE)
 		AddComponent(/datum/component/itemblock/backpackblock)
 
-	proc/worn_check(obj/item/W) //TRUE means that it can be used; FALSE means that it can't.
+/*	proc/worn_check(obj/item/W) //TRUE means that it can be used; FALSE means that it can't.
 		if (!src.in_hand_opening)
-			if (isturf(src))
+			if (isturf(src.loc))
 				if (usr && ismob(usr))
 					boutput(usr, "<span class='alert'>Doesn't work, dumbass. You're holding it!</span>")
 				if (!src.sneaky)
 					playsound(src.loc, "rustle", 50, 1, -5)
 				return FALSE
-		return TRUE
+		return TRUE*/
 
 /obj/item/storage/duffel/withO2
 	spawn_contents = list(/obj/item/storage/box/starter/withO2)

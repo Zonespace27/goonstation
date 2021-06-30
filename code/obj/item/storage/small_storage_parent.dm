@@ -150,9 +150,20 @@
 		//if (src.flags & OPENGROUND)
 		//	storage_check.in_hand_opening = FALSE
 		return TRUE*/
+	proc/worn_check(obj/item/W) //TRUE means that it can be used; FALSE means that it can't.
+		if (!src.in_hand_opening)
+			if (!isturf(src.loc) || ismob(src.loc))
+				if (usr && ismob(usr))
+					boutput(usr, "<span class='alert'>Doesn't work, dumbass. You're holding it!</span>")
+				if (!src.sneaky)
+					playsound(src.loc, "rustle", 50, 1, -5)
+				return FALSE
+			else
+				return TRUE
+		else
+			return TRUE
 
 	attackby(obj/item/W, mob/user, obj/item/storage/T) // T for transfer - transferring items from one storage obj to another
-		var/obj/item/storage/duffel/storage_check = new /obj/item/storage/duffel()
 		if (W == src)
 			// Putting self in self! Was possible if weight class allows it, causing storage to disappear
 			boutput(user, "<span class='alert'>You can't put [W] into itself!</span>")
@@ -184,31 +195,24 @@
 			checkloc = checkloc.loc
 
 		if (T && istype(T, /obj/item/storage))
-			/*if (src.flags & OPENGROUND)
-				if (!isturf(loc))
-					if (usr && ismob(usr))
-						boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
-					return*/
-			if (storage_check.worn_check())
-				src.add_contents(W)
-				T.hud.remove_item(W)
+			src.add_contents(W)
+			T.hud.remove_item(W)
 		else
-			/*if (src.flags & OPENGROUND)
-				if (!isturf(loc))
-					if (usr && ismob(usr))
-						boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
-					return*/
-			if (storage_check.worn_check())
-				src.add_contents(W)
-				user.u_equip(W)
-		hud.add_item(W, user)
-		update_icon()
-		add_fingerprint(user)
-		animate_storage_rustle(src)
-		if (!src.sneaky && !istype(W, /obj/item/gun/energy/crossbow))
-			user.visible_message("<span class='notice'>[user] has added [W] to [src]!</span>", "<span class='notice'>You have added [W] to [src].</span>")
-		playsound(src.loc, "rustle", 50, 1, -5)
-		return
+			src.add_contents(W)
+			user.u_equip(W)
+		var/worn_add = worn_check()
+		switch (worn_add)
+			if(TRUE)
+				hud.add_item(W, user)
+				update_icon()
+				add_fingerprint(user)
+				animate_storage_rustle(src)
+				if (!src.sneaky && !istype(W, /obj/item/gun/energy/crossbow))
+					user.visible_message("<span class='notice'>[user] has added [W] to [src]!</span>", "<span class='notice'>You have added [W] to [src].</span>")
+				playsound(src.loc, "rustle", 50, 1, -5)
+				return
+			if(FALSE)
+				boutput(user, "<span class='alert'>Add_item pulled false</span>")
 
 	dropped(mob/user as mob)
 		if (hud)
@@ -259,8 +263,13 @@
 							usr.put_in_hand(src, 1)
 				return
 		if (over_object == usr && in_interact_range(src, usr) && isliving(usr) && !usr.stat)
-			var/obj/item/storage/duffel/storage_check = new /obj/item/storage/duffel()
-			if (storage_check.worn_check())
+			if (!src.in_hand_opening)
+				if (ismob(src.loc))
+					if (usr && ismob(usr))
+						boutput(usr, "<span class='alert'>Doesn't work, dumbass. You're holding it!</span>")
+					if (!src.sneaky)
+						playsound(src.loc, "rustle", 50, 1, -5)
+					return
 			/*if (src.flags & OPENGROUND)
 				if (!isturf(loc))
 					if (usr && ismob(usr))
@@ -309,17 +318,13 @@
 							hud.remove_item(I)
 
 	attack_hand(mob/user as mob)
-		var/obj/item/storage/duffel/storage_check = new /obj/item/storage/duffel()
-		if (storage_check.worn_check())
-			/*if (src.flags & OPENGROUND)
-				if (src.loc != user)
-					user.detach_hud(src)
-					user.s_active = null
-					hud.update(user)
-				if (!isturf(loc))
-					if (usr && ismob(usr))
-						boutput(usr, "<span class='alert'>The duffel bag must be on the floor to be opened.</span>")
-					return*/
+		if (!src.in_hand_opening) //yeah there's a proc for this, but due to attack_hand counting both on ground, and in hand, i've gotta do a special one
+			if (ismob(src.loc))
+				if (usr && ismob(usr))
+					boutput(usr, "<span class='alert'>Doesn't work, dumbass. You're holding it!</span>")
+				if (!src.sneaky)
+					playsound(src.loc, "rustle", 50, 1, -5)
+				return
 			if (!src.sneaky)
 				playsound(src.loc, "rustle", 50, 1, -2)
 			if (src.loc == user && (!does_not_open_in_pocket || src == user.l_hand || src == user.r_hand))

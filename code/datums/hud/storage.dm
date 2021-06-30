@@ -179,12 +179,21 @@
 		master.update_icon()
 
 	proc/add_item(obj/item/I, mob/user = usr)
-		var/obj/item/storage/duffel/storage_check = new /obj/item/storage/duffel()
-		if (storage_check.worn_check())
-			update(user)
+		/*var/worn_add = master.worn_check()
+		switch (worn_add)
+			if(TRUE)
+				add_object(I)
+				update(user)
+			if(FALSE)
+				boutput(user, "<span class='alert'>Add_item pulled false</span>")*/
+		add_object(I)
+		update(user)
 
 	proc/remove_item(obj/item/I)
-		var/obj/item/storage/duffel/storage_check = new /obj/item/storage/duffel()
-		if (storage_check.worn_check())
-			remove_object(I)
-			update()
+		var/worn_add = master.worn_check()
+		switch (worn_add)
+			if(TRUE)
+				remove_object(I)
+				update()
+			if(FALSE)
+				var/testvar = 2
