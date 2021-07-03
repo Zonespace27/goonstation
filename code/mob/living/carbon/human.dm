@@ -1059,6 +1059,7 @@
 		src.next_click = world.time + src.combat_click_delay
 
 /mob/living/carbon/human/click(atom/target, list/params)
+	//var/obj/item/storage/duffel/in_hand_check = new /obj/item/storage/duffel()
 	if (src.client)
 		if (src.client.experimental_intents)
 			if (src.client.check_key(KEY_THROW))
@@ -1101,11 +1102,15 @@
 				SEND_SIGNAL(src, COMSIG_CLOAKING_DEVICE_DEACTIVATE)
 				src.throw_item(target, params)
 				return
-	if (src.client) //figure this out, sometime. Also, FUCK
-
-	else
-		return ..()
-
+	/*if (in_hand_check.in_hand_opening == FALSE) //figure this out, sometime. Also, FUCK
+		if (in_hand_check.no_open == TRUE)
+			in_hand_check.no_open = FALSE
+		else
+			return ..()*/
+	//else
+		//return ..()
+	return ..()
+	
 /mob/living/carbon/human/update_cursor()
 	if (src.client)
 		if (src.client.experimental_intents)

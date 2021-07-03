@@ -17,6 +17,7 @@
 	var/slots = 7 // seems that even numbers are what breaks the on-ground hud layout
 	var/list/spawn_contents = list()
 	var/in_hand_opening = TRUE // stops items from being opened in hand, for duffels
+	var/no_open = FALSE //I'm so sorry i had to make this var, couldn't figure it out otherwise
 	move_triggered = 1
 	flags = FPRINT | TABLEPASS | NOSPLASH
 	w_class = W_CLASS_NORMAL
@@ -108,12 +109,6 @@
 
 	//failure returns 0 or lower for diff messages - sorry
 	proc/check_can_hold(obj/item/W)
-	/*	var/obj/item/storage/S
-		if (S.flags & OPENGROUND)
-			if (!isturf(loc))
-				if (usr && ismob(usr))
-					for (var/obj/item/I in src.get_contents())
-						return 0*/
 		if (!W)
 			return 0
 		.= 1
@@ -210,9 +205,9 @@
 				if (!src.sneaky && !istype(W, /obj/item/gun/energy/crossbow))
 					user.visible_message("<span class='notice'>[user] has added [W] to [src]!</span>", "<span class='notice'>You have added [W] to [src].</span>")
 				playsound(src.loc, "rustle", 50, 1, -5)
-				return
 			if(FALSE)
 				boutput(user, "<span class='alert'>Add_item pulled false</span>")
+				return
 
 	dropped(mob/user as mob)
 		if (hud)

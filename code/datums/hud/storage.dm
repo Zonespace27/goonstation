@@ -179,13 +179,13 @@
 		master.update_icon()
 
 	proc/add_item(obj/item/I, mob/user = usr)
-		/*var/worn_add = master.worn_check()
+		var/worn_add = master.worn_check()
 		switch (worn_add)
 			if(TRUE)
 				add_object(I)
 				update(user)
 			if(FALSE)
-				boutput(user, "<span class='alert'>Add_item pulled false</span>")*/
+				master.no_open = TRUE
 		add_object(I)
 		update(user)
 
@@ -196,4 +196,4 @@
 				remove_object(I)
 				update()
 			if(FALSE)
-				var/testvar = 2
+				master.no_open = TRUE
