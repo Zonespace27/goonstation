@@ -1446,6 +1446,7 @@ var/datum/preMapLoad/preMapLoad = new
 #include "code\obj\item\gun\energy.dm"
 #include "code\obj\item\gun\gun_parent.dm"
 #include "code\obj\item\gun\kinetic.dm"
+#include "code\obj\item\gun\moddable.dm"
 #include "code\obj\item\gun\reagent.dm"
 #include "code\obj\item\gun\russian.dm"
 #include "code\obj\item\mob_parts\human_parts.dm"

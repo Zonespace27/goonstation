@@ -174,6 +174,28 @@
                        HAS_FLAG(x:kind_of_limb, LIMB_HEAVIER) |\
                        HAS_FLAG(x:kind_of_limb, LIMB_TREADS))
 
+// Gun attachments
+/// Slot for energy/kinetic type
+#define GP_TYPE (1<<0)
+/// Barrel attachment
+#define GP_BARREL (1<<1)
+/// Underbarrel attachment
+#define GP_UNDERBARREL (1<<2)
+/// Stock attachment
+#define GP_STOCK (1<<3)
+/// Sight attachment
+#define GP_SIGHT (1<<4)
+/// Muzzle attachment
+#define GP_MUZZLE (1<<5)
+/// Energy Mode
+#define GP_ENERGY (1<<6)
+/// Kinetic Mode
+#define GP_KINETIC (1<<7)
+/// Slot for kinetic ammo type
+#define GP_AMMO (1<<8)
+/// Slot for energy ammo type
+#define GP_E_AMMO (1<<9)
+
 #define W_CLASS_TINY 1
 #define W_CLASS_SMALL 2
 #define W_CLASS_NORMAL 3
