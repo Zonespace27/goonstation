@@ -346,6 +346,15 @@
 	ammo_type = new/datum/projectile/bullet/bullet_22
 	caliber = 0.22
 
+/obj/item/ammo/bullets/bullet_22/drum_mag
+	sname = ".22 LR drum"
+	name = ".22 drum magazine"
+	icon_state = "pistol_magazine"
+	amount_left = 100.0
+	max_amount = 100.0
+	ammo_type = new/datum/projectile/bullet/bullet_22
+	caliber = 0.22
+
 /obj/item/ammo/bullets/bullet_22/faith
 	amount_left = 4.0
 
@@ -1032,6 +1041,16 @@
 	g_amt = 40000
 	charge = 300.0
 	max_charge = 300.0
+
+/obj/item/ammo/power_cell/empty
+	name = "Rubber Power Cell"
+	desc = "A power cell appears to be made of rubber! Holds 0PU."
+	icon = 'icons/obj/items/ammo.dmi'
+	icon_state = "power_cell" //change me
+	m_amt = 20000
+	g_amt = 40000
+	charge = 0.0
+	max_charge = 0.0
 
 /obj/item/ammo/power_cell/self_charging
 	name = "Power Cell - Atomic"

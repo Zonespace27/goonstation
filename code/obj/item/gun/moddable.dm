@@ -219,22 +219,66 @@
 				if (src.flags & GP_TYPE)
 					src.name = "Kinetic Gun Frame"
 					src.desc = "A kinetic gun frame that still isn't functional, due to its lack of an ammo type."
-					src.flags = src.flags - GP_TYPE
-					src.flags = src.flags + GP_AMMO
+					src.flags = src.flags &= ~GP_TYPE
+					src.flags = src.flags |= GP_AMMO
 					qdel(b)
 			if (istype(b, /obj/item/gun/moddable/attachment/energy))
 				if (src.flags & GP_TYPE)
 					src.name = "Energy Gun" //change me
 					src.desc = "A completed energy gun."
-					src.flags = src.flags - GP_TYPE
-					src.flags = src.flags + GP_E_AMMO
+					src.flags = src.flags &= ~GP_TYPE
+					src.flags = src.flags |= GP_E_AMMO
 					qdel(b)
-			if (istype(b, /obj/item/gun/moddable/attachment/twentytwolr))
+			if (istype(b, /obj/item/gun/moddable/attachment/ammo22))
 				if (src.flags & GP_AMMO)
 					new /obj/item/gun/moddable/base/kinetic/gun22(get_turf(src))
 					qdel(b)
 					qdel(src)
-
+			if (istype(b, /obj/item/gun/moddable/attachment/ammo308))
+				if (src.flags & GP_AMMO)
+					new /obj/item/gun/moddable/base/kinetic/gun308(get_turf(src))
+					qdel(b)
+					qdel(src)
+			if (istype(b, /obj/item/gun/moddable/attachment/ammo556))
+				if (src.flags & GP_AMMO)
+					new /obj/item/gun/moddable/base/kinetic/gun556(get_turf(src))
+					qdel(b)
+					qdel(src)
+			if (istype(b, /obj/item/gun/moddable/attachment/ammo357))
+				if (src.flags & GP_AMMO)
+					new /obj/item/gun/moddable/base/kinetic/gun357(get_turf(src))
+					qdel(b)
+					qdel(src)
+			if (istype(b, /obj/item/gun/moddable/attachment/ammo762))
+				if (src.flags & GP_AMMO)
+					new /obj/item/gun/moddable/base/kinetic/gun762(get_turf(src))
+					qdel(b)
+					qdel(src)
+			if (istype(b, /obj/item/gun/moddable/attachment/ammo12ga))
+				if (src.flags & GP_AMMO)
+					new /obj/item/gun/moddable/base/kinetic/gun12ga(get_turf(src))
+					qdel(b)
+					qdel(src)
+			if (istype(b, /obj/item/gun/moddable/attachment/ammo50))
+				if (src.flags & GP_AMMO)
+					new /obj/item/gun/moddable/base/kinetic/gun50(get_turf(src))
+					qdel(b)
+					qdel(src)
+			if (istype(b, /obj/item/gun/moddable/attachment/energystun))
+				if (src.flags & GP_AMMO)
+					new /obj/item/gun/moddable/base/energy/stun(get_turf(src))
+					qdel(b)
+					qdel(src)
+			if (istype(b, /obj/item/gun/moddable/attachment/energylaser))
+				if (src.flags & GP_AMMO)
+					new /obj/item/gun/moddable/base/energy/laser(get_turf(src))
+					qdel(b)
+					qdel(src)
+			if (istype(b, /obj/item/gun/moddable/attachment/energyemp))
+				if (src.flags & GP_AMMO)
+					new /obj/item/gun/moddable/base/energy/emp(get_turf(src))
+					qdel(b)
+					qdel(src)
 
 	attack_hand(mob/user as mob)
 		if (src.flags & GP_KINETIC)
@@ -383,16 +427,29 @@
 	event_handler_flags = USE_GRAB_CHOKE | USE_FLUID_ENTER
 
 /obj/item/gun/moddable/base/kinetic
-	name = "Unbuilt Gun"
-	desc = "A gun that seems not to be functioning, probably due to lacking any sort of parts."
+	name = "Generic Kinetic Frame"
+	desc = "You shouldn't see me!"
 	icon_state = "hipoint"
-	flags = GP_TYPE | ONBELT | TABLEPASS | CONDUCT | FPRINT | USEDELAY | EXTRADELAY
+	flags = GP_AMMO | ONBELT | TABLEPASS | CONDUCT | FPRINT | USEDELAY | EXTRADELAY
 	event_handler_flags = USE_GRAB_CHOKE | USE_FLUID_ENTER
 	auto_eject = 1
 	allowDropReload = 1
 	allowReverseReload = 1
 	max_ammo_capacity = 1
 	has_empty_state = 1
+
+/obj/item/gun/moddable/base/energy
+	name = "Generic Energy Frame"
+	desc = "You shouldn't see me!"
+	icon_state = "hipoint"
+	flags = GP_E_AMMO | ONBELT | TABLEPASS | CONDUCT | FPRINT | USEDELAY | EXTRADELAY
+	event_handler_flags = USE_GRAB_CHOKE | USE_FLUID_ENTER
+	rechargeable = 1
+	can_swap_cell = 1
+
+	New()
+		cell = /obj/item/ammo/power_cell/empty
+		..()
 
 /obj/item/gun/moddable/base/kinetic/gun22
 	name = ".22 Gun" //change me
@@ -404,6 +461,112 @@
 	New()
 		ammo = new/obj/item/ammo/bullets/bullet_22
 		set_current_projectile(new/datum/projectile/bullet/bullet_22)
+		..()
+
+/obj/item/gun/moddable/base/kinetic/gun308
+	name = ".308 Gun" //change me
+	desc = "A kinetic gun chambered in .308 Winchester."
+	caliber = 0.308
+	max_ammo_capacity = 4
+	flags = GP_KINETIC | ONBELT | TABLEPASS | CONDUCT | FPRINT | USEDELAY | EXTRADELAY
+
+	New()
+		ammo = new/obj/item/ammo/bullets/rifle_3006
+		set_current_projectile(new/datum/projectile/bullet/rifle_3006)
+		..()
+
+/obj/item/gun/moddable/base/kinetic/gun556
+	name = "5.56 Gun" //change me
+	desc = "A kinetic gun chambered in 5.56 NATO."
+	caliber = 0.223
+	max_ammo_capacity = 30
+	flags = GP_KINETIC | ONBELT | TABLEPASS | CONDUCT | FPRINT | USEDELAY | EXTRADELAY
+
+	New()
+		ammo = new/obj/item/ammo/bullets/assault_rifle
+		set_current_projectile(new/datum/projectile/bullet/assault_rifle)
+		..()
+
+/obj/item/gun/moddable/base/kinetic/gun762
+	name = "7.62 Gun" //change me
+	desc = "A kinetic gun chambered in 7.62 NATO."
+	caliber = 0.308
+	max_ammo_capacity = 20
+	flags = GP_KINETIC | ONBELT | TABLEPASS | CONDUCT | FPRINT | USEDELAY | EXTRADELAY
+
+	New()
+		ammo = new/obj/item/ammo/bullets/ak47
+		set_current_projectile(new/datum/projectile/bullet/ak47)
+		..()
+
+/obj/item/gun/moddable/base/kinetic/gun357
+	name = ".357 Gun" //change me
+	desc = "A kinetic gun chambered in .357 Smith & Wesson."
+	caliber = list(0.38, 0.357)
+	max_ammo_capacity = 7
+	flags = GP_KINETIC | ONBELT | TABLEPASS | CONDUCT | FPRINT | USEDELAY | EXTRADELAY
+
+	New()
+		ammo = new/obj/item/ammo/bullets/a357
+		set_current_projectile(new/datum/projectile/bullet/revolver_357)
+		..()
+
+/obj/item/gun/moddable/base/kinetic/gun50
+	name = ".50 Gun" //change me
+	desc = "A kinetic gun chambered in .50 Action Express."
+	caliber = 0.50
+	max_ammo_capacity = 8
+	flags = GP_KINETIC | ONBELT | TABLEPASS | CONDUCT | FPRINT | USEDELAY | EXTRADELAY
+
+	New()
+		ammo = new/obj/item/ammo/bullets/deagle50cal
+		set_current_projectile(new/datum/projectile/bullet/deagle50cal)
+		..()
+
+/obj/item/gun/moddable/base/kinetic/gun12ga
+	name = "12 Gauge Gun" //change me
+	desc = "A kinetic gun chambered in .357 Winchester."
+	caliber = 0.72
+	max_ammo_capacity = 8
+	flags = GP_KINETIC | ONBELT | TABLEPASS | CONDUCT | FPRINT | USEDELAY | EXTRADELAY
+
+	New()
+		ammo = new/obj/item/ammo/bullets/a12
+		set_current_projectile(new/datum/projectile/bullet/a12)
+		..()
+
+/obj/item/gun/moddable/base/energy/stun
+	name = "Taser Energy Gun" //change me
+	desc = "An energy gun, firing taser bolts."
+	flags = GP_ENERGY | ONBELT | TABLEPASS | CONDUCT | FPRINT | USEDELAY | EXTRADELAY
+
+	New()
+		set_current_projectile(new/datum/projectile/energy_bolt)
+		projectiles = list(current_projectile)
+		cell = new/obj/item/ammo/power_cell/empty
+		..()
+
+/obj/item/gun/moddable/base/energy/laser
+	name = "Laser Energy Gun" //change me
+	desc = "An energy gun, firing lethal laser bolts."
+	flags = GP_ENERGY | ONBELT | TABLEPASS | CONDUCT | FPRINT | USEDELAY | EXTRADELAY
+	muzzle_flash = "muzzle_flash_phaser"
+
+	New()
+		set_current_projectile(new/datum/projectile/laser/light)
+		projectiles = list(current_projectile)
+		cell = new/obj/item/ammo/power_cell/empty
+		..()
+
+/obj/item/gun/moddable/base/energy/emp
+	name = "EMP Energy Gun" //change me
+	desc = "An energy gun, firing EMP blasts."
+	flags = GP_ENERGY | ONBELT | TABLEPASS | CONDUCT | FPRINT | USEDELAY | EXTRADELAY
+
+	New()
+		set_current_projectile(new/datum/projectile/energy_bolt/electromagnetic_pulse)
+		projectiles = list(current_projectile)
+		cell = new/obj/item/ammo/power_cell/empty
 		..()
 
 /obj/item/gun/moddable/attachment
@@ -424,26 +587,62 @@
 	icon_state = "derringer" //change me
 	flags = GP_TYPE | ONBELT | TABLEPASS | CONDUCT
 
-/obj/item/gun/moddable/attachment/twentytwolr
+/obj/item/gun/moddable/attachment/ammo22
 	name = ".22 LR Reciever"
 	desc = "Converts a kinetic frame to .22 caliber."
 	icon_state = "derringer" //change me
 	flags = GP_AMMO | ONBELT | TABLEPASS | CONDUCT
 
-/obj/item/gun/moddable/attachment/threeoheightwin
+/obj/item/gun/moddable/attachment/ammo308
 	name = ".308 Winchester Reciever"
 	desc = "Converts a kinetic frame to .308 caliber."
 	icon_state = "derringer" //change me
 	flags = GP_AMMO | ONBELT | TABLEPASS | CONDUCT
 
-/obj/item/gun/moddable/attachment/threefiftysevenmag
+/obj/item/gun/moddable/attachment/ammo556
+	name = "5.56 NATO Reciever"
+	desc = "Converts a kinetic frame into firing 5.56."
+	icon_state = "derringer" //change me
+	flags = GP_AMMO | ONBELT | TABLEPASS | CONDUCT
+
+/obj/item/gun/moddable/attachment/ammo762
+	name = "7.62 NATO Reciever"
+	desc = "Converts a kinetic frame into firing 7.62."
+	icon_state = "derringer" //change me
+	flags = GP_AMMO | ONBELT | TABLEPASS | CONDUCT
+
+/obj/item/gun/moddable/attachment/ammo357
 	name = ".357 Magnum Reciever"
 	desc = "Converts a kinetic frame to .357 caliber."
 	icon_state = "derringer" //change me
 	flags = GP_AMMO | ONBELT | TABLEPASS | CONDUCT
 
-/obj/item/gun/moddable/attachment/twelvegauge
+/obj/item/gun/moddable/attachment/ammo50
+	name = ".50 AE Reciever"
+	desc = "Converts a kinetic frame to .50 caliber."
+	icon_state = "derringer" //change me
+	flags = GP_AMMO | ONBELT | TABLEPASS | CONDUCT
+
+/obj/item/gun/moddable/attachment/ammo12ga
 	name = "12 Gauge Reciever"
 	desc = "Converts a kinetic frame to 12 gauge."
 	icon_state = "derringer" //change me
 	flags = GP_AMMO | ONBELT | TABLEPASS | CONDUCT
+
+/obj/item/gun/moddable/attachment/energystun
+	name = "Energy Stun Reciever"
+	desc = "Converts an energy frame to fire taser bolts."
+	icon_state = "derringer" //change me
+	flags = GP_E_AMMO | ONBELT | TABLEPASS | CONDUCT
+
+/obj/item/gun/moddable/attachment/energylaser
+	name = "Energy Laser Reciever"
+	desc = "Converts an energy frame to fire laser bolts."
+	icon_state = "derringer" //change me
+	flags = GP_E_AMMO | ONBELT | TABLEPASS | CONDUCT
+
+/obj/item/gun/moddable/attachment/energyemp
+	name = "Energy EMP Reciever"
+	desc = "Converts an energy frame to fire EMP lasers."
+	icon_state = "derringer" //change me
+	flags = GP_E_AMMO | ONBELT | TABLEPASS | CONDUCT
