@@ -1737,6 +1737,7 @@ var/datum/preMapLoad/preMapLoad = new
 #include "code\WorkInProgress\wizardset.dm"
 #include "code\WorkInProgress\zamujasa.dm"
 #include "code\WorkInProgress\ZeWakasStuff.dm"
+#include "code\WorkInProgress\construction\automation.dm"
 #include "code\WorkInProgress\construction\event_controller.dm"
 #include "code\WorkInProgress\construction\pathing.dm"
 #include "code\WorkInProgress\construction\progress.dm"
