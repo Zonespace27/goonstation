@@ -390,6 +390,7 @@
 
 	setup_material()
 		..()
+		src.icon_state = pick("gem1","gem2","gem3")
 		var/picker = rand(1,100)
 		var/list/picklist
 		switch(picker)
@@ -795,6 +796,10 @@
 				src.reject = 1
 				continue
 
+			else if (istype(M, /obj/item/raw_material/shard))
+				if (output_bar_from_item(M, 10))
+					pool(M)
+
 			else if (istype(M, /obj/item/raw_material))
 				output_bar_from_item(M)
 				pool(M)
@@ -815,10 +820,6 @@
 				var/obj/item/cable_coil/C = M
 				if (output_bar_from_item(M, 30, C.conductor.mat_id))
 					qdel(C)
-
-			else if (istype(M, /obj/item/raw_material/shard))
-				if (output_bar_from_item(M, 10))
-					qdel(M)
 
 			else if (istype(M, /obj/item/wizard_crystal))
 				if (output_bar_from_item(M))
