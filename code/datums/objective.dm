@@ -975,6 +975,21 @@ proc/create_fluff(datum/mind/target)
 		else
 			return 0
 
+/datum/objective/specialist/massacre
+	explanation_text = "Kill every innocent and the detective."
+
+	check_completion()
+		if (!istype(ticker.mode, /datum/game_mode/traitor_town))
+			return 0
+
+		for_by_tcl(P, /mob/living/carbon/human) //this SHOULD work?
+			var/datum/mind/M = P
+			if(!isdead(P) && !M.special_role == ROLE_TRAITOR)
+				return 0
+			else
+				return 1
+
+
 /////////////////////////////
 // Round-ending objectives //
 /////////////////////////////
@@ -1234,7 +1249,7 @@ ABSTRACT_TYPE(/datum/objective/conspiracy)
 		var/objective_text = "Frame [target.current.real_name], the [target.assigned_role == "MODE" ? target.special_role : target.assigned_role] for murder."
 		explanation_text = objective_text
 		targetname = target.current.real_name
-	
+
 
 /*/datum/objective/conspiracy/escape
 	explanation_text = "Survive and ensure more living conspirators escape to Centcom than non-conspirators."

@@ -1247,3 +1247,31 @@
 			interrupt(INTERRUPT_ALWAYS)
 			return
 		cell.swap(gun,user)
+
+/obj/item/ammo/ammobox
+	sname = "Generic Ammobox"
+	name = "You er, shouldn't see me."
+	icon_state = "lmg_ammo-0-old"
+	ammo_type = null
+	caliber = null
+	var/caliber_lower = 0.22 //it should go without saying that the lower needs to be SMALLER than the upper
+	var/caliber_upper = 0.22
+
+	attackby(obj/item/gun/kinetic/W, mob/user)
+		if(istype(W, /obj/item/gun/kinetic))
+			if(W.caliber >= caliber_lower && W.caliber <= caliber_upper)
+				var/list/ammo_choices = typesof(/obj/item/ammo/bullets)
+				for(ammo_choices)
+					var/obj/item/ammo/bullets/B = ammo_choices
+					if(!(initial(B.caliber) == initial(W.caliber)))
+						ammo_choices -= B
+				var/picked_ammo = pick(ammo_choices)
+				new picked_ammo(get_turf(src))
+				boutput(user, "<span class='alert'>You get a [picked_ammo] out of [src].</span>")
+				qdel(src)
+			else if(W.caliber >= caliber_lower && !(W.caliber <= caliber_upper))
+				boutput(user, "<span class='alert'>The [W] is too large for the calibers the [src] provides!</span>")
+			else if(!(W.caliber >= caliber_lower) && W.caliber <= caliber_upper)
+				boutput(user, "<span class='alert'>The [W] is too small for the calibers the [src] provides!</span>")
+		else
+			..()
