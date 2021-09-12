@@ -139,7 +139,7 @@
 		..()
 		SPAWN_DBG(1 SECOND)
 			var/src_turf = locate(src)
-			src.output_target = get_step(src_turf, outdir) //aaa this doesn't work aaa
+			src.output_target = locate(get_step(src_turf, outdir)) //aaa this doesn't work aaa
 
 	process(var/mult)
 		if (status & NOPOWER)
@@ -433,53 +433,31 @@
 			if (href_list["purchase"])
 				boutput(usr, "<span class='alert'>This fabricator does not support buying ores.</span>")
 
-
-
-
-/*
-/obj/machinery/automation/fabricator
-	name = "Automated Fabricator"
-	desc = "A manufacturing unit that can automatically take inputs and create outputs."
-	icon_state = "fab-mining"
-	icon_base = "mining"
+/obj/machinery/automation/crate_loader
+	name = "crate loader"
+	desc = "Contact #imcoder if you see me!"
+	icon_state = "smes"
 	event_handler_flags = USE_FLUID_ENTER | USE_CANPASS
 	var/indir = NORTH
 	var/outdir = SOUTH
-	repeat = 1
-	var/accept_blueprints = TRUE
+	var/metal_amount = 0
+	var/currently_packing = FALSE
 
-	CanPass(var/obj/item/O, var/atom/oldloc)
+	/*attackby(obj/item/W, mob/user)
+		if(istype(W, /obj/item/material_piece) && W?.material.material_flags & MATERIAL_METAL)
+			qdel(W)
+			metal_amount += 10*/ //'tis a shitty hack
+
+
+
+	CanPass(var/obj/O, var/atom/oldloc)
 		var/oldloc_dir = get_dir(src, oldloc)
-		if(oldloc && oldloc_dir == src.indir && istype(O, /obj/) && O.material)
+		if(oldloc && (oldloc_dir == NORTH || oldloc_dir == EAST || oldloc_dir == SOUTH || oldloc_dir == WEST) && oldloc_dir == src.indir && istype(O, /obj/))
 			O.set_loc(src)
-		else
+		else if(oldloc && (oldloc_dir == NORTH || oldloc_dir == EAST || oldloc_dir == SOUTH || oldloc_dir == WEST) && oldloc_dir == src.indir && !istype(O, /obj/))
 			return
 
-	attackby(obj/item/W as obj, mob/user as mob)
-		if (istype(W, /obj/item/paper/manufacturer_blueprint))
-			if (!src.accept_blueprints)
-				boutput(user, "<span class='alert'>This manufacturer unit does not accept blueprints.</span>")
-				return
-			var/obj/item/paper/manufacturer_blueprint/BP = W
-			if (!BP.blueprint)
-				src.visible_message("<span class='alert'>[src] emits a grumpy buzz!</span>")
-				playsound(src.loc, src.sound_grump, 50, 1)
-				boutput(user, "<span class='alert'>The manufacturer rejects the blueprint. Is something wrong with it?</span>")
-				return
-			for (var/datum/manufacture/mechanics/M in (src.available + src.download))
-				if(istype(M) && istype(BP.blueprint, /datum/manufacture/mechanics))
-					var/datum/manufacture/mechanics/BPM = BP.blueprint
-					if(M.frame_path == BPM.frame_path)
-						src.visible_message("<span class='alert'>[src] emits an irritable buzz!</span>")
-						playsound(src.loc, src.sound_grump, 50, 1)
-						boutput(user, "<span class='alert'>The manufacturer rejects the blueprint, as it already knows it.</span>")
-						return
-				else if (BP.blueprint.name == M.name)
-					src.visible_message("<span class='alert'>[src] emits an irritable buzz!</span>")
-					playsound(src.loc, src.sound_grump, 50, 1)
-					boutput(user, "<span class='alert'>The manufacturer rejects the blueprint, as it already knows it.</span>")
-					return
-*/
+
 /*
 /obj/smes_spawner
 	name = "power storage unit"
