@@ -1095,6 +1095,13 @@
 				I.pixel_y = 4
 				can_see.Add(I)
 
+	else if (istype(ticker.mode, /datum/game_mode/traitor_town))
+		var/datum/game_mode/traitor_town/mode = ticker.mode
+		for (var/datum/mind/M)
+			if (M.current)
+				if (!see_everything && isobserver(M.current)) continue
+				var/I = image(ttt_detective, loc = M.current)
+				can_see.Add(I)
 
 	if (can_see.len > 0)
 		//logTheThing("debug", src, null, "<b>Convair880 antag overlay:</b> [can_see.len] added with parameters all ([see_everything]), T ([see_traitors]), S ([see_nukeops]), W ([see_wizards]), R ([see_revs]), SP ([see_special])")

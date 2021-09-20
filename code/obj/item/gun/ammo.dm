@@ -538,6 +538,12 @@
 	caliber = 0.308
 	sound_load = 'sound/weapons/gunload_heavy.ogg'
 
+	armor_piercing //regular AK rounds weren't bad enough, right?
+		sname = ".308 Auto AP"
+		name = "AP AK magazine"
+		ammo_type = new/datum/projectile/bullet/ak47/armor_piercing
+		icon_state = "ak47-AP"
+
 /obj/item/ammo/bullets/assault_rifle
 	sname = "5.56x45mm NATO"
 	name = "STENAG magazine" //heh
@@ -1250,28 +1256,119 @@
 
 /obj/item/ammo/ammobox
 	sname = "Generic Ammobox"
-	name = "You er, shouldn't see me."
+	name = "Generic Ammobox"
+	desc = "You shouldn't see me!"
 	icon_state = "lmg_ammo-0-old"
 	ammo_type = null
 	caliber = null
-	var/caliber_lower = 0.22 //it should go without saying that the lower needs to be SMALLER than the upper
-	var/caliber_upper = 0.22
+	var/list/valid_calibers = list() //supports lists and single
 
 	attackby(obj/item/gun/kinetic/W, mob/user)
 		if(istype(W, /obj/item/gun/kinetic))
-			if(W.caliber >= caliber_lower && W.caliber <= caliber_upper)
-				var/list/ammo_choices = typesof(/obj/item/ammo/bullets)
-				for(ammo_choices)
-					var/obj/item/ammo/bullets/B = ammo_choices
-					if(!(initial(B.caliber) == initial(W.caliber)))
-						ammo_choices -= B
-				var/picked_ammo = pick(ammo_choices)
-				new picked_ammo(get_turf(src))
-				boutput(user, "<span class='alert'>You get a [picked_ammo] out of [src].</span>")
+			if((islist(valid_calibers) && valid_calibers.Find(initial(W.caliber))) || (!islist(valid_calibers) && valid_calibers == initial(W.caliber)))
+				new W.default_magazine(get_turf(src))
+				var/obj/O = W.default_magazine
+				boutput(user, "<span class='alert'>You get a [O.name] out of [src].</span>")
 				qdel(src)
-			else if(W.caliber >= caliber_lower && !(W.caliber <= caliber_upper))
-				boutput(user, "<span class='alert'>The [W] is too large for the calibers the [src] provides!</span>")
-			else if(!(W.caliber >= caliber_lower) && W.caliber <= caliber_upper)
-				boutput(user, "<span class='alert'>The [W] is too small for the calibers the [src] provides!</span>")
+		else
+			..()
+
+/obj/item/ammo/ammobox/pistol_smg
+	name = "Pistol / SMG Ammo Box"
+	desc = "A box containing a magazine of pistol- and sub-machine gun caliber ammo."
+	valid_calibers = list(0.22, 0.355, 0.50, 0.512) //not adding .357 and .38 because they're det-restricted guns
+
+/obj/item/ammo/ammobox/revolver
+	name = "revolver ammo box"
+	desc = "A box containing a speedloader of revolver-caliber ammo."
+	valid_calibers = list(0.357, 0.38)
+
+/obj/item/ammo/ammobox/rifle
+	name = "rifle ammo box"
+	desc = "A box containing a magazine of rifle-caliber ammo."
+	valid_calibers = list(0.065, 0.223, 0.308)
+
+/obj/item/ammo/ammobox/rifle/spec
+	name = "specialist rifle ammo box"
+	desc = "A box containing a magazine of specialist rifle-caliber ammo. A label on the side reads 'Not for use with all weapons'."
+
+	attackby(obj/item/gun/kinetic/W, mob/user) //I detest having to do each gun individually but so many guns use rifle caliber aaaaaaa
+		if(istype(W, /obj/item/gun/kinetic/assault_rifle))
+			new/obj/item/ammo/bullets/assault_rifle/armor_piercing(get_turf(src))
+			boutput(user, "<span class='alert'>You get a AP STENAG magazine out of [src].</span>")
+			qdel(src)
+		else if(istype(W, /obj/item/gun/kinetic/hunting_rifle) || istype(W, /obj/item/gun/kinetic/dart_rifle))
+			var/picked_ammo = pick(/obj/item/ammo/bullets/tranq_darts/syndicate, /obj/item/ammo/bullets/tranq_darts/anti_mutant, /obj/item/ammo/bullets/rifle_3006, /obj/item/ammo/bullets/rifle_3006/rakshasa) //this won't go poorly at all :shelterfrog:
+			new picked_ammo(get_turf(src))
+			var/obj/O = picked_ammo
+			boutput(user, "<span class='alert'>You get a [O] out of [src].</span>")
+			qdel(src)
+		else if(istype(W, /obj/item/gun/kinetic/ak47))
+			new/obj/item/ammo/bullets/ak47/armor_piercing(get_turf(src))
+			boutput(user, "<span class='alert'>You get an AP AK magazine out of [src].</span>")
+			qdel(src)
+		else if(istype(W, /obj/item/gun/kinetic/g11))
+			var/picked_ammo = pick(/obj/item/ammo/bullets/g11/blast, /obj/item/ammo/bullets/g11/void)
+			new picked_ammo(get_turf(src))
+			var/obj/O = picked_ammo
+			boutput(user, "<span class='alert'>You get a [O] out of [src].</span>")
+			qdel(src)
+		else
+			..()
+
+/obj/item/ammo/ammobox/shotgun
+	name = "shotgun ammo box"
+	desc = "A box containing a box of shotgun-caliber ammo."
+	valid_calibers = 0.72
+
+/obj/item/ammo/ammobox/shotgun/spec
+	name = "specialist shotgun ammo box"
+	desc = "A box containing a box of specialist shotgun ammunition."
+
+	attackby(obj/item/gun/kinetic/W, mob/user)
+		if(istype(W, /obj/item/gun/kinetic))
+			if((islist(valid_calibers) && valid_calibers.Find(initial(W.caliber))) || (!islist(valid_calibers) && valid_calibers == initial(W.caliber)))
+				var/picked_ammo = pick(/obj/item/ammo/bullets/a12, /obj/item/ammo/bullets/aex, /obj/item/ammo/bullets/abg, /obj/item/ammo/bullets/flare)
+				new picked_ammo(get_turf(src))
+				var/obj/O = picked_ammo
+				boutput(user, "<span class='alert'>You get a [O] out of [src].</span>")
+				qdel(src)
+		else
+			..()
+
+/obj/item/ammo/ammobox/ltl_grenade
+	sname = "Weak Grenade Ammo Box"
+	name = "weak grenade ammo box"
+	desc = "A box containing less-than-lethal grenade launcher ammunition."
+	valid_calibers = 1.57
+
+	attackby(obj/item/gun/kinetic/W, mob/user)
+		if(istype(W, /obj/item/gun/kinetic))
+			if((islist(valid_calibers) && valid_calibers.Find(initial(W.caliber))) || (!islist(valid_calibers) && valid_calibers == initial(W.caliber)))
+				var/picked_ammo = pick(/obj/item/ammo/bullets/smoke, /obj/item/ammo/bullets/marker, /obj/item/ammo/bullets/pbr)
+				new picked_ammo(get_turf(src))
+				var/obj/O = picked_ammo
+				boutput(user, "<span class='alert'>You get a [O] out of [src].</span>")
+				qdel(src)
+		else
+			..()
+
+/obj/item/ammo/ammobox/he_grenade
+	sname = "Explosive Ammo Box"
+	name = "explosive ammo box"
+	desc = "A box containing high-explosive launcher ammunition."
+	valid_calibers = list(1.57, 1.58, 0.787)
+
+	attackby(obj/item/gun/kinetic/W, mob/user)
+		if(istype(W, /obj/item/gun/kinetic))
+			if(initial(W.caliber) == 1.57)
+				var/picked_ammo = pick(/obj/item/ammo/bullets/autocannon, /obj/item/ammo/bullets/autocannon/knocker, /obj/item/ammo/bullets/grenade_round/explosive, /obj/item/ammo/bullets/grenade_round/high_explosive)
+				new picked_ammo(get_turf(src))
+				var/obj/O = picked_ammo
+				boutput(user, "<span class='alert'>You get a [O] out of [src].</span>")
+			else if(initial(W.caliber) == 1.58)
+				new /obj/item/ammo/bullets/rpg(get_turf(src))
+				boutput(user, "<span class='alert'>You get a MPRT rocket out of [src].</span>")
+			qdel(src)
 		else
 			..()

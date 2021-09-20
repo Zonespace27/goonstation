@@ -44,8 +44,6 @@
 			token_players.Remove(tplayer)
 		logTheThing("admin", tplayer.current, null, "successfully redeemed an antag token.")
 		message_admins("[key_name(tplayer.current)] successfully redeemed an antag token.")
-		/*num_traitors--
-		num_traitors = max(num_traitors, 0)*/
 
 	var/list/chosen_traitors = antagWeighter.choose(pool = possible_traitors, role = ROLE_TRAITOR, amount = num_traitors, recordChosen = 1)
 	traitors |= chosen_traitors
@@ -54,11 +52,11 @@
 		possible_traitors.Remove(traitor)
 
 	///Guns with lower damage output and less-than-lethal weaponry
-	var/list/weak_guns = list(/obj/item/gun/kinetic/faith, /obj/item/gun/kinetic/clock_188/boomerang, /obj/item/gun/kinetic/riotgun, /obj/item/gun/kinetic/dart_rifle, /obj/item/gun/kinetic/zipgun, /obj/item/gun/kinetic/silenced_22, /obj/item/gun/kinetic/flaregun, /obj/item/gun/kinetic/pistol, /obj/item/gun/kinetic/pistol/smart/mkII, /obj/item/gun/kinetic/gyrojet)
+	var/list/weak_guns = list(/obj/item/gun/kinetic/faith, /obj/item/gun/kinetic/clock_188/boomerang, /obj/item/gun/kinetic/riotgun, /obj/item/gun/kinetic/dart_rifle, /obj/item/gun/kinetic/silenced_22, /obj/item/gun/kinetic/flaregun, /obj/item/gun/kinetic/pistol, /obj/item/gun/kinetic/pistol/smart/mkII, /obj/item/gun/kinetic/gyrojet)
 	///Guns, mostly two handed, that will kill you easily
 	var/list/strong_guns = list(/obj/item/gun/kinetic/clock_188, /obj/item/gun/kinetic/riot40mm, /obj/item/gun/kinetic/smg, /obj/item/gun/kinetic/assault_rifle, /obj/item/gun/kinetic/light_machine_gun, /obj/item/gun/kinetic/hunting_rifle)
 	///Guns that will gank you instantly
-	var/list/very_strong_guns = list(/obj/item/gun/kinetic/sniper, /obj/item/gun/kinetic/cannon, /obj/item/gun/kinetic/tranq_pistol, /obj/item/gun/kinetic/rpg7, /obj/item/gun/kinetic/ak47, /obj/item/gun/kinetic/spes, /obj/item/gun/kinetic/derringer, /obj/item/gun/kinetic/deagle, /obj/item/gun/kinetic/g11)
+	var/list/very_strong_guns = list(/obj/item/gun/kinetic/sniper, /obj/item/gun/kinetic/grenade_launcher, /obj/item/gun/kinetic/cannon, /obj/item/gun/kinetic/tranq_pistol, /obj/item/gun/kinetic/rpg7, /obj/item/gun/kinetic/ak47, /obj/item/gun/kinetic/derringer, /obj/item/gun/kinetic/deagle, /obj/item/gun/kinetic/g11)
 	///All the guns together
 	var/list/all_the_guns = weak_guns + strong_guns + very_strong_guns
 
@@ -68,7 +66,8 @@
 			for (var/turf/T in A)
 				if(!is_blocked_turf(T) && !istype(T, /turf/space))
 					station_floors += T
-	var/guns_to_spawn = round((station_floors.len / 100))
+	var/guns_to_spawn = round(station_floors.len / 100)
+	var/ammo_to_spawn = round(station_floors.len / 75)
 	while(guns_to_spawn >= 1)
 		var/chosen_floor = pick(station_floors)
 		if(gun_spawns == WEAK_GUNS)
@@ -84,6 +83,21 @@
 			var/chosen_gun = pick(all_the_guns)
 			new chosen_gun(chosen_floor)
 		guns_to_spawn -= 1
+	while(ammo_to_spawn >= 1)
+		var/chosen_floor = pick(station_floors)
+		if(gun_spawns == WEAK_GUNS)
+			var/chosen_ammo = pick(2;/obj/item/ammo/ammobox/pistol_smg, 2;/obj/item/ammo/ammobox/shotgun, /obj/item/ammo/ammobox/shotgun/spec) //20% spec shotgun, 40% shotgun, 40% pistol/smg
+			new chosen_ammo(chosen_floor)
+		else if(gun_spawns == STRONG_GUNS)
+			var/chosen_ammo = pick(2;/obj/item/ammo/ammobox/pistol_smg, 2;/obj/item/ammo/ammobox/ltl_grenade, /obj/item/ammo/ammobox/he_grenade, 2;/obj/item/ammo/ammobox/rifle, /obj/item/ammo/ammobox/rifle/spec) //25% LTL Grenade, 25% Rifle, 25% Pistol/SMG, 12.5% Spec Rifle, 12.5% HE Grenades
+			new chosen_ammo(chosen_floor)
+		else if(gun_spawns == VERY_STRONG_GUNS)
+			var/chosen_ammo = pick(2;/obj/item/ammo/ammobox/rifle, /obj/item/ammo/ammobox/rifle/spec, /obj/item/ammo/ammobox/he_grenade, 2;/obj/item/ammo/ammobox/pistol_smg, 2;/obj/item/ammo/ammobox/ltl_grenade) //25% Pistol/SMG, 25% Rifle, 25% LTL Grenade, 12.5% Spec Rifle, 12.5% HE Grenade
+			new chosen_ammo(chosen_floor)
+		else if(gun_spawns == ALL_THE_GUNS)
+			var/chosen_ammo = pick(2;/obj/item/ammo/ammobox/pistol_smg, 2;/obj/item/ammo/ammobox/shotgun, /obj/item/ammo/ammobox/shotgun/spec, 2;/obj/item/ammo/ammobox/ltl_grenade, /obj/item/ammo/ammobox/he_grenade, 2;/obj/item/ammo/ammobox/rifle, /obj/item/ammo/ammobox/rifle/spec, /obj/item/ammo/ammobox/revolver) //16.5% Pistol/SMG, 16.5% Rifle, 16.5% LTL Grenade, 8.25% Spec Rifle, 8.25% HE Grenade, 8.25% Revolver, 16.5% Shotgun, 8.25% Spec Shotgun
+			new chosen_ammo(chosen_floor)
+		ammo_to_spawn -= 1
 	return 1
 
 /datum/game_mode/traitor_town/post_setup()
@@ -92,13 +106,17 @@
 		switch(traitor.special_role)
 			if(ROLE_TRAITOR)
 				bestow_objective(traitor,/datum/objective/specialist/massacre)
-
 				equip_traitor(traitor.current)
 
 				var/obj_count = 1
 				for(var/datum/objective/objective in traitor.objectives)
 					boutput(traitor.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 					obj_count++
+	for(var/mob/living/carbon/human/player in mobs)
+		if(player.mind)
+			var/role = player.mind.assigned_role
+			if(role == "Detective")
+				//give det uplink here
 
 /datum/game_mode/traitor_town/proc/get_possible_traitors(minimum_traitors=1)
 	var/list/candidates = list()

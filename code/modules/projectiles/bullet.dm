@@ -650,6 +650,10 @@ toxic - poisons
 	implanted = /obj/item/implant/projectile/bullet_308
 	casing = /obj/item/casing/rifle
 
+	armor_piercing
+		damage_type = D_PIERCING
+		hit_type = DAMAGE_STAB
+
 /datum/projectile/bullet/assault_rifle
 	name = "bullet"
 	shot_sound = 'sound/weapons/ak47shot.ogg'  // todo: single shot sound?

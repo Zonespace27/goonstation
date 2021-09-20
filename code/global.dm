@@ -438,6 +438,7 @@ var/global
 	pod_wars_SY = image('icons/mob/antag_overlays.dmi', icon_state = "syndicate")
 	pod_wars_SY_CMDR = image('icons/mob/antag_overlays.dmi', icon_state = "syndcomm")
 
+	traitor_town_det = image('icons/mob/antag_overlays.dmi', icon_state = "ttt_detective")
 	//SpyGuy: Oh my fucking god the QM shit. *cry *wail *sob *weep *vomit *scream
 	list/datum/supply_packs/qm_supply_cache = list()
 
