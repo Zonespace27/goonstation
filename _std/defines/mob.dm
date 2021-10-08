@@ -59,3 +59,20 @@
 //cooldowns
 #define REST_TOGGLE_COOLDOWN 0.1 SECONDS
 #define EAT_COOLDOWN 0.5 SECONDS
+
+// Pocketbuddy defines for their upgrade tree
+#define GENERAL_1 (1<<0)
+#define GENERAL_2 (1<<1)
+#define GENERAL_3 (1<<2)
+#define FUN_1 (1<<3)
+#define FUN_2 (1<<4)
+#define ENGINEERING_1 (1<<5)
+#define ENGINEERING_2 (1<<6)
+#define ENGINEERING_3 (1<<7)
+#define SECURITY_1 (1<<8)
+#define SECURITY_2 (1<<9)
+#define SECURITY_3 (1<<10)
+#define MEDICAL_1 (1<<11)
+#define MEDICAL_2 (1<<12)
+#define MEDICAL_3 (1<<13)
+#define SYNDICATE_1 (1<<14)

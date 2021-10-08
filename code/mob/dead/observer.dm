@@ -20,6 +20,15 @@
 	var/in_point_mode = 0
 	var/datum/hud/ghost_observer/hud
 
+	/// TRUE if the observer has registered themselves as a pocketbuddy AI
+	var/pb_registered = FALSE
+	/// Pocketbuddy's name
+	var/pb_name
+	/// Pocketbuddy's desc as seen when choosing one
+	var/pb_desc
+	/// Any OOC notes that the Pocketbuddy wants people who are choosing an AI to know
+	var/pb_ooc
+
 	mob_flags = MOB_HEARS_ALL
 
 /mob/dead/observer/disposing()

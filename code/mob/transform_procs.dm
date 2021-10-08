@@ -727,6 +727,30 @@ var/list/antag_respawn_critter_types =  list(/mob/living/critter/small_animal/fl
 		if (B)
 			qdel(B)
 
+/mob/dead/observer/verb/register_pocketbuddy()
+	set name = "Register Pocketbuddy AI"
+	set category = "Ghost"
+	set hidden = 0 //undo later
+
+	if(!src.client.holder)
+		boutput(src, "<span class='alert'>You aren't dead, how'd this happen??!</span>")
+		return
+
+	if (!can_respawn_as_ghost_critter(0 MINUTES, 4 MINUTES))
+		return
+
+	if(!src.pb_registered)
+		if (alert(src, "Would you like to register yourself as a Pocketbuddy AI?", "Register as Pocketbuddy", "Yes", "No") == "No")
+			return
+
+		src.pb_name = input(src, "What would you like your name to be?", "Choose a Name", "Pocketbuddy-[rand(1000, 9999)]")
+		src.pb_desc = input(src, "What would you like your description to be?", "Choose a Description", "A friendly Pocketbuddy AI to help you out!")
+		src.pb_ooc = input(src, "Do you have any OOC notes you would like to add?", "Notes")
+		src.pb_registered = TRUE
+	else
+		if (alert(src, "Would you like to unregister yourself as a Pocketbuddy AI?", "Unregister as Pocketbuddy", "Yes", "No") == "Yes")
+			src.pb_registered = FALSE
+
 /mob/dead/observer/verb/respawn_as_admin_mouse()
 	set name = "Respawn as Admin Mouse"
 	set category = "Ghost"
