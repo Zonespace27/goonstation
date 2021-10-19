@@ -49,6 +49,8 @@
 	proc/check_mutantrace(mob/user)
 		if(isfrog(user))
 			dist = 6 + extrarange
+		else if(ismachoman(user)) //The macho man is absolutely a mutantrace. Don't question it.
+			dist = INFINITY //MACHO MADNESS OH YEAH
 		else
 			dist = 3 + extrarange
 

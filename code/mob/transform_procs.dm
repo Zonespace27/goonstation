@@ -418,14 +418,14 @@
 			if (shitty)
 				boutput(src, "<span class='notice'>You are being bombarded by energetic macho waves!</span>")
 				src.mind.transfer_to(W)
-				W.mind.special_role = "faustian macho man"
+				W.mind.special_role = ROLE_FAUSTIAN_MACHO_MAN
 				ticker.mode.Agimmicks.Add(W)
 				W.real_name = "[pick("Faustian", "Fony", "Fake", "False","Fraudulent", "Fragile")] [W.real_name]"
 				W.name = W.real_name
 
 			else
 				src.mind.transfer_to(W)
-				src.mind.special_role = "macho man"
+				src.mind.special_role = ROLE_MACHO_MAN
 		else
 			var/key = src.client.key
 			if (src.client)

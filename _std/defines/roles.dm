@@ -35,3 +35,5 @@
 #define ROLE_OMNITRAITOR "omnitraitor"
 #define ROLE_GRINCH "grinch"
 #define ROLE_FLOOR_GOBLIN "floor_goblin"
+#define ROLE_MACHO_MAN "macho man"
+#define ROLE_FAUSTIAN_MACHO_MAN "faustian macho man"

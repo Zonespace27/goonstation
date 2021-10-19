@@ -16,6 +16,7 @@
 #define isblob(x) istype(x, /mob/living/intangible/blob_overmind)
 #define isspythief(x) (istype(x, /mob/living/carbon/human) && x:mind && x:mind:special_role == ROLE_SPY_THIEF)
 #define isfloorgoblin(x) (x:mind && x:mind:special_role == ROLE_FLOOR_GOBLIN)
+#define ismachoman(x) (istype(x, /mob/living/carbon/human/machoman) && x:mind && x:mind:special_role == ROLE_MACHO_MAN)
 
 // Why the separate mask check? NPCs don't use assigned_role and we still wanna play the cluwne-specific sound effects.
 #define iscluwne(x) ((x?.job == "Cluwne") || istype(x.wear_mask, /obj/item/clothing/mask/cursedclown_hat))
