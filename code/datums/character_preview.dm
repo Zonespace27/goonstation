@@ -21,6 +21,12 @@ datum/character_preview
 	/// May be useful to access directly if you want to put clothes on it or whatever.
 	var/mob/living/carbon/human/preview_mob
 	var/obj/overlay/background = null
+	/// Junk for if you want to show character loadout equipment on-preview
+	var/show_equipment = TRUE
+	/// Just checking if the preview character's already wearing equipment
+	var/wearing_equipment = FALSE
+	/// Keeping track of all the things that are in a character's loadout being currently shown.
+	var/list/current_equipment = list()
 
 	New(client/viewer, window_id, control_id = null)
 		. = ..()
@@ -73,6 +79,7 @@ datum/character_preview
 
 	disposing()
 		STOP_TRACKING
+		current_equipment = null
 		SPAWN_DBG(0)
 			if (src.viewer)
 				winset(src.viewer, "[src.window_id].[src.preview_id]", "parent=")
@@ -103,6 +110,30 @@ datum/character_preview
 		src.preview_mob.set_face_icon_dirty()
 		src.preview_mob.real_name = "clone of " + name
 		src.preview_mob.name = "clone of " + name
+		if(show_equipment)
+			if(!wearing_equipment)
+				equipment_update()
+				wearing_equipment = TRUE
+			else
+				equipment_update(TRUE)
+				SPAWN_DBG(1 DECI SECOND)
+					equipment_update()
+		else
+			if(wearing_equipment)
+				equipment_update(TRUE)
+				wearing_equipment = FALSE
+
+
+	proc/equipment_update(var/removal = FALSE)
+		if(!removal)
+			current_equipment = equip_loadout_items(null, src?.viewer?.mob, TRUE, TRUE)
+		else
+			if(!length(current_equipment))
+				return
+			for(var/obj/item/I in current_equipment)
+				src.preview_mob.u_equip(I)
+				current_equipment -= I
+				qdel(I)
 
 /// Manages its own window.
 /// Basically a simplified version for when you don't need to put other stuff in the preview window.

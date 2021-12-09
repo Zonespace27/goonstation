@@ -90,6 +90,9 @@ datum/preferences
 
 	var/font_size = null
 
+	/// Assoc list of all items a character will start with from the loadout selector
+	var/list/character_loadout = list()
+
 	//var/fartsound = "default"
 	//var/screamsound = "default"
 
@@ -712,7 +715,7 @@ datum/preferences
 					src.profile_modified = TRUE
 					return TRUE
 
-			if ("update-fartsound")
+			/*if ("update-fartsound")
 				var/list/sound_list = list_keys(AH.fartsounds)
 				var/new_sound = input(usr, "Select a farting sound") as null|anything in sound_list
 
@@ -720,7 +723,7 @@ datum/preferences
 					src.AH.fartsound = new_sound
 					preview_sound(sound(src.AH.fartsounds[src.AH.fartsound]))
 					src.profile_modified = TRUE
-					return TRUE
+					return TRUE*/
 
 			if ("update-screamsound")
 				var/list/sound_list = list_keys(AH.screamsounds)
@@ -849,6 +852,20 @@ datum/preferences
 			if ("update-preferredMap")
 				src.preferred_map = mapSwitcher.clientSelectMap(usr.client,pickable=0)
 				src.profile_modified = TRUE
+				return TRUE
+
+		//	if ("update-characterLoadout")
+			if ("update-fartsound")
+				if(usr.client.open_loadout_ui)
+					usr.client.open_loadout_ui.ui_interact(usr)
+				else
+					var/datum/character_loadout/tgui = new(usr)
+					tgui.ui_interact(usr)
+				return TRUE
+
+			if("update-previewEquipment") //REMINDER: add tgui integ for this
+				src.preview.show_equipment = !src.preview.show_equipment
+				update_preview_icon()
 				return TRUE
 
 			if ("reset")

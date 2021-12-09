@@ -30,6 +30,7 @@ var/datum/preMapLoad/preMapLoad = new
 #include "code\__secret_public.dme"
 
 // BEGIN_INCLUDE
+#include "_std\defines\character_loadout.dm"
 #include "code\area.dm"
 #include "code\atom.dm"
 #include "code\base_lighting.dm"
@@ -71,6 +72,7 @@ var/datum/preMapLoad/preMapLoad = new
 #include "code\datums\buildmode.dm"
 #include "code\datums\callback.dm"
 #include "code\datums\changelog.dm"
+#include "code\datums\character_loadout.dm"
 #include "code\datums\character_preview.dm"
 #include "code\datums\client_image_group.dm"
 #include "code\datums\commodity.dm"
@@ -745,6 +747,8 @@ var/datum/preMapLoad/preMapLoad = new
 #include "code\modules\atmospherics\portable\portable_pressurizer.dm"
 #include "code\modules\atmospherics\portable\pump.dm"
 #include "code\modules\atmospherics\portable\scrubber.dm"
+#include "code\modules\character_loadout_datums\cl_parent.dm"
+#include "code\modules\character_loadout_datums\loadout_shoes.dm"
 #include "code\modules\chemistry\chemicompiler_core.dm"
 #include "code\modules\chemistry\Chemistry-Dispenser.dm"
 #include "code\modules\chemistry\Chemistry-Holder.dm"

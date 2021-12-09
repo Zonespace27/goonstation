@@ -529,6 +529,7 @@
 
 /mob/living/carbon/human/proc/Equip_Job_Slots(var/datum/job/JOB)
 	equip_job_items(JOB, src)
+	equip_loadout_items(JOB, src)
 	if (JOB.slot_back)
 		if (istype(src.back, /obj/item/storage))
 			if(JOB.receives_disk)
@@ -729,6 +730,48 @@
 			if(2)
 				src.equip_new_if_possible(/obj/item/reagent_containers/food/drinks/water, slot_r_store)
 
+/proc/equip_loadout_items(var/datum/job/JOB, var/mob/living/carbon/human/H, var/equip_onto_person = FALSE, var/preview_dummy = FALSE) //REMINDER: ADD CHECK FOR PREFS AND CLIENT LATER
+	var/list/equipped_loadout_items = list()
+	var/mob/living/carbon/human/dummy
+	if(preview_dummy)
+		dummy = H.client.preferences.preview.preview_mob
+	if(!equip_onto_person)
+		var/obj/item/storage/storage
+		if(!(H.client.preferences.character_loadout["Back"]))
+			storage = new/obj/item/storage/briefcase()
+		else
+			var/datum/character_loadout_item/storagething = H.client.preferences.character_loadout["Back"]
+			storage = new storagething.path()
+		if(!length(H.client.preferences.character_loadout))
+			return
+		if(length(H.client.preferences.character_loadout) > MAX_CHARACTER_LOADOUT_ITEMS)
+			H.client.preferences.character_loadout.Cut(MAX_CHARACTER_LOADOUT_ITEMS + 1, 0)
+		for(var/datum/character_loadout_item/CLI in H.client.preferences.character_loadout)
+			if(CLI.job_restricted && !CLI.job_restricted.Find(H.mind.assigned_role))
+				continue
+			var/obj/item/loadout_item =	new CLI.path(storage)
+			equipped_loadout_items += loadout_item
+		if(preview_dummy)
+			dummy.u_equip(dummy.l_hand)
+			dummy.equip_if_possible(storage, dummy.slot_l_hand)
+		else
+			H.u_equip(H.l_hand)
+			H.equip_if_possible(storage, H.slot_l_hand)
+	else
+		if(!length(H.client.preferences.character_loadout))
+			return
+		if(length(H.client.preferences.character_loadout) > MAX_CHARACTER_LOADOUT_ITEMS)
+			H.client.preferences.character_loadout.Cut(MAX_CHARACTER_LOADOUT_ITEMS + 1, 0)
+		for(var/datum/character_loadout_item/CLI in H.client.preferences.character_loadout)
+			if(CLI.job_restricted && !CLI.job_restricted.Find(H.mind.assigned_role))
+				continue
+			var/obj/item/CL = new CLI.path()
+			equipped_loadout_items += CL
+			if(preview_dummy)
+				dummy.equip_if_possible(CL, cl_category_to_slot(CLI, dummy))
+			else
+				H.equip_if_possible(CL, cl_category_to_slot(CLI, H))
+
 
 /mob/living/carbon/human/proc/JobEquipSpawned(rank, no_special_spawn)
 	var/datum/job/JOB = find_job_in_controller_by_string(rank)
@@ -737,6 +780,7 @@
 		return
 
 	equip_job_items(JOB, src)
+	equip_loadout_items(JOB, src)
 
 	if (ishuman(src) && JOB.spawn_id)
 		src.spawnId(rank)
