@@ -201,17 +201,14 @@
 
 	New()
 		..()
-		src.RegisterSignal(src, COMSIG_DRONE_BEACON_DESTROYED, .proc/check_open)
-
-	disposing()
-		src.UnregisterSignal(src, COMSIG_DRONE_BEACON_DESTROYED)
-		..()
+		RegisterSignal(src, COMSIG_DRONE_BEACON_DESTROYED, .proc/check_open)
 
 	proc/check_open(var/obj/O)
 		if(GET_DIST(O, src) <= 10 && src.locked)
 			SPAWN_DBG(2.5 SECONDS)
-				src.locked = FALSE
-				src.audible_message("<span class='notice'>The [src] unlocks itself!</span>")
+				locked = FALSE
+				update_icon()
+				audible_message("<span class='notice'>The [src] unlocks itself!</span>")
 
 	make_my_stuff()
 		if (..())
